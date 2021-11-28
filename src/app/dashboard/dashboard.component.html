@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Dashboard</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <div class="vspacer10"></div>
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <!-- <div class="component-title">
+              <h4>{{ commonServiceCall.pageName }}</h4>
+            </div> -->
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                  <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div *ngIf="priviledgeDataArr.viewChecked" class="container-fluid">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div *ngIf="commonMethod.loginRequestUrl == '/login'" id="welcome" class="alert alert-info alert-dismissible slideDown" role="alert">
+                  <strong>Welcome {{ commonData.user_Name }} !</strong> You have checked in successfully in portal.
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true" style="font-size: 20px;">&times;</span>
+                  </button>
+                </div>
+                <!-- <div class="ux-input input-error">
+                  <label>Types</label>
+                  <select [(ngModel)]="roleType" (change)="selectedType($event.target.value)">
+                    <option value=''>Select select types</option>
+                    <option value='retail'>Retail</option>
+                    <option value='corp'>Corporate</option>
+                  </select>
+                </div> -->
+              </div>
+              <div class="col-12 col-md-6">
+                <!-- <div class="scheduled-date" (click)="popOverClicked()">
+									<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+									<span>Apr 27, 2020 - May 11, 2020</span>
+                </div> -->
+                <div class="ux-input mr-4">
+                  <label>Date</label>
+                  <!-- <input type="text" id="datepickerStart" placeholder="Dob" class="hasDatepicker"> -->
+                  <input id="dateRangeInput" type="text" name="daterangeInput" daterangepicker [options]="options"
+                    (selected)="selectedDate1($event, daterange)" />
+                  <a href="javascript:;" class="calendar-ic cal-top" daterangepicker [options]="options"
+                    (selected)="selectedDate1($event, daterange)"></a>
+                </div>
+                <!-- <div class="scheduled-date">
+                  <i class="glyphicon glyphicon-calendar fa fa-calendar"></i> -->
+                <!-- <input class="pr-0" type="date" name="daterangeInput" daterangepicker [options]="options"
+                  (selected)="selectedDate1($event, daterange)"> -->
+                <!-- <input type="text" name="daterangeInput" daterangepicker [options]="options"
+                    (selected)="selectedDate1($event, daterange)" /> -->
+                <!-- </div> -->
+              </div>
+            </div>
+
+            <!-- <div class="vspacer20"></div> -->
+
+            <div style="display: none;" class="row">
+              <div class="col-12 col-md-6 mb-4">
+                <div class="chart-container">
+                  <div class="assets-liabilities-container">
+                    <div class="chart-header">
+                      <div class="ux-component">
+                        <div class="ux-dropdown">
+                          <div>
+                            <strong>Activities By Date</strong>
+                            <div>
+                              <div class="header_button">
+                                <div class="ux-selection">
+                                  <img class="my_image" [src]="
+                                        !isGraphSelectedByActDate
+                                          ? 'assets/images/icons/ic-graph.png'
+                                          : 'assets/images/icons/ic-graph-selected.png'
+                                      " (click)="
+                                        graphView('Financial');
+                                        isGraphSelectedByActDate = true;
+                                        isListSelectedByActDate = false
+                                      " />
+                                  <img class="my_image" [src]="
+                                        !isListSelectedByActDate
+                                          ? 'assets/images/icons/ic-list.png'
+                                          : 'assets/images/icons/ic-list-selected.png'
+                                      " (click)="
+                                        tableView('Financial');
+                                        isListSelectedByActDate = true;
+                                        isGraphSelectedByActDate = false
+                                      " />
+                                  <img class="my_image" [hidden]="hideFinancialActivityCountDate"
+                                    src="assets/images/icons/fullscreen.png"
+                                    (click)="getFullscreenGraph('linechart')" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--.drp-box-->
+                        </div>
+                        <!--.ux-dropdown-->
+                      </div>
+                      <!-- .ux-component -->
+                    </div>
+                    <!--  chart-header -->
+                  </div>
+                  <!-- .assets-liabilities-container -->
+                  <div class="chartbox" id="linechart" style="
+                        height: 280px;
+                        overflow-y: scroll;
+                        background-color: white;
+                      " [hidden]="hideFinancialActivityCountDate">
+                    <p style="
+                          text-align: center;
+                          display: none;
+                          margin-bottom: 10px;
+                        " id="linechart_title">
+                      <strong>Activities By Date</strong>
+                    </p>
+                    <canvas id="myChart"></canvas>
+                    <div id="financialView">
+                      <div class="datatable-box">
+                        <div class="table-responsive">
+                          <table id="dt-sample" class="table display table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Type</th>
+                                <th scope="col">Count</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="
+                                    let item of financialActivity;
+                                    let i = index
+                                  ">
+                                <td>{{ item.date }}</td>
+                                <td>{{ item.type }}</td>
+                                <td>{{ item.cnt }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!--.table-responsivebox-->
+                      </div>
+                    </div>
+                  </div>
+                  <!--  chartbox -->
+                  <div class="chartbox" style="height: 280px" [hidden]="hideFinancialActivityCountDateNoData">
+                    <p style="
+                          font-size: inherit;
+                          line-height: 250px;
+                          text-align: center;
+                        ">
+                      No Data To Display.
+                    </p>
+                  </div>
+                </div>
+                <!-- .chart-container -->
+              </div>
+
+              <div class="col-12 col-md-6 mb-4">
+                <div class="chart-container">
+                  <div class="assets-liabilities-container">
+                    <div class="chart-header">
+                      <div class="ux-component">
+                        <div class="ux-dropdown">
+                          <div>
+                            <strong>Activity Count By Channel</strong>
+                            <div>
+                              <div class="header_button">
+                                <div class="ux-selection">
+                                  <img class="my_image" [src]="
+                                        !isGraphSelectedByChannel
+                                          ? 'assets/images/icons/ic-graph.png'
+                                          : 'assets/images/icons/ic-graph-selected.png'
+                                      " (click)="
+                                        graphView('Activity');
+                                        isGraphSelectedByChannel = true;
+                                        isListSelectedByChannel = false
+                                      " />
+                                  <img class="my_image" [src]="
+                                        !isListSelectedByChannel
+                                          ? 'assets/images/icons/ic-list.png'
+                                          : 'assets/images/icons/ic-list-selected.png'
+                                      " (click)="
+                                        tableView('Activity');
+                                        isListSelectedByChannel = true;
+                                        isGraphSelectedByChannel = false
+                                      " />
+                                  <img class="my_image" [hidden]="hideActivityCountDate"
+                                    src="assets/images/icons/fullscreen.png" (click)="getFullscreenGraph('piechart')" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--.drp-box-->
+                        </div>
+                        <!--.ux-dropdown-->
+                      </div>
+                      <!-- .ux-component -->
+                    </div>
+                    <!--  chart-header -->
+                  </div>
+                  <!-- .assets-liabilities-container -->
+                  <div class="chartbox" id="piechart" style="
+                        height: 280px;
+                        overflow-y: scroll;
+                        background-color: white;
+                      " [hidden]="hideActivityCountDate">
+                    <p style="
+                          text-align: center;
+                          display: none;
+                          margin-bottom: 10px;
+                        " id="piechart_title">
+                      <strong>Activity Count By Channel</strong>
+                    </p>
+                    <canvas id="myPieChart"></canvas>
+                    <div id="activityView">
+                      <div class="datatable-box">
+                        <div class="table-responsive">
+                          <table id="dt-sample2" class="table display table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">Channel Name</th>
+                                <th scope="col">Count</th>
+                                <!-- <th scope="col"> Created Date
+                                </th> -->
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="
+                                    let item of channelActivityCount;
+                                    let i = index
+                                  ">
+                                <td>{{ item.channel }}</td>
+                                <td>{{ item.cnt }}</td>
+                                <!-- <td>{{item.createdon}}</td> -->
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!--.table-responsivebox-->
+                      </div>
+                    </div>
+                  </div>
+                  <!--  chartbox -->
+                  <div class="chartbox" style="height: 280px" [hidden]="hideActivityCountDateNoData">
+                    <p style="
+                          font-size: inherit;
+                          line-height: 250px;
+                          text-align: center;
+                        ">
+                      No Data To Display.
+                    </p>
+                  </div>
+                </div>
+                <!-- .chart-container -->
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="col-12 col-md-12 mb-4">
+                <div class="widget-box">
+                  <div class="wb-header">
+                    <div class="wh-heading">
+                      <div>
+                        <h5>Customers Login By Location</h5>
+                      </div>
+                    </div><!--  wh-heading -->
+
+                  </div>
+                  <div class="wb-body">
+
+                    <div id="map"></div>
+
+                  </div>
+                  <!--.wb-body-->
+
+                </div>
+                <!--.widget-box-->
+                <!-- <div class="chart-container">
+                  <div class="assets-liabilities-container">
+                    <div class="chart-header">
+                      <div class="ux-component">
+
+                        <div>
+                          <strong>Customers Login By Location</strong>
+                          <div></div>
+                        </div>
+
+                      </div>
+
+                    </div>
+
+                  </div>
+
+                  <div id="map" style="width: 100%; height: 280px"></div>
+                </div> -->
+
+              </div>
+
+              <div style="display: none;" class="col-12 col-md-6 mb-4">
+                <div class="chart-container">
+                  <div class="assets-liabilities-container">
+                    <div class="chart-header">
+                      <div class="ux-component">
+                        <div class="ux-dropdown">
+                          <div>
+                            <strong>Customers Registration By Date</strong>
+                            <div>
+                              <div class="header_button">
+                                <div class="ux-selection">
+                                  <img class="my_image" [src]="
+                                        !isGraphSelectedByReg
+                                          ? 'assets/images/icons/ic-graph.png'
+                                          : 'assets/images/icons/ic-graph-selected.png'
+                                      " (click)="
+                                        graphView('Customer');
+                                        isGraphSelectedByReg = true;
+                                        isListSelectedByReg = false
+                                      " />
+                                  <img class="my_image" [src]="
+                                        !isListSelectedByReg
+                                          ? 'assets/images/icons/ic-list.png'
+                                          : 'assets/images/icons/ic-list-selected.png'
+                                      " (click)="
+                                        tableView('Customer');
+                                        isListSelectedByReg = true;
+                                        isGraphSelectedByReg = false
+                                      " />
+                                  <img class="my_image" [hidden]="hideCustomerRegByDate"
+                                    src="assets/images/icons/fullscreen.png" (click)="getFullscreenGraph('barchart')" />
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <!--.drp-box-->
+                        </div>
+                        <!--.ux-dropdown-->
+                      </div>
+                      <!-- .ux-component -->
+                    </div>
+                    <!--  chart-header -->
+                  </div>
+                  <!-- .assets-liabilities-container -->
+                  <div class="chartbox" id="barchart" style="
+                        height: 280px;
+                        overflow-y: scroll;
+                        background-color: white;
+                      " [hidden]="hideCustomerRegByDate">
+                    <p style="
+                          text-align: center;
+                          display: none;
+                          margin-bottom: 10px;
+                        " id="barchart_title">
+                      <strong>Customers Registration By Date</strong>
+                    </p>
+                    <canvas id="myBarChart"></canvas>
+                    <div id="customerView">
+                      <div class="datatable-box">
+                        <div class="table-responsive">
+                          <table id="dt-sample1" class="table display table-hover">
+                            <thead>
+                              <tr>
+                                <th scope="col">Date</th>
+                                <th scope="col">Pending Count</th>
+                                <th scope="col">Success Count</th>
+                                <th scope="col">Total Count</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="
+                                    let item of registrationCount;
+                                    let i = index
+                                  ">
+                                <td>{{ item.date }}</td>
+                                <td>{{ item.pendingCnt }}</td>
+                                <td>{{ item.cnt }}</td>
+                                <td>{{ item.totalCnt }}</td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                        <!--.table-responsivebox-->
+                      </div>
+                    </div>
+                  </div>
+                  <!--  chartbox -->
+                  <div class="chartbox" style="height: 280px" [hidden]="hideCustomerRegByDateNoData">
+                    <p style="
+                          font-size: inherit;
+                          line-height: 250px;
+                          text-align: center;
+                        ">
+                      No Data To Display.
+                    </p>
+                  </div>
+                </div>
+                <!-- .chart-container -->
+              </div>
+            </div>
+
+            <!-- <div class="row">
+        <div class="col-12 col-md-12 mb-4">
+          <div class="chart-container" style="overflow:scroll;overflow-y:scroll;">
+            <div class="assets-liabilities-container">
+              <div class="chart-header">
+                <div class="ux-component">
+                  <div class="ux-dropdown">
+                  <div>
+                    <strong>Adapter Audit Log By Date</strong>
+                    <div >
+                    </div>
+                  </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div id="output" style="margin-left: 20px;margin-top: 20px;" [hidden]="hideAdapterAuditLogByDate"></div>
+            <div class="chartbox" style="height: 280px;" [hidden]="hideAdapterAuditLogByDateNoData">
+              <p style="font-size: inherit;line-height: 250px;text-align: center;">No Data To Display.</p>
+              </div>
+            <div style="width:100%;height:20px"></div>
+          </div>
+        </div>
+			</div> -->
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+      <app-footer></app-footer>
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer d-none"></div>
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+ <script>
+
+ </script>
+</body>
+
+</html>

@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Add State Master</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions"></div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <!-- load form -->
+                <form [formGroup]="masterCompanyAddForm">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Company Name</label>
+                        <input
+                          type="text"
+                          alphabetsOnly
+                          formControlName="companyName"
+                          limit-to="40"
+                          placeholder="Enter Company Name"
+                        />
+                        <p *ngIf="formErrors.companyName">
+                          {{ formErrors.companyName }}
+                        </p>
+                        <p *ngIf="
+                        masterCompanyAddForm.get('companyName').touched &&
+                        masterCompanyAddForm.get('companyName').value !=
+                          '' &&
+                        masterCompanyAddForm.get('companyName').invalid
+                      ">
+                      * Invalid company name
+                    </p>
+                      </div>
+
+                      <!--.ux-input-->
+                    </div>
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Company Information</label>
+                        <input
+                          type="text"
+                          formControlName="info"
+                          placeholder="Enter Company Information"
+                        />
+                        <p *ngIf="formErrors.info">
+                          {{ formErrors.info }}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Category</label>
+                        <select formControlName="categoryId"  (change)="onCategoryChange($event)">
+                          <option value="">Select Category</option>
+                          <!-- categoryIdId -->
+                          <option
+                            *ngFor="let option of categoryMaster; index as i"
+                            [value]="option.id"
+                          >
+                            {{ option.categoryName | titlecase }}
+                          </option>
+                        </select>
+                        <p *ngIf="formErrors.categoryId">{{ formErrors.categoryId }}</p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+
+                    <div class="col-12 col-md-6 col-lg-6">
+                      <div class="row">
+                        <div class="col-12">
+                          <div class="ux-input">
+                            <div class="file-input input-error">
+                              <input type="file" style="width: 100%; height: 100%; z-index: 100" name="coi"
+                                (change)="addImage($event)" />
+                              <label for="file-sample">
+                                <h4>Upload Company Logo</h4>
+                                <p>Upload Files To See Records</p>
+                              </label>
+                            </div>
+                          </div>
+                          <!--.ux-input-->
+                          <div class="ux-input input-error">
+                            <p *ngIf="isCompanyImgError">
+                              * Please upload Company image
+                            </p>
+                            <p *ngIf="isValidCompanyFileFormat">
+                              * Please upload png or jpeg file
+                            </p>
+                            <p *ngIf="isValidCompanySizeFileFormat">
+                              * Please upload 380px * 180px dimensions image
+                            </p>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12" *ngIf="logo != '' && logo != undefined">
+                        <div class="img-uploaded">
+                          <img src="{{ logo }}" />
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </form>
+                <!--.row-->
+                <div class="row mt-5">
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="cancel()">Cancel</button>
+                  </div>
+
+                  <div *ngIf="this.commonDataShareService.roleType == this.commonDataShareService.makerRole" class="col-6 col-lg-2">
+                    <button class="ux-button primary" (click)="openActionModel('remarkField', masterCompanyAddForm.value)">
+                      Save
+                    </button>
+                  </div>
+
+                  <div *ngIf="this.commonDataShareService.roleType != this.commonDataShareService.makerRole" class="col-6 col-lg-2">
+                    <button class="ux-button primary" (click)="addCompanyMaster()">
+                      Save
+                    </button>
+                  </div>
+                  <!--.col-xs-12-->
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+
+    <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+      <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+        <form [formGroup]="remarkForm">
+          <div class="row">
+            <div class="col-12 px-0 mt-2">
+              <div class="ux-input input-error">
+                <textarea formControlName="remark" placeholder="Enter Remark"></textarea>
+                <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-6">
+              <button class="ux-button" (click)="closeActionModel()">
+                Cancel
+              </button>
+            </div>
+            <div class="col-6">
+              <button class="ux-button primary" (click)="addCompanyMasterWithRemark(remarkForm.value)">
+                OK
+              </button>
+            </div>
+            <!--.col-xs-12-->
+          </div>
+        </form>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+  <!-- ==============footer section end============ -->
+
+  </body>
+</html>

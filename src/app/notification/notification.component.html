@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Notifications</title>
+
+</head>
+
+<body>
+
+	<div class="main">
+		<app-navmenu></app-navmenu>
+		<!--.global-nav-->
+		<div class="nav-overlay"></div>
+		<!--.nav-overlay-->
+		<!-- navigation menu container end -->
+
+		<div class="right-main-column">
+			<div class="right-col-container full-width">
+				<!-- ======== header section start ========== -->
+				<app-header></app-header>
+				<!-- ======== header section end ========== -->
+				<!-- ======== body page content start from here ======== -->
+				<div class="body-page-container">
+					<!-- <div class="vspacer10"></div> -->
+					<!--.vspacer10-->
+					<div class="device-page-titles d-none d-md-none d-lg-block">
+            <!-- <div class="component-title">
+              <h4>{{commonServiceCall.pageName}}</h4>
+            </div> -->
+						<div class="in-header d-none">
+							<div class="header-icons-rit">
+								<div class="header-actions">
+									<!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+									<!-- <button class="ux-button primary" (click)="showHideForm()">+ Add</button> -->
+								</div>
+								<!--.header-actions-->
+							</div>
+							<!--.header-icons-rit-->
+						</div> <!-- in-header -->
+					</div> <!-- device-page-titles -->
+					<div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+
+            <div class="main-content">
+              <div class="row" *ngIf="!showForm">
+                <div class="col-6"></div>
+                <div *ngIf="priviledgeDataArr.createChecked"
+                 class="col-6 offset-lg-10 offset-6 col-lg-2">
+                  <button class="ux-button primary" (click)="showHideForm()">+ Add</button>
+                </div>
+              </div>
+              <!-- load form -->
+              <form [formGroup]="notificationForm" *ngIf="showForm">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Channel Name</label>
+                      <select id="sl_Product" formControlName="productType">
+                        <option value="">Select Channel Name</option>
+                        <option *ngFor="let product of productTypes; index as i"
+                          [value]='product.id'>{{product.shortName  | titlecase}}</option>
+                      </select>
+                      <p *ngIf="formErrors.productType">{{ formErrors.productType }}</p>
+                    </div>
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Notification Type</label>
+                      <select id="sl_notificationType" formControlName="notificationId">
+                        <option value="">Select Notification Type</option>
+                        <option *ngFor="let notification of notificationTypes; index as i"
+                          [value]='notification.id'>{{notification.shortName | titlecase}}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.productType">{{ formErrors.notificationId }}</p>
+                    </div>
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Short Name</label>
+                      <input type="text" id="txtSht" formControlName="shortname"
+                        placeholder="Enter Short Name">
+                      <p *ngIf="formErrors.shortname">{{ formErrors.shortname }}</p>
+                      <p *ngIf="notificationForm.get('shortname').touched && notificationForm.get('shortname').value != '' && notificationForm.get('shortname').invalid">* Invalid short name</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Contents</label>
+                      <textarea rows="1" placeholder="Enter Contents" formControlName="contents"></textarea>
+                      <!-- <p *ngIf="formErrors.contents">{{ formErrors.contents }}</p> -->
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Target Title 1</label>
+                      <input type="text" id="txtTT1" formControlName="targettitle1"
+                        placeholder="Enter Target Title 1">
+                      <!-- <p *ngIf="formErrors.targettitle1">{{ formErrors.shortname }}</p> -->
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Target Action 1</label>
+                      <input type="text" id="txtTA1" formControlName="targetaction1"
+                        placeholder="Enter Target Action 1">
+                      <!-- <p *ngIf="formErrors.shortname">{{ formErrors.shortname }}</p> -->
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Target Title 2</label>
+                      <input type="text" id="txtTT2" formControlName="targettitle2"
+                        placeholder="Enter Target Title 2">
+                      <!-- <p *ngIf="formErrors.targettitle1">{{ formErrors.shortname }}</p> -->
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Target Action 2</label>
+                      <input type="text" id="txtTA2" formControlName="targetaction2"
+                        placeholder="Enter Target Action 2">
+                      <!-- <p *ngIf="formErrors.shortname">{{ formErrors.shortname }}</p> -->
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Target Title 3</label>
+                      <input type="text" id="txtTT3" formControlName="targettitle3"
+                        placeholder="Enter Target Title 3">
+                      <!-- <p *ngIf="formErrors.targettitle1">{{ formErrors.shortname }}</p> -->
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Target Action 3</label>
+                      <input type="text" id="txtTA3" formControlName="targetaction3"
+                        placeholder="Enter Target Action 3">
+                      <!-- <p *ngIf="formErrors.shortname">{{ formErrors.shortname }}</p> -->
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Target Title 4</label>
+                      <input type="text" id="txtTT4" formControlName="targettitle4"
+                        placeholder="Enter Target Title 4">
+                      <!-- <p *ngIf="formErrors.targettitle1">{{ formErrors.shortname }}</p> -->
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Target Action 4</label>
+                      <input type="text" id="txtTA4" formControlName="targetaction4"
+                        placeholder="Enter Target Action 4">
+                      <!-- <p *ngIf="formErrors.shortname">{{ formErrors.shortname }}</p> -->
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Language</label>
+                      <select id="sl_lang" formControlName="langCode">
+                        <option value="">Select Language</option>
+                          <option
+                            [value]="
+                              item.languagecode
+                            "
+                            [disabled]="item.active"
+                            *ngFor="let item of languageArray"
+                          >
+                            {{ item.languagecodedesc }}
+                          </option>
+                      </select>
+                      <p *ngIf="formErrors.langCode">{{ formErrors.langCode }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-6-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Status</label>
+                      <select id="sl_status" formControlName="status">
+                        <option value=''>Select Status</option>
+                        <option *ngFor="let item of filterStatus(); index as i" [value]='item.id' >{{item.shortName | titlecase }}</option>
+                      </select>
+                      <p *ngIf="formErrors.status">{{ formErrors.status }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+
+                </div>
+              </form>
+              <!--.row-->
+              <div class="row mt-5" *ngIf="showForm">
+                <div class="col-6 offset-lg-8 col-lg-2">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+                <div class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="addNotification()">Save</button>
+                </div>
+                <!--.col-xs-12-->
+              </div>
+              <!--.row-->
+
+              <!-- <div class="sticky-actions-spacer"></div> -->
+              <!-- load list -->
+              <div *ngIf="!isAddButtonClicked && priviledgeDataArr.viewChecked" class="row mt-3">
+                <div class="col-12 mb-0">
+                  <div class="datatable-box">
+                    <div class="table-responsive">
+                      <table id="dt-sample" class="table display table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col"> Sr. No.
+                            </th>
+                            <th scope="col"> Short Name
+                            </th>
+                            <th scope="col"> Contents
+                            </th>
+                            <th scope="col"> Target Title 1
+                            </th>
+                            <th scope="col"> Target Action 1
+                            </th>
+                            <th scope="col"> Target Title 2
+                            </th>
+                            <th scope="col"> Target Action 2
+                            </th>
+                            <th scope="col"> Target Title 3
+                            </th>
+                            <th scope="col"> Target Action 3
+                            </th>
+                            <th scope="col"> Target Title 4
+                            </th>
+                            <th scope="col"> Target Action 4
+                            </th>
+                            <th scope="col"> Created On
+                            </th>
+                            <th scope="col"> Status
+                            </th>
+                            <th *ngIf="
+                            priviledgeDataArr.deleteChecked ||
+                            priviledgeDataArr.updateChecked
+                          " scope="col"> Action
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of notificatonsArr; let i=index">
+                            <td> {{i+1}} </td>
+                            <td> {{item.shortName == null || item.shortName == '' ? '-' : item.shortName}}
+                            </td>
+                            <td> {{item.contents == null || item.contents == '' ? '-' : item.contents}}
+                            </td>
+                            <td> {{item.targetTitle1 == null || item.targetTitle1 == '' ? '-' : item.targetTitle1}}
+                            </td>
+                            <td> {{item.targetAction1 == null || item.targetAction1 == '' ? '-' : item.targetAction1}}
+                            </td>
+                            <td> {{item.targetTitle2 == null || item.targetTitle2 == '' ? '-' : item.targetTitle2}}
+                            </td>
+                            <td> {{item.targetAction2 == null || item.targetAction2 == '' ? '-' : item.targetAction2}}
+                            </td>
+                            <td> {{item.targetTitle3 == null || item.targetTitle3 == '' ? '-' : item.targetTitle3}}
+                            </td>
+                            <td> {{item.targetAction3 == null || item.targetAction3 == '' ? '-' : item.targetAction3}}
+                            </td>
+                            <td> {{item.targetTitle4 == null || item.targetTitle4 == '' ? '-' : item.targetTitle4}}
+                            </td>
+                            <td> {{item.targetAction4 == null || item.targetAction4 == '' ? '-' : item.targetAction4}}
+                            </td>
+                            <td> {{item.createdon == null || item.createdon == '' ? '-' : item.createdon | date:"yyyy/MM/dd" }}
+                            </td>
+                            <td> {{item.statusname}} </td>
+                            <td>
+                              <div class="row">
+                                <div class="col-3">
+                                    <img *ngIf="priviledgeDataArr.updateChecked"
+                                     class="action-btn" src="assets/images/icons/edit.png"
+                                    (click)="gotoNotificationDetails(item)">
+                                </div> &nbsp;
+                                <div class="col-3">
+                                    <img *ngIf="priviledgeDataArr.deleteChecked"
+                                     class="action-btn" src="assets/images/icons/delete.png"
+                                  (click)="openModelToDeleteNotification(item)">
+                                </div>
+                              </div>
+                              <div class="ux-selection">
+
+
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!--.table-responsivebox-->
+                  </div>
+                  <!--.datatable-box-->
+                  <div class="dt-extras mt-4">
+                    <div class="dt-exports">
+                      <em>Export to :<span class="chevron"></span></em>
+                      <button class="linkbutton exp-excel" (click)="excelDownload()">Excel
+                        <b>(.xlsx)</b></button>
+                      <button class="linkbutton exp-pdf" (click)="pdfDownload()">Pdf
+                        <b>(.pdf)</b></button>
+                      <!-- <button class="linkbutton exp-word" (click)="wordDownload()">word <b>(.docx)</b></button> -->
+                      <!-- <button class="linkbutton exp-xml">XML <b>(.xml)</b></button> -->
+                      <button class="linkbutton exp-csv" (click)="csvDownload()">csv
+                        <b>(.csv)</b></button>
+                    </div>
+                    <!--.dt-exports-->
+                  </div>
+
+                </div>
+              </div>
+              <div class="row mt-5" *ngIf="!showForm && priviledgeDataArr.viewChecked">
+                <div class="col-6 col-lg-2"></div>
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancelClick()">Cancel</button>
+                </div>
+              </div>
+            </div>
+
+					</div>
+					<!--.container-->
+				</div>
+				<!--.body-page-container-->
+				<!-- added new -->
+			</div>
+			<!--.right-col-container-->
+			<!-- added new -->
+		</div>
+		<!--.right-main-column-->
+		<!-- added new -->
+	</div>
+	<!--.main-->
+	<!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+		<div class="tinymodal-overlay"></div>
+		<!--.tinymodal-overlay-->
+		<div class="tinymodal">
+			<div class="tinymodal-content">
+				<div class="row">
+					<div class="col-12 tinymodal-header">
+					</div>
+        </div>
+        <div class="row" *ngIf="selModel == 'deleteNotification'">
+					<div class="col-12 px-0 mt-2">
+						<h5>
+							Are you sure you want to delete notification?
+						</h5>
+					</div>
+				</div>
+				<div class="row mt-5" *ngIf="selModel == 'deleteNotification'">
+					<div class="col-6">
+						<button class="ux-button" (click)="closeActionModel()">Cancel</button>
+					</div>
+					<div class="col-6">
+						<button class="ux-button primary" (click)="deleteNotification()">OK</button>
+					</div>
+					<!--.col-xs-12-->
+				</div>
+			</div>
+			<!--.tinymodal-content-->
+		</div>
+		<!--.tinymodal-->
+	</div>
+	<!-- ==============footer section end============ -->
+
+
+</body>

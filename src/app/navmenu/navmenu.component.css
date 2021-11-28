@@ -1,0 +1,112 @@
+.nav1-arrow {
+  position: absolute;
+  right: 7%;
+}
+
+.nav1-arrow img {
+  width: 15px !important;
+  height: 15px !important;
+  ;
+}
+
+/* .a-down {
+  transform: rotate(180deg);
+	transition-duration: 2s;
+} */
+
+.lst-subnavigation {
+  background: #5537374a;
+}
+
+
+.section-active em {
+  color: white !important;
+}
+
+.section-active i {
+  color: white !important;
+}
+
+.section-active {
+  background: #007C3D !important;
+  color: white;
+}
+
+.round-circle {
+  position: relative;
+}
+
+.round-circle:hover .edit-prof {
+  display: block;
+}
+
+.edit-prof {
+  padding-top: 7px;
+  padding-right: 7px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  background: #00000075;
+  width: 100%;
+  height: 100%;
+  display: none;
+}
+
+.edit-prof a {
+  color: #007C3D;
+  margin-top: 30%;
+  margin-left: 13%;
+}
+
+.sidenav-name {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 200px;
+}
+
+.nav-list {
+  margin-top: 1px;
+}
+
+
+
+.nav-content::-webkit-scrollbar-track {
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3); */
+  border-radius: 10px;
+  background-color: #007c3d;
+}
+
+.nav-content::-webkit-scrollbar {
+  width: 7px;
+  background-color: #F5F5F5;
+}
+
+.nav-content::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  /* -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3); */
+  background-color: rgba(255, 255, 255, .5);
+}
+
+.nav-content {
+  overflow: hidden !important;
+}
+
+.nav-content:hover {
+  overflow-y: scroll !important;
+}
+
+.subMenuCls {
+  width: 900px;
+}
+
+.nav-arrow {
+  float: right;
+  margin-top: 5px;
+}
+
+@media screen and (max-width: 768px) {
+  .nav-content {
+    overflow: auto !important;
+  }
+}

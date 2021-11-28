@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>IMPS Transaction Log</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!-----.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+              <div class="main-content">
+                <form [formGroup]="upiVolumeForm">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Period</label>
+                        <select formControlName="period">
+                          <option value="">Select Period</option>
+                          <option value="en">UPI</option>
+                          <option value="hn">IMPS</option>
+                        </select>
+                        <p *ngIf="formErrors.period">
+                          {{ formErrors.period }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Start Period</label>
+                        <select formControlName="start">
+                          <option value="">Select Start Period</option>
+                          <option value="en">UPI</option>
+                          <option value="hn">IMPS</option>
+                        </select>
+                        <p *ngIf="formErrors.start">
+                          {{ formErrors.start }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>End Period</label>
+                        <select formControlName="end">
+                          <option value="">Select End Period</option>
+                          <option value="en">UPI</option>
+                          <option value="hn">IMPS</option>
+                        </select>
+                        <p *ngIf="formErrors.end">
+                          {{ formErrors.end }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Txn Type</label>
+                        <select formControlName="txn_type">
+                          <option value="">Select Txn Type</option>
+                          <option value="en">UPI</option>
+                          <option value="hn">IMPS</option>
+                        </select>
+                        <p *ngIf="formErrors.txn_type">
+                          {{ formErrors.txn_type }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Sub Type</label>
+                        <select formControlName="sub_type">
+                          <option value="">Select Sub Type</option>
+                          <option value="en">UPI</option>
+                          <option value="hn">IMPS</option>
+                        </select>
+                        <p *ngIf="formErrors.sub_type">
+                          {{ formErrors.sub_type }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Merchant Type</label>
+                        <select formControlName="merchant_type">
+                          <option value="">Select Merchant Type</option>
+                          <option value="en">UPI</option>
+                          <option value="hn">IMPS</option>
+                        </select>
+                        <p *ngIf="formErrors.merchant_type">
+                          {{ formErrors.merchant_type }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                  </div>
+                </form>
+
+                <div class="row mb-5 mt-3">
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="cancel()">Cancel</button>
+                  </div>
+                  <div class="col-6 col-lg-2">
+                    <button
+                      class="ux-button primary"
+                      (click)="onSubmitClicked()"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                  <!--.col-xs-12-->
+                </div>
+
+                <div class="vspacer20"></div>
+                <div *ngIf="upiVolumeMaster.length > 0" class="row mt-3">
+                  <div class="col-12 mb-0">
+                    <div class="datatable-box">
+                      <div class="table-responsive">
+                        <table id="dt-sample" class="table display table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">Sr. No.</th>
+                              <th scope="col">Period</th>
+                              <th scope="col">Approved Txns. Count</th>
+                              <th scope="col">BD Txns. Count</th>
+                              <th scope="col">TD Txns. Count</th>
+                              <th scope="col">Total Txns</th>
+                              <th scope="col">Approved Ratio %</th>
+                              <th scope="col">BD Ratio %</th>
+                              <th scope="col">TD Ratio %</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              *ngFor="
+                                let item of upiVolumeMaster;
+                                let i = index
+                              "
+                            >
+                              <td>{{ i + 1 }}</td>
+                              <td>{{ item.period }}</td>
+                              <td>{{ item.approved }}</td>
+                              <td>{{ item.bd }}</td>
+                              <td>{{ item.td }}</td>
+                              <td>{{ item.total }}</td>
+                              <td>{{ item.approved_per }}</td>
+                              <td>{{ item.bd_per }}</td>
+                              <td>{{ item.td_per }}</td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!--.table-responsivebox-->
+                    </div>
+                    <!--.datatable-box-->
+
+                    <div class="dt-extras mt-4">
+                      <div class="dt-exports">
+                        <em>Export to :<span class="chevron"></span></em>
+                        <button
+                          class="linkbutton exp-excel"
+                          (click)="commonMethod.downLoadFile('excel')"
+                        >
+                          Excel <b>(.xlsx)</b>
+                        </button>
+                        <button
+                          class="linkbutton exp-pdf"
+                          (click)="commonMethod.downLoadFile('pdf')"
+                        >
+                          Pdf <b>(.pdf)</b>
+                        </button>
+                        <!-- <button class="linkbutton exp-word" (click)="wordDownload()">word <b>(.docx)</b></button> -->
+                        <!-- <button class="linkbutton exp-xml">XML <b>(.xml)</b></button> -->
+                        <button
+                          class="linkbutton exp-csv"
+                          (click)="commonMethod.downLoadFile('csv')"
+                        >
+                          csv <b>(.csv)</b>
+                        </button>
+                      </div>
+                      <!--.dt-exports-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

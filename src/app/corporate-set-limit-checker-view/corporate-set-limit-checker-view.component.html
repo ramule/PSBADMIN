@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title></title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <!-- ======== header section start ========== -->
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+
+            <div class="main-content">
+              <div class="row mt-3">
+                <div class="col-12 set-limit-heading">
+                  <h5 class="m-0">Account</h5>
+                  <h4 class="primary mt-2" style="color: #00b4f1">
+                    {{ accountNumber }}
+                  </h4>
+                </div>
+              </div>
+
+              <div class="row mt-3">
+                <div class="col-12">
+                  <div class="row">
+                    <div style="margin-top: 15px; margin-bottom: 20px"
+                      *ngFor="let item of corpSetLimitDataArr; let i = index" class="col-12">
+                      <div class="row">
+                        <div class="col-12 col-xl-12 col-lg-12 col-md-12">
+                          <div class="ux-input">
+                            <div class="usernumber1">{{ i + 1 }}.</div>
+                            <h6>
+                              Having transaction limit from
+                              <span class="bold1">
+                                <i class="fa fa-inr" aria-hidden="true"></i>
+                                {{ item[0].minAmount }} -
+                                <i class="fa fa-inr" aria-hidden="true"></i>
+                                {{ item[0].maxAmount }}
+                              </span>
+                            </h6>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="row flex-row flex-nowrap pb-5" style="overflow-x: auto">
+                        <div style="margin-top: 15px; margin-bottom: 20px" *ngFor="let data of item; let j = index"
+                          class="col-12 col-xl-4 col-lg-6 col-md-6 col-sm-12">
+                          <h6 class="mt-2 mb-2">
+                            Approved by
+                            <span class="bold1">
+                              {{ data.approverMasterName }}
+                            </span>
+                            from the below
+                            <span class="bold1">(Level {{ data.approverLevelId }})</span>
+                            <br />
+                            <span>{{ data.hierarchyMasterName }} </span>
+                          </h6>
+                          <div class="whitebox1 h100">
+                            <div class="row">
+                              <div class="col-7 col-xl-8 col-lg-7 col-md-7 col-sm-7">
+                                <h6>Users</h6>
+                              </div>
+                            </div>
+                            <div *ngFor="
+                                  let user of data.corpUserData;
+                                  let k = index
+                                " class="row">
+                              <div class="col-7 col-xl-8 col-lg-7 col-md-7 col-sm-7">
+                                <h6 class="panel-title3">
+                                  {{ user.corpUSerName }}
+                                </h6>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-12">
+                        <div class="component-linebottom">
+                          <div class="row"></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-5">
+                <div class="col-6 col-lg-2 offset-lg-10">
+                  <button class="ux-button" (click)="cancelClick()">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>

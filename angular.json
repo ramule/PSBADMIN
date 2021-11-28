@@ -1,0 +1,164 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "version": 1,
+  "newProjectRoot": "projects",
+  "projects": {
+    "PSBADMIN": {
+      "projectType": "application",
+      "schematics": {},
+      "root": "",
+      "sourceRoot": "src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/PSBADMIN",
+            "index": "src/index.html",
+            "main": "src/main.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css",
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/jquery-ui/themes/base/all.css",
+              "src/css/lib/owl.carousel.min.css",
+			        "src/css/mjbl.min.css",
+              "src/css/keyboard.css",
+              "node_modules/ng2-daterangepicker/assets/daterangepicker.css",
+              "src/css/lib/datatables.min.css",
+              "node_modules/pivottable/dist/pivot.min.css"
+            ],
+            "scripts": [
+              "src/js/lib/jquery.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js",
+              "src/js/lib/moment.min.js",
+              "src/js/lib/bootstrap-datetimepicker.min.js",
+              "node_modules/jquery-ui/ui/widgets/datepicker.js",
+              "src/js/lib/owl.carousel.min.js",
+              "src/js/common.js",
+              "node_modules/chart.js/dist/Chart.bundle.js",
+              "src/js/lib/jquery.mousewheel.js",
+              "src/js/lib/jquery.mousewheel.js",
+              "src/js/lib/jquery.mCustomScrollbar.js",
+              "src/app/encryption/pbkdf2.js",
+              "src/app/encryption/aes.js",
+              "src/app/encryption/enc-base64.js",
+              "src/app/encryption/crypto-js.js",
+              "node_modules/datatables.net/js/jquery.dataTables.js",
+              "src/js/lib/datatables.min.js",
+              "node_modules/jszip/dist/jszip.js",
+              "node_modules/datatables.net-buttons/js/dataTables.buttons.js",
+              "node_modules/datatables.net-buttons/js/buttons.colVis.js",
+              "node_modules/datatables.net-buttons/js/buttons.flash.js",
+              "node_modules/datatables.net-buttons/js/buttons.html5.js",
+              "node_modules/datatables.net-buttons/js/buttons.print.js",
+              "src/js/lib/pdfmake.min.js",
+              "src/js/lib/vfs_fonts.js",
+              "node_modules/pivottable/dist/pivot.min.js",
+              "node_modules/jquery-ui-dist/jquery-ui.min.js",
+              "node_modules/pivottable/dist/export_renderers.min.js",
+              "node_modules/pivottable/dist/plotly_renderers.min.js",
+              "node_modules/datatables-export-document/dataTables.export.js"
+
+            ]
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "src/environments/environment.ts",
+                  "with": "src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "extractCss": true,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "4mb",
+                  "maximumError": "20mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "PSBADMIN:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "PSBADMIN:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "PSBADMIN:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "src/test.ts",
+            "polyfills": "src/polyfills.ts",
+            "tsConfig": "tsconfig.spec.json",
+            "karmaConfig": "karma.conf.js",
+            "assets": [
+              "src/favicon.ico",
+              "src/assets"
+            ],
+            "styles": [
+              "src/styles.css"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "tsconfig.app.json",
+              "tsconfig.spec.json",
+              "e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "e2e/protractor.conf.js",
+            "devServerTarget": "PSBADMIN:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "PSBADMIN:serve:production"
+            }
+          }
+        }
+      }
+    }},
+  "defaultProject": "PSBADMIN"
+}

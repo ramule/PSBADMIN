@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>CBS Message Template Add</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <!-- ======== header section start ========== -->
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+            <div class="main-content">
+              <!-- load form -->
+              <form [formGroup]="cbsMessageTemplateAddForm">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Error Code</label>
+                      <input type="text" numbersOnly limit-to="5" formControlName="errorCode"
+                        placeholder="Enter Error Code" />
+                      <p *ngIf="formErrors.errorCode">
+                        {{ formErrors.errorCode }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Error Message</label>
+                      <input type="text" limit-to="200" formControlName="errorMessage"
+                        placeholder="Enter Error Message" />
+                      <p *ngIf="formErrors.errorMessage">
+                        {{ formErrors.errorMessage }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>SMS</label>
+                      <select formControlName="sms">
+                        <option value="">Select</option>
+                        <option value="Y">Active</option>
+                        <option value="N">Inactive</option>
+                      </select>
+                      <p *ngIf="formErrors.sms">
+                        {{ formErrors.sms }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>SMS Template</label>
+                      <input type="text" limit-to="200" formControlName="smsTemplate"
+                        placeholder="Enter SMS Template" />
+                      <p *ngIf="formErrors.smsTemplate">
+                        {{ formErrors.smsTemplate }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Email</label>
+                      <select formControlName="email">
+                        <option value="">Select</option>
+                        <option value="Y">Active</option>
+                        <option value="N">Inactive</option>
+                      </select>
+                      <p *ngIf="formErrors.email">
+                        {{ formErrors.email }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Email Template</label>
+                      <input type="text" limit-to="200" formControlName="emailTemplate"
+                        placeholder="Enter Email Template" />
+                      <p *ngIf="formErrors.emailTemplate">
+                        {{ formErrors.emailTemplate }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Push</label>
+                      <select formControlName="push">
+                        <option value="">Select</option>
+                        <option value="Y">Active</option>
+                        <option value="N">Inactive</option>
+                      </select>
+                      <p *ngIf="formErrors.push">
+                        {{ formErrors.push }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Push Template</label>
+                      <input type="text" limit-to="200" formControlName="pushTemplate"
+                        placeholder="Enter Push Template" />
+                      <p *ngIf="formErrors.pushTemplate">
+                        {{ formErrors.pushTemplate }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>In App</label>
+                      <select formControlName="inApp">
+                        <option value="">Select</option>
+                        <option value="Y">Active</option>
+                        <option value="N">Inactive</option>
+                      </select>
+                      <p *ngIf="formErrors.inApp">
+                        {{ formErrors.inApp }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>In App Template</label>
+                      <input type="text" limit-to="200" formControlName="inAppTemplate"
+                        placeholder="Enter In App Template" />
+                      <p *ngIf="formErrors.inAppTemplate">
+                        {{ formErrors.inAppTemplate }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                </div>
+              </form>
+              <!--.row-->
+              <div class="row mt-5">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+
+                <div class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="addCbsMessageTemplate()">
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,1002 @@
+<p>theme-apply works!</p>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Admin Add Role</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+              <h4>{{ commonServiceCall.pageName }}</h4>
+            </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div *ngIf="priviledgeDataArr.viewChecked" class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+              <div class="main-content">
+                <!-- load form -->
+                <form [formGroup]="themeApplyForm">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="row">
+                        <div
+                          [ngClass]="
+                            priviledgeDataArr.createChecked &&
+                            priviledgeDataArr.updateChecked
+                              ? 'col-10 p-0'
+                              : 'col-11 p-0'
+                          "
+                        >
+                          <div class="ux-input input-error">
+                            <label><span class="mandatory">* </span>Theme Name</label>
+                            <select type="text" formControlName="themeName">
+                              <option value="">Select Theme Name</option>
+                              <option
+                                *ngFor="let name of themeNamesArr"
+                                [value]="name.description"
+                              >
+                                {{ name.details | titlecase }}
+                              </option>
+                            </select>
+                            <p *ngIf="formErrors.themeName">
+                              {{ formErrors.themeName }}
+                            </p>
+                          </div>
+                        </div>
+                        <div
+                          *ngIf="priviledgeDataArr.createChecked"
+                          class="col-1"
+                          (click)="openModalAction('themeName')"
+                        >
+                          <div class="icon-border">
+                            <i
+                              class="fa fa-plus add-icon"
+                              aria-hidden="true"
+                            ></i>
+                          </div>
+                        </div>
+                        <div
+                          *ngIf="priviledgeDataArr.updateChecked"
+                          class="col-1 pl-2"
+                          (click)="openEditModalAction('themeNameEdit')"
+                        >
+                          <div class="icon-border">
+                            <i
+                              class="fa fa-pencil add-icon"
+                              aria-hidden="true"
+                            ></i>
+                          </div>
+                        </div>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+
+                    <div class="col-6">
+                      <div class="row">
+                        <div
+                          [ngClass]="
+                            priviledgeDataArr.createChecked &&
+                            priviledgeDataArr.updateChecked
+                              ? 'col-10 p-0'
+                              : 'col-11 p-0'
+                          "
+                        >
+                          <div class="ux-input input-error">
+                            <label><span class="mandatory">* </span>Theme Color</label>
+                            <select type="text" formControlName="themeColor">
+                              <option value="">Select Theme Color</option>
+                              <option
+                                *ngFor="let name of themeColorsArr"
+                                [value]="name.description"
+                              >
+                                {{ name.details | titlecase }}
+                              </option>
+                            </select>
+                            <p *ngIf="formErrors.themeColor">
+                              {{ formErrors.themeColor }}
+                            </p>
+                          </div>
+                          <!--.ux-input-->
+                        </div>
+                        <div
+                          *ngIf="priviledgeDataArr.createChecked"
+                          class="col-1"
+                          (click)="openModalAction('themeColor')"
+                        >
+                          <div class="icon-border">
+                            <i
+                              class="fa fa-plus add-icon"
+                              aria-hidden="true"
+                            ></i>
+                          </div>
+                        </div>
+                        <div
+                          *ngIf="priviledgeDataArr.updateChecked"
+                          class="col-1 pl-2"
+                          (click)="openEditModalAction('themeColorEdit')"
+                        >
+                          <div class="icon-border">
+                            <i
+                              class="fa fa-pencil add-icon"
+                              aria-hidden="true"
+                            ></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--.col-12-->
+
+                    <div class="col-6">
+                      <div class="row">
+                        <div
+                          [ngClass]="
+                            priviledgeDataArr.createChecked &&
+                            priviledgeDataArr.updateChecked
+                              ? 'col-10 p-0'
+                              : 'col-11 p-0'
+                          "
+                        >
+                          <div class="ux-input input-error">
+                            <label><span class="mandatory">* </span>Theme Background Color</label>
+                            <select type="text" formControlName="themeBgColor">
+                              <option value="">Select Background Color</option>
+                              <option
+                                *ngFor="let name of themeBgColorsArr"
+                                [value]="name.description"
+                              >
+                                {{ name.details | titlecase }}
+                              </option>
+                            </select>
+                            <p *ngIf="formErrors.themeBgColor">
+                              {{ formErrors.themeBgColor }}
+                            </p>
+                          </div>
+                          <!--.ux-input-->
+                        </div>
+                        <div
+                          *ngIf="priviledgeDataArr.createChecked"
+                          class="col-1"
+                          (click)="openModalAction('themeBgColor')"
+                        >
+                          <div class="icon-border">
+                            <i
+                              class="fa fa-plus add-icon"
+                              aria-hidden="true"
+                            ></i>
+                          </div>
+                        </div>
+                        <div
+                          *ngIf="priviledgeDataArr.updateChecked"
+                          class="col-1 pl-2"
+                          (click)="openEditModalAction('themeBgColorEdit')"
+                        >
+                          <div class="icon-border">
+                            <i
+                              class="fa fa-pencil add-icon"
+                              aria-hidden="true"
+                            ></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--.col-12-->
+
+                    <div class="col-6">
+                      <div class="row">
+                        <div
+                          [ngClass]="
+                            priviledgeDataArr.createChecked &&
+                            priviledgeDataArr.updateChecked
+                              ? 'col-10 p-0'
+                              : 'col-11 p-0'
+                          "
+                        >
+                          <div class="ux-input input-error">
+                            <label><span class="mandatory">* </span>Theme Menu Option</label>
+                            <select
+                              type="text"
+                              formControlName="themeMenuOption"
+                            >
+                              <option value="">Select Menu Option</option>
+                              <option
+                                *ngFor="let name of themeMenuOptionsArr"
+                                [value]="name.description"
+                              >
+                                {{ name.details | titlecase }}
+                              </option>
+                            </select>
+                            <p *ngIf="formErrors.themeMenuOption">
+                              {{ formErrors.themeMenuOption }}
+                            </p>
+                          </div>
+                          <!--.ux-input-->
+                        </div>
+                        <div
+                          *ngIf="priviledgeDataArr.createChecked"
+                          class="col-1"
+                          (click)="openModalAction('menuOptions')"
+                        >
+                          <div class="icon-border">
+                            <i
+                              class="fa fa-plus add-icon"
+                              aria-hidden="true"
+                            ></i>
+                          </div>
+                        </div>
+                        <div
+                          *ngIf="priviledgeDataArr.updateChecked"
+                          class="col-1 pl-2"
+                          (click)="openEditModalAction('menuOptionsEdit')"
+                        >
+                          <div class="icon-border">
+                            <i
+                              class="fa fa-pencil add-icon"
+                              aria-hidden="true"
+                            ></i>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--.col-12-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>From Date</label>
+                        <input
+                          id="frmDate"
+                          class="pr-0"
+                          [min]="todayDate"
+                          type="date"
+                          (change)="onDateChange(themeApplyForm.value)"
+                          formControlName="fromDate"
+                        />
+                        <p *ngIf="formErrors.fromDate">
+                          {{ formErrors.fromDate }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>To Date</label>
+                        <input
+                          class="pr-0"
+                          [min]="todayDate"
+                          type="date"
+                          (change)="onDateChange(themeApplyForm.value)"
+                          formControlName="toDate"
+                        />
+                        <p *ngIf="formErrors.toDate">
+                          {{ formErrors.toDate }}
+                        </p>
+                        <p *ngIf="toDateValid">{{ isToDateValidError }}</p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Status</label>
+                        <select id="sl_prdt" formControlName="status">
+                          <option value="">Select Status</option>
+                          <option
+                            *ngFor="let status of masterStatus; index as i"
+                            [value]="status.id"
+                          >
+                            {{ status.shortName | titlecase }}
+                          </option>
+                        </select>
+                        <p *ngIf="formErrors.status">{{ formErrors.status }}</p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Force Apply Theme</label>
+                        <label class="switch">
+                          <input
+                            type="checkbox"
+                            (change)="onStatusChange($event)"
+                          />
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                  </div>
+                </form>
+                <!--.row-->
+                <div *ngIf="priviledgeDataArr.createChecked" class="row mt-5">
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="cancel()">Cancel</button>
+                  </div>
+
+                  <div
+                    *ngIf="
+                      this.commonDataShareService.roleType ==
+                      this.commonDataShareService.makerRole
+                    "
+                    class="col-6 col-lg-2"
+                  >
+                    <button
+                      class="ux-button primary"
+                      (click)="
+                        openActionModel('remarkField', themeApplyForm.value)
+                      "
+                    >
+                      Save
+                    </button>
+                  </div>
+                  <div
+                    *ngIf="
+                      this.commonDataShareService.roleType !=
+                      this.commonDataShareService.makerRole
+                    "
+                    class="col-6 col-lg-2"
+                  >
+                    <button class="ux-button primary" (click)="onThemeApply()">
+                      Save
+                    </button>
+                  </div>
+                </div>
+
+                <div *ngIf="!priviledgeDataArr.createChecked" class="row mt-5">
+                  <div class="col-6 col-lg-2 offset-lg-10">
+                    <button class="ux-button" (click)="cancel()">Cancel</button>
+                  </div>
+                </div>
+
+                <div *ngIf="priviledgeDataArr.viewChecked" class="row mt-3">
+                  <div class="col-12 mb-0">
+                    <div class="datatable-box">
+                      <div class="table-responsive">
+                        <table id="dt-sample" class="table display table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">Sr. No.</th>
+                              <th scope="col">Theme Name</th>
+                              <th scope="col">Theme Color</th>
+                              <th scope="col">Theme Background Color</th>
+                              <th scope="col">Menu Options</th>
+                              <th scope="col">From Date</th>
+                              <th scope="col">To Date</th>
+                              <th scope="col">Created On</th>
+                              <th scope="col">Created By</th>
+                              <th scope="col">Status</th>
+                              <th scope="col">Force Apply Theme</th>
+                              <th
+                                scope="col"
+                                *ngIf="priviledgeDataArr.updateChecked"
+                              >
+                                Action
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let theme of themesArr; let i = index">
+                              <td>{{ i + 1 }}</td>
+                              <td>
+                                {{
+                                  theme.themeName == null ||
+                                  theme.themeName == ""
+                                    ? "-"
+                                    : theme.themeName
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  theme.themeSideBarColor == null ||
+                                  theme.themeSideBarColor == ""
+                                    ? "-"
+                                    : theme.themeSideBarColor
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  theme.themeSideBarBackground == null ||
+                                  theme.themeSideBarBackground == ""
+                                    ? "-"
+                                    : theme.themeSideBarBackground
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  theme.themeMenuOptions == null ||
+                                  theme.themeMenuOptions == ""
+                                    ? "-"
+                                    : theme.themeMenuOptions
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  theme.fromDate == null || theme.fromDate == ""
+                                    ? "-"
+                                    : (theme.fromDate | date: "yyyy-MM-dd")
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  theme.toDate == null || theme.toDate == ""
+                                    ? "-"
+                                    : (theme.toDate | date: "yyyy-MM-dd")
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  theme.createdon == null ||
+                                  theme.createdon == ""
+                                    ? "-"
+                                    : (theme.createdon | date: "yyyy-MM-dd")
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  theme.createdByName == "" ||
+                                  theme.createdByName == null
+                                    ? "-"
+                                    : theme.createdByName
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  theme.statusName == "" ||
+                                  theme.statusName == null
+                                    ? "-"
+                                    : (theme.statusName | titlecase)
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  theme.forcedToAll == "Y"
+                                    ? "Active"
+                                    : "Inactive"
+                                }}
+                              </td>
+                              <td *ngIf="priviledgeDataArr.updateChecked">
+                                <div class="ux-selection">
+                                  <img
+                                    class="action-btn"
+                                    src="assets/images/icons/edit.png"
+                                    (click)="gotoEditTheme(theme)"
+                                  />
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!--.table-responsivebox-->
+                    </div>
+                    <!--.datatable-box-->
+
+                    <div class="dt-extras mt-4" *ngIf="themesArr.length > 0">
+                      <div class="dt-exports">
+                        <em>Export to :<span class="chevron"></span></em>
+                        <button
+                          class="linkbutton exp-excel"
+                          (click)="commonMethod.downLoadFile('excel')"
+                        >
+                          Excel <b>(.xlsx)</b>
+                        </button>
+                        <button
+                          class="linkbutton exp-pdf"
+                          (click)="commonMethod.downLoadFile('pdf')"
+                        >
+                          Pdf <b>(.pdf)</b>
+                        </button>
+                        <!-- <button class="linkbutton exp-word" (click)="wordDownload()">word <b>(.docx)</b></button> -->
+                        <!-- <button class="linkbutton exp-xml">XML <b>(.xml)</b></button> -->
+                        <button
+                          class="linkbutton exp-csv"
+                          (click)="commonMethod.downLoadFile('csv')"
+                        >
+                          csv <b>(.csv)</b>
+                        </button>
+                      </div>
+                      <!--.dt-exports-->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+      <div class="tinymodal-overlay"></div>
+      <!--.tinymodal-overlay-->
+      <div class="tinymodal">
+        <div *ngIf="selModel == 'themeName'" class="tinymodal-content">
+          <form [formGroup]="themeNamesForm">
+            <div class="row">
+              <div class="col-12 tinymodal-header">
+                <label>Theme Name</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="ux-input input-error">
+                  <label>Details</label>
+                  <input
+                    type="text"
+                    formControlName="themeNameDetails"
+                    placeholder="Enter Details"
+                  />
+                  <p *ngIf="formErrors.themeNameDetails">
+                    {{ formErrors.themeNameDetails }}
+                  </p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="ux-input input-error">
+                  <label>Description</label>
+                  <input
+                    type="text"
+                    formControlName="themeNameDesc"
+                    placeholder="Enter Description"
+                  />
+                  <p *ngIf="formErrors.themeNameDesc">
+                    {{ formErrors.themeNameDesc }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-6">
+                <button class="ux-button" (click)="cancelClick()">
+                  Cancel
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  class="ux-button primary"
+                  (click)="onThemeNamesSave(themeNamesForm.value)"
+                >
+                  Save
+                </button>
+              </div>
+              <!--.col-xs-12-->
+            </div>
+          </form>
+        </div>
+
+        <div *ngIf="selEditModel == 'themeNameEdit'" class="tinymodal-content">
+          <div class="col-12 tinymodal-header">
+            <div>
+              <button type="button" class="close" (click)="closeActionModel()">
+                <span> <img src="assets/images/icons/cross.png" /></span>
+              </button>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12 mb-0">
+              <div class="datatable-box dt-scroll">
+                <div class="table-responsive">
+                  <table id="dt-sample" class="table display table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Theme Name</th>
+                        <th scope="col" class="notexport">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let theme of themeNamesArr; let i = index">
+                        <td>{{ theme.details }}</td>
+                        <td>
+                          <label class="switch">
+                            <input
+                              type="checkbox"
+                              [checked]="theme.statusid == 3"
+                              (change)="onThemeNameStatusChange(theme)"
+                            />
+                            <span class="slider round"></span>
+                          </label>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!--.table-responsivebox-->
+              </div>
+              <!--.datatable-box-->
+            </div>
+          </div>
+        </div>
+        <!--.tinymodal-content-->
+        <div *ngIf="selModel == 'themeColor'" class="tinymodal-content">
+          <form [formGroup]="themeColorsForm">
+            <div class="row">
+              <div class="col-12 tinymodal-header">
+                <label>Theme Color</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="ux-input input-error">
+                  <label>Details</label>
+                  <input
+                    type="text"
+                    formControlName="themeColorDetails"
+                    placeholder="Enter Details"
+                  />
+                  <p *ngIf="formErrors.themeColorDetails">
+                    {{ formErrors.themeColorDetails }}
+                  </p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="ux-input input-error">
+                  <label>Description</label>
+                  <input
+                    type="text"
+                    formControlName="themeColorDesc"
+                    placeholder="Enter Description"
+                  />
+                  <p *ngIf="formErrors.themeColorDesc">
+                    {{ formErrors.themeColorDesc }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-6">
+                <button class="ux-button" (click)="cancelClick()">
+                  Cancel
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  class="ux-button primary"
+                  (click)="onThemeColorSave(themeColorsForm.value)"
+                >
+                  Save
+                </button>
+              </div>
+              <!--.col-xs-12-->
+            </div>
+          </form>
+        </div>
+
+        <div *ngIf="selEditModel == 'themeColorEdit'" class="tinymodal-content">
+          <div class="col-12 tinymodal-header">
+            <div>
+              <button type="button" class="close" (click)="closeActionModel()">
+                <span> <img src="assets/images/icons/cross.png" /></span>
+              </button>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12 mb-0">
+              <div class="datatable-box dt-scroll">
+                <div class="table-responsive">
+                  <table id="dt-sample" class="table display table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Theme Color</th>
+                        <th scope="col" class="notexport">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let theme of themeColorsArr; let i = index">
+                        <td>{{ theme.details }}</td>
+                        <td>
+                          <label class="switch">
+                            <input
+                              type="checkbox"
+                              [checked]="theme.statusid == 3"
+                              (change)="onThemeColorStatusChange(theme)"
+                            />
+                            <span class="slider round"></span>
+                          </label>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!--.table-responsivebox-->
+              </div>
+              <!--.datatable-box-->
+            </div>
+          </div>
+        </div>
+        <!--.tinymodal-content-->
+        <div *ngIf="selModel == 'themeBgColor'" class="tinymodal-content">
+          <form [formGroup]="themeBgColorsForm">
+            <div class="row">
+              <div class="col-12 tinymodal-header">
+                <label>Theme Background Color</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="ux-input input-error">
+                  <label>Details</label>
+                  <input
+                    type="text"
+                    formControlName="themeBgColorDetails"
+                    placeholder="Enter Details"
+                  />
+                  <p *ngIf="formErrors.themeBgColorDetails">
+                    {{ formErrors.themeBgColorDetails }}
+                  </p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="ux-input input-error">
+                  <label>Description</label>
+                  <input
+                    type="text"
+                    formControlName="themeBgColorDesc"
+                    placeholder="Enter Description"
+                  />
+                  <p *ngIf="formErrors.themeBgColorDesc">
+                    {{ formErrors.themeBgColorDesc }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-6">
+                <button class="ux-button" (click)="cancelClick()">
+                  Cancel
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  class="ux-button primary"
+                  (click)="onThemeBgColorSave(themeBgColorsForm.value)"
+                >
+                  Save
+                </button>
+              </div>
+              <!--.col-xs-12-->
+            </div>
+          </form>
+        </div>
+
+        <div
+          *ngIf="selEditModel == 'themeBgColorEdit'"
+          class="tinymodal-content"
+        >
+          <div class="col-12 tinymodal-header">
+            <div>
+              <button type="button" class="close" (click)="closeActionModel()">
+                <span> <img src="assets/images/icons/cross.png" /></span>
+              </button>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12 mb-0">
+              <div class="datatable-box dt-scroll">
+                <div class="table-responsive">
+                  <table id="dt-sample" class="table display table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Theme Background Color</th>
+                        <th scope="col" class="notexport">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let theme of themeBgColorsArr; let i = index">
+                        <td>{{ theme.details }}</td>
+                        <td>
+                          <label class="switch">
+                            <input
+                              type="checkbox"
+                              [checked]="theme.statusid == 3"
+                              (change)="onThemeBgColorStatusChange(theme)"
+                            />
+                            <span class="slider round"></span>
+                          </label>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!--.table-responsivebox-->
+              </div>
+              <!--.datatable-box-->
+            </div>
+          </div>
+        </div>
+        <!--.tinymodal-content-->
+        <div *ngIf="selModel == 'menuOptions'" class="tinymodal-content">
+          <form [formGroup]="themeMenuOptionsForm">
+            <div class="row">
+              <div class="col-12 tinymodal-header">
+                <label>Theme Menu Option</label>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <div class="ux-input input-error">
+                  <label>Details</label>
+                  <input
+                    type="text"
+                    formControlName="themeMenuOptDetails"
+                    placeholder="Enter Details"
+                  />
+                  <p *ngIf="formErrors.themeMenuOptDetails">
+                    {{ formErrors.themeMenuOptDetails }}
+                  </p>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="ux-input input-error">
+                  <label>Description</label>
+                  <input
+                    type="text"
+                    formControlName="themeMenuOptDesc"
+                    placeholder="Enter Description"
+                  />
+                  <p *ngIf="formErrors.themeMenuOptDesc">
+                    {{ formErrors.themeMenuOptDesc }}
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-6">
+                <button class="ux-button" (click)="cancelClick()">
+                  Cancel
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  class="ux-button primary"
+                  (click)="onMenuOptionSave(themeMenuOptionsForm.value)"
+                >
+                  Save
+                </button>
+              </div>
+              <!--.col-xs-12-->
+            </div>
+          </form>
+        </div>
+
+        <div
+          *ngIf="selEditModel == 'menuOptionsEdit'"
+          class="tinymodal-content"
+        >
+          <div class="col-12 tinymodal-header">
+            <div>
+              <button type="button" class="close" (click)="closeActionModel()">
+                <span> <img src="assets/images/icons/cross.png" /></span>
+              </button>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12 mb-0">
+              <div class="datatable-box dt-scroll">
+                <div class="table-responsive">
+                  <table id="dt-sample" class="table display table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Menu Options</th>
+                        <th scope="col" class="notexport">Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr
+                        *ngFor="let theme of themeMenuOptionsArr; let i = index"
+                      >
+                        <td>{{ theme.details }}</td>
+                        <td>
+                          <label class="switch">
+                            <input
+                              type="checkbox"
+                              [checked]="theme.statusid == 3"
+                              (change)="onThemeMenuOptionStatusChange(theme)"
+                            />
+                            <span class="slider round"></span>
+                          </label>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+                <!--.table-responsivebox-->
+              </div>
+              <!--.datatable-box-->
+            </div>
+          </div>
+        </div>
+        <!--.tinymodal-content-->
+
+        <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+          <form [formGroup]="remarkForm">
+            <div class="row">
+              <div class="col-12 px-0 mt-2">
+                <div class="ux-input input-error">
+                  <textarea
+                    formControlName="remark"
+                    placeholder="Enter Remark"
+                  ></textarea>
+                  <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-6">
+                <button class="ux-button" (click)="closeActionMoel()">
+                  Cancel
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  class="ux-button primary"
+                  (click)="onThemeApplyWithRemark(remarkForm.value)"
+                >
+                  OK
+                </button>
+              </div>
+              <!--.col-xs-12-->
+            </div>
+          </form>
+        </div>
+        <!--.tinymodal-content-->
+      </div>
+      <!--.tinymodal-->
+    </div>
+    <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

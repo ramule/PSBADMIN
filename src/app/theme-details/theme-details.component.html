@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<div lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Theme</title>
+
+	</head>
+
+	<body>
+		<div class="main">
+			<!-- navigation menu container start -->
+			<app-navmenu></app-navmenu>
+			<div class="nav-overlay"></div>
+			<!--.nav-overlay-->
+			<!-- navigation menu container end -->
+			<div class="right-main-column">
+				<div class="right-col-container full-width">
+					<app-header></app-header>
+					<!-- ======== body page content start from here ======== -->
+					<div class="body-page-container">
+						<div class="vspacer10"></div>
+						<!--.vspacer10-->
+						<div class="device-page-titles d-none d-md-none d-lg-block">
+              <div class="component-title">
+                <h4>{{commonServiceCall.pageName}}</h4>
+              </div>
+							<div class="in-header d-none">
+								<div class="header-icons-rit">
+									<div class="header-actions">
+										<!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+									</div>
+									<!--.header-actions-->
+								</div>
+								<!--.header-icons-rit-->
+							</div> <!-- in-header -->
+						</div> <!-- device-page-titles -->
+						<!-- ========== body section start ========= -->
+
+						<div class="container">
+							<div class="row">
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Channel</label>
+										<select (change)="onChannelChange($event.target.value)">
+											<option value=''>Select Channel</option>
+											<option *ngFor="let product of this.productTypes; index as i" [value]='product.id' >{{product.shortName | titlecase }}</option>
+											<!-- <option value="4">Mobile</option>
+											<option value="3">Wallet</option>
+											<option value="5">Desktop</option> -->
+										</select>
+										<p *ngIf="channelError">Please select channel</p>
+									</div>
+								</div>
+							</div>
+
+							<div class="row mt-3" *ngIf="channelId != ''">
+								<div class="col-12 mb-0">
+									<div class="datatable-box">
+										<div class="table-responsive">
+											<table id="dt-sample" class="table display table-hover">
+												<thead>
+													<tr>
+														<th scope="col">Theme Name</th>
+														<th scope="col">Created On</th>
+														<th scope="col">Active/Inactive</th>
+														<th scope="col" class="notexport">Action</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr *ngFor="let item of themeList; let i=index">
+														<td>{{item.themeName}}</td>
+														<td>{{item.createdOn | date: 'yyyy/MM/dd'}}</td>
+														<td>
+															<label class="switch">
+																<input type="checkbox" [checked]="item.isChecked"
+																	[value]="item.status"
+																	(change)="changeStatus($event,item)">
+																<span class="slider round"></span>
+															</label>
+														</td>
+														<td>
+															<div class="ux-selection">
+																<img class="action-btn" src="assets/images/icons/eye.png"
+																	(click)="goToPage('view',item)">
+															</div>
+															<div class="ux-selection">
+																<img class="action-btn" src="assets/images/icons/edit.png"
+																	(click)="goToPage('edit',item)">
+															</div>
+															<!-- <div class="ux-selection">
+																<img src="assets/images/icons/delete.png"
+																	(click)="openPopup('delete',item.themeData,item.themeName)">
+															</div> -->
+														</td>
+													</tr>
+												</tbody>
+											</table>
+											<!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+										</div>
+										<!--.table-responsivebox-->
+									</div>
+									<!--.datatable-box-->
+									<div class="dt-extras mt-4" *ngIf="themeList.length > 0">
+											<div class="dt-exports">
+											  <em>Export to :<span class="chevron"></span></em>
+											  <button class="linkbutton exp-excel" (click)="commonMethod.downLoadFile('excel')">Excel <b>(.xlsx)</b></button>
+											  <button class="linkbutton exp-pdf" (click)="commonMethod.downLoadFile('pdf')">Pdf <b>(.pdf)</b></button>
+											   <!-- <button class="linkbutton exp-word" (click)="wordDownload()">word <b>(.docx)</b></button> -->
+											 <!-- <button class="linkbutton exp-xml">XML <b>(.xml)</b></button> -->
+											  <button class="linkbutton exp-csv" (click)="commonMethod.downLoadFile('csv')">csv <b>(.csv)</b></button>
+											</div>
+											<!--.dt-exports-->
+									 </div>
+								</div>
+							</div>
+
+
+
+
+							<!-- <div class="row" *ngIf="channelId != ''" >
+								<div class="col-12  mt-3">
+									<div>
+										<div>
+											<div>
+												<div class="table-responsive">
+													<table class="table">
+														<thead>
+															<tr>
+																<th scope="col" >Theme Name</th>
+																<th scope="col" >Created On</th>
+																<th scope="col" >Active/Inactive</th>
+																<th scope="col" >Action</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr *ngFor="let item of themeList; let i=index">
+																<td>{{item.themeName}}</td>
+																<td>{{item.createdOn | date: 'yyyy/MM/dd'}}</td>
+																<td>
+																	<label class="switch">
+																		<input type="checkbox" [checked]="item.isChecked" [value]="item.status" (change)="changeStatus($event,item)" >
+																		<span class="slider round"></span>
+																	</label>
+																</td>
+																<td >
+																	<div class="ux-selection">
+																		<img src="assets/images/icons/eye.png"
+																			(click)="goToPage('view',item)">
+																	</div>
+																	<div class="ux-selection">
+																		<img src="assets/images/icons/edit.png"
+																			(click)="goToPage('edit',item)">
+																	</div>
+																</td>
+															</tr>
+														</tbody>
+													</table>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div> -->
+							<!--.row-->
+
+						</div>
+						<!--.container-->
+
+					</div>
+					<!--.body-page-container-->
+					<!-- added new -->
+				</div>
+				<!--.right-col-container-->
+				<!-- added new -->
+			</div>
+			<!--.right-main-column-->
+			<!-- added new -->
+		</div>
+		<!--.main-->
+
+
+
+
+		<div class="vspacer20"></div>
+		<!--.vspacer20-->
+		<!-- ===========footer section start========= -->
+		<div class="footer-container sticky-actions">
+			<div class="footer-inactions">
+				<div class="container">
+					<div class="row">
+
+					</div>
+					<!--.row-->
+				</div>
+				<!--.container-->
+			</div> <!-- footer-inactions -->
+		</div>
+		<!--.footer-container-->
+		<div class="sticky-actions-spacer"></div>
+		<!-- ==============footer section end============ -->
+		<div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+			<div class="tinymodal-overlay"></div>
+			<!--.tinymodal-overlay-->
+			<div class="tinymodal">
+				<div class="tinymodal-content">
+					<div class="row">
+						<div class="col-12 tinymodal-header">
+							<div>
+								<button type="button" class="close" (click)="closeActionModel()">
+									<span> <img src="assets/images/icons/cross.png"></span>
+								</button>
+								<!--.tinymodal-info-->
+							</div>
+						</div>
+						<div class="col-12 px-0 mt-2" style="height: 450px;overflow: scroll;" *ngIf="cssType == 'view'">
+							<p>{{message}}</p>
+						</div>
+						<div class="col-12 px-0 mt-2" *ngIf="cssType == 'edit'">
+							<textarea style="width: 80%;">{{message}}</textarea>
+						</div>
+						<div class="col-12 px-0 mt-2" *ngIf="cssType == 'edit'">
+							<button class="ux-button primary" (click)="editTheme()">Submit</button>
+						</div>
+						<div class="col-12 px-0 mt-2" *ngIf="cssType == 'delete'">
+							<div class="tinymodal-info">
+								<h4>Do you want to delete this css ?</h4>
+							</div>
+						</div>
+						<div class="col-12 px-0 mt-2" *ngIf="cssType == 'delete'">
+							<div class="row">
+								<div class="col-6">
+									<button class="ux-button" (click)="deleteCss('no')">No</button>
+								</div>
+								<!--.col-xs-12-->
+								<div class="col-6">
+									<button class="ux-button primary" (click)="deleteCss('yes')">Yes</button>
+								</div>
+								<!--.col-xs-12-->
+							</div>
+						</div>
+					</div>
+				</div>
+				<!--.tinymodal-content-->
+			</div>
+			<!--.tinymodal-->
+		</div>
+
+
+		<script src="js/lib/jquery.min.js"></script>
+		<script src="js/lib/bootstrap.min.js"></script>
+		<script src="js/common.js"></script>
+
+
+	</body>

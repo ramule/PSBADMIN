@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Add State Master</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions"></div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <!-- load form -->
+                <form [formGroup]="impsSystemStatusEditForm">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Name</label>
+                        <input
+                          type="text"
+                          formControlName="name"
+                          readonly
+                          limit-to="40"
+                          placeholder="Enter Name"
+                        />
+                        <p *ngIf="formErrors.name">
+                          {{ formErrors.name }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>State</label>
+                        <input
+                          type="text"
+                          readonly
+                          formControlName="state"
+                          limit-to="40"
+                          placeholder="Enter State"
+                        />
+                        <p *ngIf="formErrors.state">
+                          {{ formErrors.state }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Group Name</label>
+                        <input
+                          type="text"
+                          readonly
+                          formControlName="groupName"
+                          limit-to="40"
+                          placeholder="Enter Group Name"
+                        />
+                        <p *ngIf="formErrors.groupName">
+                          {{ formErrors.groupName }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Detail</label>
+                        <input
+                          type="text"
+                          formControlName="detail"
+                          readonly
+                          limit-to="40"
+                          placeholder="Enter Detail"
+                        />
+                        <p *ngIf="formErrors.detail">
+                          {{ formErrors.detail }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Max Events</label>
+                        <input
+                          type="text"
+                          readonly
+                          formControlName="maxEvents"
+                          numbersOnly
+                          limit-to="40"
+                          placeholder="Enter Name"
+                        />
+                        <p *ngIf="formErrors.maxEvents">
+                          {{ formErrors.maxEvents }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Timeout State</label>
+                        <input
+                          type="text"
+                          readonly
+                          formControlName="timeoutState"
+                          numbersOnly
+                          limit-to="40"
+                          placeholder="Enter Timeout State"
+                        />
+                        <p *ngIf="formErrors.timeoutState">
+                          {{ formErrors.timeoutState }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Expired Status</label>
+                        <input
+                          type="text"
+                          readonly
+                          formControlName="expiredStatus"
+                          numbersOnly
+                          limit-to="40"
+                          placeholder="Enter Expired Status"
+                        />
+                        <p *ngIf="formErrors.expiredStatus">
+                          {{ formErrors.expiredStatus }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Email Enabled</label>
+                        <label class="switch">
+                          <input type="checkbox" [checked]="isEmailEnabledFlag" (change)="onEmailEnabledStatusChange($event)" />
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                  </div>
+                </form>
+                <!--.row-->
+                <div class="row mt-5">
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="cancel()">Cancel</button>
+                  </div>
+
+                  <div class="col-6 col-lg-2">
+                    <button class="ux-button primary" (click)="editSystemStatus()">
+                      Update
+                    </button>
+                  </div>
+                  <!--.col-xs-12-->
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+
+  </body>
+</html>

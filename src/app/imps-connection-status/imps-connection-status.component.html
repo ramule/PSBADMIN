@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>IMPS Transaction Log</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!-----.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <form [formGroup]="impsConnectionStatusForm">
+                  <div class="row">
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Search Connection Status</label>
+                        <select formControlName="searchBy" (change)="
+                              getSearchConnectionStatus(impsConnectionStatusForm.value)
+                            ">
+                          <option value="">Select Connection Status By</option>
+                          <option value="state">Connection State</option>
+                        </select>
+                        <p *ngIf="formErrors.searchBy">
+                          {{ formErrors.searchBy }}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="col-6" *ngIf="type == 'state'">
+                      <div class="ux-input input-error">
+                        <label>Connection State</label>
+                        <input type="text" limit-to="10" formControlName="state" placeholder="Enter Connection State" />
+                        <p *ngIf="formErrors.state">{{ formErrors.state }}</p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                  </div>
+                </form>
+
+                <div class="row mb-5 mt-3">
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="cancel()">Cancel</button>
+                  </div>
+                  <div class="col-6 col-lg-2">
+                    <button class="ux-button primary" (click)="onSubmitClicked()">
+                      Submit
+                    </button>
+                  </div>
+                  <!--.col-xs-12-->
+                </div>
+
+                <div class="vspacer20"></div>
+                <div *ngIf="impsTransLogArr.length > 0" class="row mt-3">
+                  <div class="col-12 mb-0">
+                    <div class="datatable-box">
+                      <div class="table-responsive">
+                        <table id="dt-sample" class="table display table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">Sr. No.</th>
+                              <th scope="col">State</th>
+                              <th scope="col">Group Name</th>
+                              <th scope="col">Name</th>
+                              <th scope="col">Detail</th>
+                              <th scope="col">Last Tick</th>
+                              <th scope="col">Expired Status</th>
+                              <th scope="col">Timeout State</th>
+                              <th scope="col">Expired</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              *ngFor="let item of impsTransLogArr; let i = index"
+                            >
+                              <td>{{ i + 1 }}</td>
+                              <td>
+                                {{
+                                  item.state == null || item.state == "" ? "-" : item.state
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.groupName == null || item.groupName == ""
+                                    ? "-"
+                                    : item.groupName
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.name == null || item.name == ""
+                                    ? "-"
+                                    : item.name
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.detail == null || item.detail == ""
+                                    ? "-"
+                                    : item.detail
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.lastTick == null ||
+                                  item.lastTick == ""
+                                    ? "-"
+                                    : item.lastTick | date: 'yyyy-MM-dd'
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.expired == null || item.expired == ""
+                                    ? "-"
+                                    : item.expired == 'N' ? 'No' : 'Yes'
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.timeoutState == null || item.timeoutState == ""
+                                    ? "-"
+                                    : item.timeoutState
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.enableEmail == null || item.enableEmail == ""
+                                    ? "-"
+                                    : item.enableEmail == 'N' ? 'No' : 'Yes'
+                                }}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!--.table-responsivebox-->
+                    </div>
+                    <!--.datatable-box-->
+
+                    <div class="dt-extras mt-4">
+                      <div class="dt-exports">
+                        <em>Export to :<span class="chevron"></span></em>
+                        <button
+                          class="linkbutton exp-excel"
+                          (click)="commonMethod.downLoadFile('excel')"
+                        >
+                          Excel <b>(.xlsx)</b>
+                        </button>
+                        <button
+                          class="linkbutton exp-pdf"
+                          (click)="commonMethod.downLoadFile('pdf')"
+                        >
+                          Pdf <b>(.pdf)</b>
+                        </button>
+                        <!-- <button class="linkbutton exp-word" (click)="wordDownload()">word <b>(.docx)</b></button> -->
+                        <!-- <button class="linkbutton exp-xml">XML <b>(.xml)</b></button> -->
+                        <button
+                          class="linkbutton exp-csv"
+                          (click)="commonMethod.downLoadFile('csv')"
+                        >
+                          csv <b>(.csv)</b>
+                        </button>
+                      </div>
+                      <!--.dt-exports-->
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

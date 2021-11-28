@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Language</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                  <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+
+            <div class="main-content">
+              <!-- load form -->
+              <form [formGroup]="configLanguageForm">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Language Key</label>
+                      <input
+                        type="text"
+                        formControlName="englishText"
+                        placeholder="Enter Language Key"
+                        limit-to="40"
+                      />
+                      <p *ngIf="formErrors.englishText">
+                        {{ formErrors.englishText }}
+                      </p>
+                      <p
+                        *ngIf="
+                          configLanguageForm.get('englishText').touched &&
+                          configLanguageForm.get('englishText').value != '' &&
+                          configLanguageForm.get('englishText').invalid
+                        "
+                      >
+                        * Invalid English Text
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="offset-lg-12 col-lg-12">
+                      <button class="ux-button primary" (click)="addCreds()">
+                        Add more
+                      </button>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div formArrayName="credentials">
+                    <div
+                    class="row"
+                    style="margin-top: 30px; width: 100%"
+                    *ngFor="
+                      let creds of configLanguageForm.get('credentials')['controls'];
+                      let i = index;
+                    "
+                  >
+                    <div class="col-lg-5" [formGroupName]="i">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Language</label>
+                        <select
+                          id="sl_Lang"
+                          formControlName="languageCode"
+                          (change)="selectLang($event, i)"
+                        >
+                          <option value="">Select Language</option>
+                          <option
+                            [value]="
+                              item.languagecode + '-' + item.languagecodedesc
+                            "
+                            [disabled]="item.active"
+                            *ngFor="let item of languageArray"
+                          >
+                            {{ item.languagecodedesc }}
+                          </option>
+                        </select>
+                        <p
+                          *ngIf="
+                            configLanguageForm.get('credentials').value[i]
+                              .languageCode.touched
+                          "
+                        >
+                          *This field is required
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+
+                    <!-- <div class="col-lg-3" [formGroupName]="i">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Channel Name</label>
+                      <select
+                        id="sl_Lang"
+                        formControlName="channelName"
+                        (change)="selectLang($event, i)"
+                      >
+                        <option value="">Select Channel Name</option>
+                        <option
+                          [value]="item.id"
+                          *ngFor="let item of this.productTypes"
+                        >
+                          {{ item.shortName | titlecase }}
+                        </option>
+                      </select>
+                      <p
+                        *ngIf="
+                          configLanguageForm.get('credentials').value[i]
+                            .channelName.touched
+                        "
+                      >
+                        *This field is required
+                      </p>
+                    </div>
+                  </div> -->
+                    <!--.col-12-->
+
+                    <div class="col-lg-6" [formGroupName]="i">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Language Text</label>
+                        <input
+                          type="text"
+                          formControlName="languageText"
+                          placeholder="Enter Language Text"
+                        />
+                        <p
+                          *ngIf="
+                            configLanguageForm.get('credentials').value[i]
+                              .languageText.touched
+                          "
+                        >
+                          *This field is required
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-1" *ngIf="i > 0">
+                      <!-- <img
+                      class="add-icon"
+                      (click)="removeElement(i)"
+                      src="assets/images/icons/x-mark.png"
+                      style="height: 40px; margin-top: 10px"
+                    /> -->
+                      <i
+                        style="
+                          color: #007c3d;
+                          margin-top: 20px;
+                          font-size: 35px;
+                        "
+                        class="fa fa-times-circle-o"
+                        (click)="removeElement(i)"
+                        aria-hidden="true"
+                      ></i>
+                    </div>
+                  </div>
+                  <!--.col-12-->
+                  </div>
+                </div>
+              </form>
+              <!--.row-->
+              <div class="row mt-5">
+                <div class="col-6 offset-lg-8 col-lg-2">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+                <div
+                  class="col-6 col-lg-2"
+                  *ngIf="this.commonData.roleType != this.commonData.makerRole"
+                >
+                  <button
+                    class="ux-button primary"
+                    (click)="addMaster()"
+                    [disabled]="configLanguageForm.get('credentials').invalid"
+                  >
+                    Save
+                  </button>
+                </div>
+                <div
+                  *ngIf="this.commonData.roleType == this.commonData.makerRole"
+                  class="col-6 col-lg-2"
+                >
+                  <button
+                    class="ux-button primary"
+                    (click)="
+                      openActionModel('remarkField', configLanguageForm.value)
+                    "
+                    [disabled]="configLanguageForm.get('credentials').invalid"
+                  >
+                    Save
+                  </button>
+                </div>
+                <!--.col-xs-12-->
+              </div>
+              <!--.row-->
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+      <div class="tinymodal-overlay"></div>
+      <!--.tinymodal-overlay-->
+      <div class="tinymodal">
+        <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+          <form [formGroup]="remarkForm">
+            <div class="row">
+              <div class="col-12 px-0 mt-2">
+                <div class="ux-input input-error">
+                  <textarea
+                    formControlName="remark"
+                    placeholder="Enter Remark"
+                  ></textarea>
+                  <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-6">
+                <button class="ux-button" (click)="closeActionMoel()">
+                  Cancel
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  class="ux-button primary"
+                  (click)="addMasterLocationWithRemark(remarkForm.value)"
+                >
+                  OK
+                </button>
+              </div>
+              <!--.col-xs-12-->
+            </div>
+          </form>
+        </div>
+        <!--.tinymodal-content-->
+      </div>
+      <!--.tinymodal-->
+    </div>
+    <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

@@ -1,0 +1,141 @@
+<nav class="global-nav">
+  <!-- <div class="user-profile">
+      <div class="in-profile">
+        <a href="javascript:;">
+          <span class="round-circle">
+            <img
+              *ngIf="
+                commonServiceCall.thumbnailstring == null ||
+                commonServiceCall.thumbnailstring == ''
+              "
+              src="assets/images/user_icon.png"
+            />
+            <img
+              *ngIf="
+                commonServiceCall.thumbnailstring != null ||
+                commonServiceCall.thumbnailstring != ''
+              "
+              [src]="
+                'data:image/jpg;base64,' + commonServiceCall.thumbnailstring
+              "
+            />
+            <div class="edit-prof">
+              <a href="javascript:;">
+                <i class="fa fa-pencil fa-lg">
+                  <input
+                    style="
+                      position: absolute;
+                      opacity: 0;
+                      margin: auto;
+                      right: 0;
+                      left: 0;
+                      cursor: pointer;
+                    "
+                    (click)="addProfileImage($event)"
+                  />
+                </i>
+              </a>
+            </div>
+          </span>
+          <span>{{ commonDataShareService.user_Name }}</span>
+          <small>{{ commonDataShareService.roleName }}</small>
+          <div style="display: none" id="sidemenu_loader">
+            <div class="load-overlay"></div>
+            <div class="loader"></div>
+          </div>
+        </a>
+      </div>
+    </div> -->
+  <!--.user-profile-->
+  <div class="in-nav">
+    <div class="nav-content">
+      <div class="nav-list">
+        <ul class="lst-navigation">
+          <li *ngFor="let item of menuItems; let i = index" class="sub-menu">
+            <a
+              class=""
+              (click)="toggleSection(i)"
+              [ngClass]="{ 'section-active': item.open, section: !item.open }"
+            >
+              <!-- <img src="assets/{{item.menuImage}}" class="mCS_img_loaded"> -->
+              <i
+                class="{{ item.menuImage + ' fa-fw' }}"
+                
+                aria-hidden="true"
+              ></i>
+              <em class="em-text">{{ item.menuName }}</em>
+
+              <i class="fa fa-chevron-right nav-arrow" *ngIf="!item.open" aria-hidden="true"></i>
+              <i class="fa fa-chevron-down" *ngIf="item.open" style="float:right;color:white; margin-top: 5px;"  aria-hidden="true"></i>
+
+              <!-- <i *ngIf="!item.open" class="{​​​​​​​​{​​​​​​​​item.menuImage + ' fa-fw'}​​​​​​​​}​​​​​​​​" style="color:white;width:25px" aria-hidden="true"></i>
+              <i *ngIf="item.open" class="{​​​​​​​​{​​​​​​​​subItem.menuLogo + ' fa-fw'}​​​​​​​​}" style="color:white;width:25px" aria-hidden="true"></i> -->
+
+            </a>
+            <ul class="lst-subnavigation" *ngIf="item.subMenuList && item.open">
+              <li *ngFor="let subItem of item.subMenuList">
+                <!-- [href]="subItem.menuLink" -->
+                <a
+                  class="subMenuCls"
+                  (click)="gotoPage(subItem)"
+                  [ngStyle]="
+                    subItem.menuName == 'selectedPage'
+                      ? { 'background-color': '#00b4f1' }
+                      : { 'background-color': 'transparent' }
+                  "
+                >
+                  <!-- <img src="assets/{{subItem.menuLogo}}" class="mCS_img_loaded" style="width: 15px;height: 15px;"> -->
+                  <i
+                    class="{{ subItem.menuLogo + ' fa-fw' }}"
+                    
+                    aria-hidden="true"
+                  ></i>
+                  <em style="padding: 0 10px 1px" class="sidenav-name">{{
+                    subItem.menuName
+                  }}</em>
+                </a>
+              </li>
+            </ul>
+          </li>
+          <!--<li routerLink="/batchReport">
+            <a href="javascript:;">
+              <em>Batch Report</em>
+            </a>-->
+
+          <!-- <li>
+            <div class="log-out">
+              <a href="javascript:;" (click)="logout()">
+                <img
+                  style="height: 25px; width: 25px"
+                  src="assets/images/icons/logout1.png"
+                />
+                <em>Logout</em>
+              </a>
+              <span class="version">Version 2.0</span>
+            </div>
+
+          </li> -->
+        </ul>
+        <!--.lst-navigation-->
+      </div>
+      <!--.nav-list-->
+    </div>
+    <!--.nav-content-->
+    <div class="nav-footer">
+      <h1>Footer</h1>
+    </div>
+    <!--.nav-footer-->
+  </div>
+  <!--.in-nav-->
+  <a href="javascript:;" class="btn-closenav">
+    <img src="assets/images/icons/cross-w.png" />
+  </a>
+</nav>
+<!--.global-nav-->
+<div class="nav-overlay"></div>
+<!--.nav-overlay-->
+<!-- navigation menu container end -->
+<script></script>
+<script>
+  createFancyScrollbarForNav();
+</script>

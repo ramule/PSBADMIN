@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Edit Notification</title>
+
+</head>
+
+<body>
+
+	<div class="main">
+		<app-navmenu></app-navmenu>
+		<!--.global-nav-->
+		<div class="nav-overlay"></div>
+		<!--.nav-overlay-->
+		<!-- navigation menu container end -->
+
+		<div class="right-main-column">
+			<div class="right-col-container full-width">
+				<!-- ======== header section start ========== -->
+				<app-header></app-header>
+				<!-- ======== header section end ========== -->
+				<!-- ======== body page content start from here ======== -->
+				<div class="body-page-container">
+					<!-- <div class="vspacer10"></div> -->
+					<!--.vspacer10-->
+					<div class="device-page-titles d-none d-md-none d-lg-block">
+            <!-- <div class="component-title">
+              <h4>{{commonServiceCall.pageName}}</h4>
+            </div> -->
+						<div class="in-header d-none">
+							<div class="header-icons-rit">
+								<div class="header-actions">
+									<!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+									<!-- <button class="ux-button primary" (click)="showHideForm()">+ Add</button> -->
+								</div>
+								<!--.header-actions-->
+							</div>
+							<!--.header-icons-rit-->
+						</div> <!-- in-header -->
+					</div> <!-- device-page-titles -->
+					<div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+
+            <div class="main-content">
+              <!-- load form -->
+						<form [formGroup]="notificationEditForm">
+							<div class="row">
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label><span class="mandatory">* </span>Channel Name</label>
+										<select id="sl_Product" formControlName="productType">
+                      <option value="">Select Channel Name</option>
+											<option *ngFor="let product of productTypes; index as i" [value]='product.id' >{{product.shortName  | titlecase}}</option>
+										</select>
+										<p *ngIf="formErrors.productType">{{ formErrors.productType }}</p>
+									</div>
+								</div>
+								<!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label><span class="mandatory">* </span>Notification Id</label>
+										<select id="sl_Product" formControlName="notificationId">
+                      <option value="">Select Notification Id</option>
+											<option *ngFor="let notification of notificationTypes; index as i" [value]='notification.id' >{{notification.shortName | titlecase}}</option>
+										</select>
+										<p *ngIf="formErrors.productType">{{ formErrors.notificationId }}</p>
+									</div>
+								</div>
+								<!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label><span class="mandatory">* </span>Short Name</label>
+										<input type="text" id="txtSht" formControlName="shortname"
+											placeholder="Enter Short Name">
+										<p *ngIf="formErrors.shortname">{{ formErrors.shortname }}</p>
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Contents</label>
+											<textarea rows="1" placeholder="Enter Contents" formControlName="contents"></textarea>
+										<!-- <p *ngIf="formErrors.contents">{{ formErrors.contents }}</p> -->
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Target Title 1</label>
+										<input type="text" id="txtTT1" formControlName="targettitle1"
+											placeholder="Enter Target Tittle 1">
+										<!-- <p *ngIf="formErrors.targettitle1">{{ formErrors.shortname }}</p> -->
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Target Action 1</label>
+										<input type="text" id="txtTA1" formControlName="targetaction1"
+											placeholder="Enter Target Action 1">
+										<!-- <p *ngIf="formErrors.shortname">{{ formErrors.shortname }}</p> -->
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Target Title 2</label>
+										<input type="text" id="txtTT2" formControlName="targettitle2"
+											placeholder="Enter Target Tittle 2">
+										<!-- <p *ngIf="formErrors.targettitle1">{{ formErrors.shortname }}</p> -->
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Target Action 2</label>
+										<input type="text" id="txtTA2" formControlName="targetaction2"
+											placeholder="Enter Target Action 2">
+										<!-- <p *ngIf="formErrors.shortname">{{ formErrors.shortname }}</p> -->
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Target Title 3</label>
+										<input type="text" id="txtTT3" formControlName="targettitle3"
+											placeholder="Enter Target Tittle 3">
+										<!-- <p *ngIf="formErrors.targettitle1">{{ formErrors.shortname }}</p> -->
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Target Action 3</label>
+										<input type="text" id="txtTA3" formControlName="targetaction3"
+											placeholder="Enter Target Action 3">
+										<!-- <p *ngIf="formErrors.shortname">{{ formErrors.shortname }}</p> -->
+									</div>
+									<!--.ux-input-->
+								</div>
+                <!--.col-12-->
+                <div class="col-6">
+									<div class="ux-input input-error">
+										<label>Target Title 4 </label>
+										<input type="text" id="txtTT4" formControlName="targettitle4"
+											placeholder="Enter Target Tittle 4">
+										<!-- <p *ngIf="formErrors.targettitle1">{{ formErrors.shortname }}</p> -->
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Target Action 4</label>
+										<input type="text" id="txtTA4" formControlName="targetaction4"
+											placeholder="Enter Target Action 4">
+										<!-- <p *ngIf="formErrors.shortname">{{ formErrors.shortname }}</p> -->
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label><span class="mandatory">* </span>Language</label>
+										<select id="sl_lang" formControlName="langCode">
+                      <option value="">Select Language</option>
+                      <option
+                          [value]="
+                            item.languagecode
+                          "
+                          [disabled]="item.active"
+                          *ngFor="let item of languageArray"
+                        >
+                          {{ item.languagecodedesc }}
+                        </option>
+                    </select>
+										<p *ngIf="formErrors.langCode">{{ formErrors.langCode }}</p>
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-6-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label><span class="mandatory">* </span>Status</label>
+										<select id="sl_Status" formControlName="status">
+                      <option value="">Select Status</option>
+											<option *ngFor="let status of filterStatus(); index as i" [value]='status.id' >{{status.shortName  | titlecase}}</option>
+										</select>
+										<p *ngIf="formErrors.status">{{ formErrors.status }}</p>
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-12-->
+
+
+							</div>
+						</form>
+						<!--.row-->
+						<div class="row" >
+              <div class="col-6 col-lg-2 offset-lg-8">
+								<button class="ux-button" (click)="gotoNotification()">Cancel</button>
+							</div>
+							<div class="col-6 col-lg-2 ">
+								<button class="ux-button primary" (click)="update()">Update</button>
+							</div>
+							<!--.col-xs-12-->
+						</div>
+						<!--.row-->
+              </div>
+
+					</div>
+					<!--.container-->
+				</div>
+				<!--.body-page-container-->
+				<!-- added new -->
+			</div>
+			<!--.right-col-container-->
+			<!-- added new -->
+		</div>
+		<!--.right-main-column-->
+		<!-- added new -->
+	</div>
+	<!--.main-->
+	<!-- ===========footer section start========= -->
+	<div class="sticky-actions-spacer"></div>
+	<!-- ==============footer section end============ -->
+
+	<script src="js/lib/jquery.min.js"></script>
+	<script src="js/lib/bootstrap.min.js"></script>
+	<script src="js/common.js"></script>
+
+
+</body>

@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Customers Details</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <app-header></app-header>
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+            <div class="main-content">
+              <div class="row">
+                <div class="col-sm-6 col-md-6 col-lg-6">
+                  <form [formGroup]="bulkOfferForm">
+                    <div class="ux-input">
+                      <div class="file-input">
+                        <input type="file" style="width: 100%; height: 100%; z-index: 100" name="bulkCustomerFile"
+                          (change)="addExcelFile($event)" />
+                        <label for="file-sample">
+                          <h4>Upload Excel File</h4>
+                          <p>Upload Files To See Records</p>
+                          <img *ngIf="showSuccess" style="height:20px" src='assets/images/icons/ic-tick.png'>
+                        </label>
+                      </div>
+                      <p style="text-align: center">
+                        Click here to
+                        <a id="myAnchor" href="assets/sampleDataCustBulkReg.xlsx" download="sampleData.xlsx">download </a>sample file
+                      </p>
+                    </div>
+                    <div class="ux-input input-error">
+                      <p *ngIf="isUploadExcel">* Please upload excel file</p>
+                      <p *ngIf="isValidFileFormat">
+                        * Please upload valid excel file
+                      </p>
+                    </div>
+                  </form>
+                </div>
+                <div class="col-6 offset-lg-4 offset-6 col-lg-2" style="margin-top: 20px">
+                  <button class="ux-button primary" (click)="upload()">
+                    Process
+                  </button>
+                </div>
+              </div>
+
+              <!-- <div class="sticky-actions-spacer"></div> -->
+              <div class="row mt-3" *ngIf="customerDetails.length > 0">
+                <div class="col-12 mb-0">
+                  <div class="datatable-box">
+                    <div class="table-responsive">
+                      <table id="dt-sample" class="table display table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">
+                              Select All
+                              <div class="ux-selection" (click)="select('approve')">
+                                <label>
+                                  <input type="checkbox" name="radioboxdemo" id="approveCheckBox"
+                                    style="margin-top: -5px" />
+                                </label>
+                              </div>
+                            </th>
+                            <th scope="col">Sr. No.</th>
+                            <th scope="col">CIF</th>
+                            <th scope="col">Customer Name</th>
+                            <th scope="col">User Name</th>
+                            <th scope="col">Email Id</th>
+                            <th scope="col">Mobile Number</th>
+                            <th scope="col">DOB</th>
+                            <!-- <th scope="col"> Password
+                                                          </th> -->
+                            <th scope="col">App Id</th>
+                            <th scope="col">
+                              Internet Banking Registration Status
+                            </th>
+                            <th scope="col">Mobile Registration Status</th>
+                            <th scope="col">Is Mobile Enabled</th>
+                            <th scope="col">Is Wed Enabled</th>
+                            <th scope="col">Is MPIN Enabled</th>
+                            <th scope="col">Is TPIN Locked</th>
+                            <th scope="col">Is Biometric Enabled</th>
+                            <th scope="col">MPIN</th>
+                            <th scope="col">Salutation</th>
+                            <th scope="col">Prefered Language</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of customerDetails; let i = index">
+                            <td>
+                              <div class="ux-selection">
+                                <label>
+                                  <input type="checkbox" name="radioboxdemo" [(ngModel)]="item.isChecked"
+                                    class="approveall" (click)="selectsingle(item)" />
+                                </label>
+                              </div>
+                            </td>
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                              {{
+                                  item.cif == null || item.cif == ""
+                                    ? "-"
+                                    : item.cif
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.customername == null ||
+                                  item.customername == ""
+                                    ? "-"
+                                    : item.customername
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.username == null || item.username == ""
+                                    ? "-"
+                                    : item.username
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.email == null || item.email == ""
+                                    ? "-"
+                                    : item.email
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.mobile == null || item.mobile == ""
+                                    ? "-"
+                                    : item.mobile
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.dob == null || item.dob == ""
+                                    ? "-"
+                                    : item.dob
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.appid == null || item.appid == ""
+                                    ? "-"
+                                    : item.appid
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.IBREGSTATUS == null ||
+                                  item.IBREGSTATUS == ""
+                                    ? "-"
+                                    : item.IBREGSTATUS
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.MOBREGSTATUS == null ||
+                                  item.MOBREGSTATUS == ""
+                                    ? "-"
+                                    : item.MOBREGSTATUS
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.ismobileenabled == null ||
+                                  item.ismobileenabled == ""
+                                    ? "-"
+                                    : item.ismobileenabled
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.ismpinenabled == null ||
+                                  item.ismpinenabled == ""
+                                    ? "-"
+                                    : item.ismpinenabled
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.istpinlocked == null ||
+                                  item.istpinlocked == ""
+                                    ? "-"
+                                    : item.istpinlocked
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.isbiometricenabled == null ||
+                                  item.isbiometricenabled == ""
+                                    ? "-"
+                                    : item.isbiometricenabled
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.iswebenabled == null ||
+                                  item.iswebenabled == ""
+                                    ? "-"
+                                    : item.iswebenabled
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.mpin == null || item.mpin == ""
+                                    ? "-"
+                                    : item.mpin
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.salutation == null || item.salutation == ""
+                                    ? "-"
+                                    : item.salutation
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.preferedlanguage == null ||
+                                  item.preferedlanguage == ""
+                                    ? "-"
+                                    : item.preferedlanguage
+                                }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                    </div>
+                    <!--.table-responsivebox-->
+                  </div>
+                  <!--.datatable-box-->
+                </div>
+              </div>
+              <div class="row mt-5" *ngIf="showButton && customerDetails.length>0">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancelClick()" style="float: left">
+                    Cancel
+                  </button>
+                </div>
+                <div *ngIf="this.commonDataService.roleType != this.commonDataService.makerRole" class="col-6 col-lg-2">
+                  <button class="ux-button primary" type="submit" (click)="bulkCustomerUpload()" style="float: right">
+                    Submit
+                  </button>
+                </div>
+                <div *ngIf="this.commonDataService.roleType == this.commonDataService.makerRole" class="col-6 col-lg-2">
+                  <button class="ux-button primary" type="submit" (click)="openActionModel('remarkField')"
+                    style="float: right">
+                    Submit
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+
+      <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+        <form [formGroup]="remarkForm">
+          <div class="row">
+            <div class="col-12 px-0 mt-2">
+              <div class="ux-input input-error">
+                <textarea formControlName="remark" placeholder="Enter Remark"></textarea>
+                <p *ngIf="formBulkErrors.remark">{{ formBulkErrors.remark }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-6">
+              <button class="ux-button" (click)="closeActionMoel()">Cancel</button>
+            </div>
+            <div class="col-6">
+              <button class="ux-button primary" (click)="bulkCustomerUploadWithRemark(remarkForm.value)">OK</button>
+            </div>
+            <!--.col-xs-12-->
+          </div>
+        </form>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+  <!--.footer-container-->
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>

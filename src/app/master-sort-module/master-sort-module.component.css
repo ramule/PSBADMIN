@@ -1,0 +1,118 @@
+
+ :root {
+    --item-bg: #e9e9e9;
+    --item-bg-hover: #f9f9f9;
+    --item-border: #ccc;
+    --placeholder-border:#c1780e;
+    --placeholder-bg: #ffe8af;
+    --ontrack-green: #b3c022;
+    --ontrack-green-dark: #616900;
+    --draggable-icon: url(../../assets/images/draggable.gif);
+    --body-padding: 40px;
+  }
+  
+  /*************/
+  /* Accordion */
+  /*************/
+  
+  #accordion {
+    width: 50%;
+    float: left;
+   
+  }
+  
+  #accordion > div > div {
+    padding: 0;
+    background-color: #ccc;
+  }
+  
+  #accordion > div > h3 {
+    margin: 5px 0 0 0;
+    background-color: #E1EBE2;
+  }
+  
+  #accordion > div > h3[aria-selected=true] {
+    color: #fff !important;
+    border: 1px solid #007C3D;
+    background: #007C3D;
+    transition: all 0.15s ease;
+  }
+
+  h3:hover{
+    color: #fff !important;
+    border: 1px solid #007C3D;
+    background: #007C3D;
+    transition: all 0.15s ease;
+  }
+  
+  #accordion > div > h3[aria-selected=false] {
+    color: #454545 !important;
+    transition: all 0.15s ease;
+  }
+  
+  .ui-accordion-header-icon .ui-icon .ui-icon-triangle-1-e
+  {
+    display: none !important;
+  }
+
+  #accordion > div > h3 i{
+    margin-right: 10px;
+  }
+
+  
+  /*********/
+  /* Items */
+  /*********/
+  
+  ul.sortable { 
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+    width: auto;
+    overflow-y: hidden;
+  }
+  
+  ul.sortable li {
+    background-color: rgb(184,183,176);
+    padding: 10px 10px 10px 15px; 
+    font-size: 1rem;
+    transition: background-color 0.15s ease;
+  }
+  
+  ul.sortable li:hover {
+    background-color: #f9f9f9;
+    transition: background-color 0.15s ease;
+  }
+  
+  ul.sortable li:not(:last-child) {
+    margin: 0 0 1px 0; 
+  }
+  
+  .draggable {
+    background-image: url(../../assets/images/draggable.gif);
+    display: block;
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin: 1px 5px 0 0;
+    cursor: move;
+  }
+  
+  .selected {
+    border: 1px solid #ccc;
+    /* box-shadow: 0px 0px 5px 2px #00000033; */
+  }
+  
+  .ui-sortable-placeholder {
+    border: 2px dashed #c1780e;
+    background-color: #ffe8af !important;
+    height: 16px;
+  }
+  
+  .ui-widget-content {
+    border: 1px solid #ccc !important;
+  }
+
+  .uiparent{
+  height:auto !important
+  }

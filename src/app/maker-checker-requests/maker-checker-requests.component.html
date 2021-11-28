@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Maker Checker Requests</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!-----.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+              <h4>{{ commonServiceCall.pageName }}</h4>
+            </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <div class="row">
+                  <!-- <div
+                    class="col-6 offset-lg-10 offset-6 col-lg-2"
+                    *ngIf="priviledgeDataArr.createChecked"
+                  >
+                    <button
+                      class="ux-button primary"
+                      (click)="gotoAddCalulator()"
+                    >
+                      + Add
+                    </button>
+                  </div> -->
+                </div>
+                <div class="vspacer20"></div>
+                <div class="row mt-3">
+                  <div class="col-12 mb-0">
+                    <div class="datatable-box">
+                      <div class="table-responsive">
+                        <table id="dt-sample" class="table display table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">Sr. No.</th>
+                              <th scope="col">Activity Name</th>
+                              <th scope="col">Created On</th>
+                              <th scope="col">Updated On</th>
+                              <th scope="col">Approval Status</th>
+                              <th scope="col" class="notexport">Action</th>
+                              <th scope="col">View</th>
+                              <th scope="col">
+                                Approve All
+                                <div class="ux-selection">
+                                  <label>
+                                    <input
+                                      type="checkbox"
+                                      name="radioboxdemo"
+                                      id="approveCheckBox"
+                                      style="margin-top: -5px"
+                                      (click)="select('approve')"
+                                    />
+                                  </label>
+                                </div>
+                              </th>
+                              <th scope="col">
+                                Reject All
+                                <div class="ux-selection">
+                                  <label>
+                                    <input
+                                      type="checkbox"
+                                      name="radioboxdemo"
+                                      id="rejectCheckBox"
+                                      style="margin-top: -5px"
+                                      (click)="select('reject')"
+                                    />
+                                  </label>
+                                </div>
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              *ngFor="
+                                let item of makercheckerRequests;
+                                let i = index
+                              "
+                            >
+                              <td>{{ i + 1 }}</td>
+                              <td>
+                                {{
+                                  item.activityName == null ||
+                                  item.activityName == ""
+                                    ? "-"
+                                    : item.activityName
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.createdOn == null || item.createdOn == ""
+                                    ? "-"
+                                    : (item.createdOn
+                                      | date: "yyyy-MM-dd hh:mm:ss a")
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.updatedOn == null || item.updatedOn == ""
+                                    ? "-"
+                                    : (item.updatedOn
+                                      | date: "yyyy-MM-dd hh:mm:ss a")
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.statusName == null ||
+                                  item.statusName == ""
+                                    ? "-"
+                                    : item.statusName
+                                }}
+                              </td>
+
+                              <td>
+                                <div class="ux-selection">
+                                  <!-- <img
+                                    class="action-btn"
+                                    src="assets/images/icons/approve.png"
+
+                                  /> -->
+                                  <div class="correct-icon">
+                                    <i class="fa fa-check-circle-o" aria-hidden="true" (click)="onApproveClicked(item)"></i>
+                                  </div>
+                                  <div class="cross-icon">
+                                    <i class="fa fa-times-circle-o" aria-hidden="true" (click)="onRejectClicked(item)"></i>
+                                  </div>
+
+                                  <!-- <img
+                                    class="action-btn"
+                                    src="assets/images/icons/reject.png"
+                                    style="width: 35px; margin-left: -1px"
+                                    (click)="onRejectClicked(item)"
+                                  /> -->
+                                </div>
+                              </td>
+                              <td>
+                                <div class="ux-selection">
+                                  <img
+                                    class="action-btn"
+                                    src="assets/images/icons/eye.png"
+                                    (click)="showContentData(item)"
+                                  />
+                                </div>
+                              </td>
+                              <td>
+                                <div class="ux-selection">
+                                  <label>
+                                    <input
+                                      *ngIf="
+                                        item.statusName !=
+                                        'ADMIN APPROVER PENDING'
+                                      "
+                                      type="checkbox"
+                                      name="radioboxdemo"
+                                      [(ngModel)]="item.isApproveChecked"
+                                      class="approveall"
+                                      (click)="selectsingle('approve', item)"
+                                    />
+                                    <p
+                                      style="margin-left: -25px"
+                                      *ngIf="
+                                        item.statusName ==
+                                        'ADMIN APPROVER PENDING'
+                                      "
+                                    >
+                                      N/A
+                                    </p>
+                                  </label>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="ux-selection">
+                                  <label>
+                                    <input
+                                      *ngIf="
+                                        item.statusName !=
+                                        'ADMIN APPROVER PENDING'
+                                      "
+                                      type="checkbox"
+                                      name="radioboxdemo"
+                                      [(ngModel)]="item.isRejectChecked"
+                                      class="rejectall"
+                                      (click)="selectsingle('reject', item)"
+                                    />
+                                    <p
+                                      style="margin-left: -25px"
+                                      *ngIf="
+                                        item.statusName ==
+                                        'ADMIN APPROVER PENDING'
+                                      "
+                                    >
+                                      N/A
+                                    </p>
+                                  </label>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!--.table-responsivebox-->
+                    </div>
+                    <!--.datatable-box-->
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <!-- <div class="col-6 col-lg-2">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                      Launch demo modal
+                    </button>
+                  </div> -->
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button
+                      class="ux-button"
+                      (click)="cancelClick()"
+                      style="float: left"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                  <div class="col-6 col-lg-2">
+                    <button
+                      class="ux-button primary"
+                      type="submit"
+                      disabled
+                      (click)="getdata()"
+                      style="float: right"
+                    >
+                      {{ actionButton }}
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+
+    <div class="tiny-modal tm-rounded tiny-modal1" id="tm-favouriteconfirm">
+      <div class="tinymodal-overlay"></div>
+      <!--.tinymodal-overlay-->
+      <div class="tinymodal tinymodal-1">
+        <div *ngIf="selModel === 'viewdata'" class="tinymodal-content">
+          <div class="row">
+            <div class="col-12 tinymodal-header mb-2">
+              <div>
+                <button
+                  type="button"
+                  class="close"
+                  (click)="closeActionModel()"
+                >
+                  <span> <img src="assets/images/icons/cross.png" /></span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!-- <div class="col-12 px-0 mt-2" id="appendData" style="overflow-y: scroll;">
+          </div> -->
+            <div class="datatable-box">
+              <div class="table-responsive">
+                <table
+                  id="dt-sample"
+                  class="table display table-hover"
+
+                >
+                  <thead>
+                    <tr>
+                      <th
+                        scope="col"
+                        *ngFor="let item of coldynamic; let i = index"
+                      >
+                        {{ item | titlecase }}
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let item of finalDataDynamic; let i = index">
+                      <td
+                        *ngFor="
+                          let itemdata of finalDataDynamic[i];
+                          let j = index
+                        "
+                      >
+                        <p *ngIf="!itemdata.imgactive">{{ itemdata.data }}</p>
+                        <img
+                          [src]="itemdata.data"
+                          *ngIf="itemdata.imgactive"
+                          height="50px"
+                          weight="50px"
+                        />
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+              <!--.table-responsivebox-->
+            </div>
+          </div>
+        </div>
+        <!--.tinymodal-content-->
+      </div>
+      <!--.tinymodal-->
+    </div>
+
+    <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm1">
+      <div class="tinymodal-overlay"></div>
+      <!--.tinymodal-overlay-->
+      <div class="tinymodal">
+        <div
+          *ngIf="
+            selModel === 'approveRequest' ||
+            'rejectRequest' ||
+            'approveall' ||
+            'rejectall'
+          "
+          class="tinymodal-content"
+        >
+          <form [formGroup]="remarkForm" id="remark">
+            <div class="row">
+              <div class="col-12 px-0 mt-2">
+                <div class="ux-input input-error">
+                  <textarea
+                    formControlName="remark"
+                    placeholder="Enter Remark"
+                  ></textarea>
+                  <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-6">
+                <button class="ux-button" (click)="closeActionModel1()">
+                  Cancel
+                </button>
+              </div>
+              <div class="col-6" *ngIf="singlerequestremark">
+                <button
+                  class="ux-button primary"
+                  (click)="
+                    this.selModel == 'approveRequest'
+                      ? approveRequest(remarkForm.value)
+                      : rejectRequest(remarkForm.value)
+                  "
+                >
+                  OK
+                </button>
+              </div>
+              <div class="col-6" *ngIf="allrequestremark">
+                <button
+                  class="ux-button primary"
+                  (click)="
+                    this.selModel == 'approveall'
+                      ? approveall(remarkForm.value)
+                      : rejectall(remarkForm.value)
+                  "
+                >
+                  OK
+                </button>
+              </div>
+              <!--.col-xs-12-->
+            </div>
+          </form>
+        </div>
+
+        <!--.tinymodal-content-->
+      </div>
+      <!--.tinymodal-->
+    </div>
+    <!--.footer-container-->
+    <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

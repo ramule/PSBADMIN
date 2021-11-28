@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>IMPS Transaction Log</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!-----.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <div class="vspacer10"></div>
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div>
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container">
+              <form [formGroup]="upiTransForm">
+                  <div class="row">
+                        <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Language</label>
+                        <select formControlName="channel">
+                          <option value="">Select Channel</option>
+                          <option value="en">UPI</option>
+                      <option value="hn">IMPS</option>
+                        </select>
+                        <p *ngIf="formErrors.channel">
+                          {{ formErrors.channel }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                  </div>
+                <div class="row">
+                  <div class="col-6">
+                    <div class="ux-input date input-error">
+                      <label>From Date</label>
+                      <input
+                        type="date"
+                        class="pr-0"
+                        [max]="todayDate"
+                        formControlName="fromDate"
+                        placeholder="Enter From date"
+                      />
+                      <p *ngIf="formErrors.fromDate">
+                        {{ formErrors.fromDate }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-6-->
+                  <div class="col-6">
+                    <div class="ux-input date input-error">
+                      <label>To Date</label>
+                      <input
+                        type="date"
+                        class="pr-0"
+                        [max]="todayDate"
+                        formControlName="toDate"
+                        placeholder="Enter To date"
+                      />
+                      <p *ngIf="formErrors.toDate">{{ formErrors.toDate }}</p>
+                      <p *ngIf="toDateValid">{{ isToDateValidError }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-6-->
+                  <div class="col-6">
+                        <div class="ux-input input-error">
+                          <label>Transaction Type</label>
+                          <select formControlName="type">
+                            <option value="">Select Transaction Type</option>
+                            <option value="en">Finance</option>
+                        <option value="hn">Non-Finance</option>
+                          </select>
+                          <p *ngIf="formErrors.type">
+                            {{ formErrors.type }}
+                          </p>
+                        </div>
+                        <!--.ux-input-->
+                      </div>
+                      <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label>Status</label>
+                              <select >
+                                <option value="">Select Status</option>
+                                <option value="en">Finance</option>
+                            <option value="hn">Non-Finance</option>
+                              </select>
+                            </div>
+                            <!--.ux-input-->
+                    </div>
+                        <div class="col-6">
+                                <div class="ux-input input-error">
+                                    <label>RRN</label>
+                                    <input  type="text" 
+                                        placeholder="Enter RRN">
+                                </div>
+                                <!--.ux-input-->
+                            </div>
+                        <div class="col-6">
+                            <div class="ux-input input-error">
+                                <label>Remitter Mobile Number</label>
+                                <input  type="text" 
+                                    placeholder="Enter Remitter Mobile Number">
+                            </div>
+                            <!--.ux-input-->
+                        </div>
+                         <div class="col-6">
+                            <div class="ux-input input-error">
+                                <label>Beneficiary Mobile Number</label>
+                                <input  type="text" 
+                                    placeholder="Enter Beneficiary Mobile Number">
+                            </div>
+                            <!--.ux-input-->
+                        </div>
+                         <div class="col-6">
+                            <div class="ux-input input-error">
+                                <label>Remitter Account Number</label>
+                                <input  type="text" 
+                                    placeholder="Enter Remitter Account Number">
+                            </div>
+                            <!--.ux-input-->
+                        </div>
+                         <div class="col-6">
+                            <div class="ux-input input-error">
+                                <label>Beneficiary Account Number</label>
+                                <input  type="text" 
+                                    placeholder="Enter Beneficiary Account Number">
+                            </div>
+                            <!--.ux-input-->
+                        </div>
+                         <div class="col-6">
+                            <div class="ux-input input-error">
+                                <label>Payer Address</label>
+                                <input  type="text" 
+                                    placeholder="Enter Payer Address">
+                            </div>
+                            <!--.ux-input-->
+                        </div>
+                        <div class="col-6">
+                            <div class="ux-input input-error">
+                                <label>Payee Address</label>
+                                <input  type="text" 
+                                    placeholder="Enter Payee Address">
+                            </div>
+                            <!--.ux-input-->
+                        </div>
+                         <div class="col-6">
+                            <div class="ux-input input-error">
+                                <label>Transaction ID</label>
+                                <input  type="text" 
+                                    placeholder="Enter Transaction ID">
+                            </div>
+                            <!--.ux-input-->
+                        </div>
+                          <div class="col-6">
+                                <div class="ux-input input-error">
+                                  <label>Debit/Credit</label>
+                                  <select>
+                                    <option value="">Select Debit/Credit</option>
+                                    <option value="en">Finance</option>
+                                <option value="hn">Non-Finance</option>
+                                  </select>
+                                </div>
+                                <!--.ux-input-->
+                              </div>
+                               <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label>Request Type</label>
+                              <select >
+                                <option value="">Select Request Type</option>
+                                <option value="en">Finance</option>
+                            <option value="hn">Non-Finance</option>
+                              </select>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                </div>
+              </form>
+
+              <div class="row mb-5 mt-3">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+                <div class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="onSubmitClicked()">
+                    Submit
+                  </button>
+                </div>
+                <!--.col-xs-12-->
+              </div>
+
+              <div class="vspacer20"></div>
+              <div *ngIf="upiTransMaster.length > 0" class="row mt-3">
+                <div class="col-12 mb-0">
+                  <div class="datatable-box">
+                    <div class="table-responsive">
+                      <table id="dt-sample" class="table display table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Sr. No.</th>
+                            <th scope="col">Processing</th>
+                            <th scope="col">Date</th>
+                            <th scope="col">Transaction</th>
+                            <th scope="col">RRN</th>
+                            <th scope="col">Debit/Credit</th>
+                            <th scope="col">Payer Address</th>
+                            <th scope="col">Payee Address</th>
+                            <th scope="col">Payer Mobile</th>
+                            <th scope="col">PayeE Mobile</th>
+                            <th scope="col">Payer IFSC</th>
+                            <th scope="col">Request Type</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr
+                            *ngFor="let item of upiTransMaster; let i = index"
+                          >
+                            <td>{{ i + 1 }}</td>
+                            <td>{{item.processing}}</td>
+                            <td>{{item.date}}</td>
+                            <td>{{item.transaction}}</td>
+                            <td>{{item.rrn}}</td>
+                            <td>{{item.dc}}</td>
+                            <td>{{item.payer_add}}</td>
+                            <td>{{item.payee_add}}</td>
+                            <td>{{item.payer_mob}}</td>
+                            <td>{{item.payee_mob}}</td>
+                            <td>{{item.payer_ifsc}}</td>
+                            <td>{{item.type}}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!--.table-responsivebox-->
+                  </div>
+                  <!--.datatable-box-->
+
+                  <div class="dt-extras mt-4">
+                    <div class="dt-exports">
+                      <em>Export to :<span class="chevron"></span></em>
+                      <button
+                        class="linkbutton exp-excel"
+                        (click)="commonMethod.downLoadFile('excel')"
+                      >
+                        Excel <b>(.xlsx)</b>
+                      </button>
+                      <button
+                        class="linkbutton exp-pdf"
+                        (click)="commonMethod.downLoadFile('pdf')"
+                      >
+                        Pdf <b>(.pdf)</b>
+                      </button>
+                      <!-- <button class="linkbutton exp-word" (click)="wordDownload()">word <b>(.docx)</b></button> -->
+                      <!-- <button class="linkbutton exp-xml">XML <b>(.xml)</b></button> -->
+                      <button
+                        class="linkbutton exp-csv"
+                        (click)="commonMethod.downLoadFile('csv')"
+                      >
+                        csv <b>(.csv)</b>
+                      </button>
+                    </div>
+                    <!--.dt-exports-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

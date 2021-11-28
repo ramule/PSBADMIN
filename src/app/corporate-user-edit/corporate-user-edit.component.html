@@ -1,0 +1,661 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Change Password</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <!-- ======== header section start ========== -->
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+
+            <div class="main-content">
+              <!-- load form -->
+              <form [formGroup]="corporateUserEditForm">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>User Display Name</label>
+                      <input type="text" formControlName="userDisplayName" limit-to="40"
+                        placeholder="Enter Display Name" />
+                      <p *ngIf="formErrors.userDisplayName">
+                        {{ formErrors.userDisplayName }}
+                      </p>
+                      <p *ngIf="
+                            corporateUserEditForm.get('userDisplayName')
+                              .touched &&
+                            corporateUserEditForm.get('userDisplayName')
+                              .value != '' &&
+                            corporateUserEditForm.get('userDisplayName').invalid
+                          ">
+                        * Invalid display name
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Company Name</label>
+                      <input type="text" alphabetsOnly formControlName="companyName" limit-to="40" placeholder="Enter Company Name"
+                        readonly />
+                      <p *ngIf="formErrors.companyName">
+                        {{ formErrors.companyName }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>First Name</label>
+                      <input type="text" formControlName="firstName" limit-to="40" placeholder="Enter First Name" />
+                      <p *ngIf="formErrors.firstName">
+                        {{ formErrors.firstName }}
+                      </p>
+                      <p *ngIf="
+                            corporateUserEditForm.get('firstName').touched &&
+                            corporateUserEditForm.get('firstName').value !=
+                              '' &&
+                            corporateUserEditForm.get('firstName').invalid
+                          ">
+                        * Invalid first name
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Last Name</label>
+                      <input type="text" formControlName="lastName" limit-to="40" placeholder="Enter Last Name" />
+                      <p *ngIf="formErrors.lastName">
+                        {{ formErrors.lastName }}
+                      </p>
+                      <p *ngIf="
+                            corporateUserEditForm.get('lastName').touched &&
+                            corporateUserEditForm.get('lastName').value != '' &&
+                            corporateUserEditForm.get('lastName').invalid
+                          ">
+                        * Invalid last name
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Email Id</label>
+                      <input type="text" formControlName="emailId" limit-to="40" placeholder="Enter Email Id"
+                        readonly />
+                      <p *ngIf="formErrors.emailId">
+                        {{ formErrors.emailId }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Country</label>
+                      <select id="sl_country" (change)="onCountryChange($event)" formControlName="country">
+                        <option value="">Select Country</option>
+                        <option *ngFor="let item of country; index as i" [value]="item.countryId">
+                          {{ item.countryName | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.country">
+                        {{ formErrors.country }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>State</label>
+                      <select id="sl_state" formControlName="state" (change)="onStateChange($event)">
+                        <option value="">Select State</option>
+                        <option *ngFor="let state of states; index as i" [value]="state.stateId">
+                          {{ state.stateName | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.state">{{ formErrors.state }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-6-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>City</label>
+                      <select id="sl_city" formControlName="city" (change)="onCityChange($event)">
+                        <option value="" selected>Select City</option>
+                        <option *ngFor="let item of city; index as i" [value]="item.cityId">
+                          {{ item.cityName | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.city">{{ formErrors.city }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-6-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Corporate Phone Number</label>
+                      <input type="text" formControlName="mobileNo" limit-to="10" numbersOnly
+                        placeholder="Enter Corporate Phone Number" />
+                      <p *ngIf="formErrors.mobileNo">
+                        {{ formErrors.mobileNo }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Work Phone Number</label>
+                      <input type="text" formControlName="workPhoneNumber" limit-to="10" numbersOnly
+                        placeholder="Enter Work Phone Number" />
+                      <p *ngIf="formErrors.workPhoneNumber">
+                        {{ formErrors.workPhoneNumber }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="ux-input">
+                          <div class="file-input input-error">
+                            <input type="file" style="width: 100%; height: 100%; z-index: 100" name="nationalid"
+                              (change)="addImage($event, 'nationalid')" />
+                            <label for="file-sample">
+                              <h4>Upload Aadhaar Card</h4>
+                              <p>Upload Files To See Records</p>
+                            </label>
+                          </div>
+                        </div>
+                        <!--.ux-input-->
+                        <div class="ux-input input-error">
+                          <p *ngIf="isNationalImgError">
+                            * Please upload big image
+                          </p>
+                          <p *ngIf="isValidNationalFileFormat">
+                            * Please upload png or jpeg file
+                          </p>
+                          <p *ngIf="isValidNationalSizeFileFormat">
+                            * Please upload 380px * 180px dimensions image
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12" *ngIf="nationalid != '' && nationalid != undefined">
+                      <div class="img-uploaded">
+                        <img src="{{ nationalid }}" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="ux-input">
+                          <div class="file-input input-error">
+                            <!-- id="file-sample" -->
+                            <input type="file" style="width: 100%; height: 100%; z-index: 100" name="Passport"
+                              (change)="addImage($event, 'Passport')" />
+                            <label for="file-sample">
+                              <h4>Upload Passport</h4>
+                              <p>Upload Files To See Records</p>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="ux-input input-error">
+                          <p *ngIf="isPassportImgError">
+                            * Please upload big image
+                          </p>
+                          <p *ngIf="isValidPassportFileFormat">
+                            * Please upload png or jpeg file
+                          </p>
+                          <p *ngIf="isValidPassportSizeFileFormat">
+                            * Please upload 380px * 180px dimensions image
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-12" *ngIf="Passport != '' && Passport != undefined">
+                        <div class="img-uploaded">
+                          <img src="{{ Passport }}" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="ux-input">
+                          <div class="file-input input-error">
+                            <input type="file" style="width: 100%; height: 100%; z-index: 100" name="boardresolution"
+                              (change)="addImage($event, 'boardresolution')" />
+                            <label for="file-sample">
+                              <h4>Upload Board Resolution</h4>
+                              <p>Upload Files To See Records</p>
+                            </label>
+                          </div>
+                        </div>
+                        <!--.ux-input-->
+                        <div class="ux-input input-error">
+                          <p *ngIf="isBoardResImgError">
+                            * Please upload big image
+                          </p>
+                          <p *ngIf="isValidBoardResFileFormat">
+                            * Please upload png or jpeg file
+                          </p>
+                          <p *ngIf="isValidBoardResSizeFileFormat">
+                            * Please upload 380px * 180px dimensions image
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12" *ngIf="
+                          boardresolutionImg != '' &&
+                          boardresolutionImg != undefined
+                        ">
+                      <div class="img-uploaded">
+                        <img src="{{ boardresolutionImg }}" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="ux-input">
+                          <div class="file-input input-error">
+                            <!-- id="file-sample" -->
+                            <input type="file" style="width: 100%; height: 100%; z-index: 100" name="userimage"
+                              (change)="addImage($event, 'userimage')" />
+                            <label for="file-sample">
+                              <h4>Upload User Image</h4>
+                              <p>Upload Files To See Records</p>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="ux-input input-error">
+                          <p *ngIf="isUserImgError">
+                            * Please upload big image
+                          </p>
+                          <p *ngIf="isValidUserFileFormat">
+                            * Please upload png or jpeg file
+                          </p>
+                          <p *ngIf="isValidUserSizeFileFormat">
+                            * Please upload 380px * 180px dimensions image
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-12" *ngIf="userimage != '' && userimage != undefined">
+                        <div class="img-uploaded">
+                          <img src="{{ userimage }}" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="ux-input">
+                          <div class="file-input input-error">
+                            <input type="file" style="width: 100%; height: 100%; z-index: 100" name="certofincorp"
+                              (change)="addImage($event, 'certofincorp')" />
+                            <label for="file-sample">
+                              <h4>Upload Certificate Of Incorporation</h4>
+                              <p>Upload Files To See Records</p>
+                            </label>
+                          </div>
+                        </div>
+                        <!--.ux-input-->
+                        <div class="ux-input input-error">
+                          <p *ngIf="isCertOfIcorpImgError">
+                            * Please upload big image
+                          </p>
+                          <p *ngIf="isValidCertOfIcorpFileFormat">
+                            * Please upload png or jpeg file
+                          </p>
+                          <p *ngIf="isValidCertOfIcorpSizeFileFormat">
+                            * Please upload 380px * 180px dimensions image
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12" *ngIf="
+                          certofincorpImg != '' && certofincorpImg != undefined
+                        ">
+                      <div class="img-uploaded">
+                        <img src="{{ certofincorpImg }}" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="ux-input">
+                          <div class="file-input input-error">
+                            <!-- id="file-sample" -->
+                            <input type="file" style="width: 100%; height: 100%; z-index: 100" name="otherdocs"
+                              (change)="addImage($event, 'otherdocs')" />
+                            <label for="file-sample">
+                              <h4>Upload Other Documents</h4>
+                              <p>Upload Files To See Records</p>
+                            </label>
+                          </div>
+                        </div>
+                        <div class="ux-input input-error">
+                          <p *ngIf="isOtherDocsImgError">
+                            * Please upload big image
+                          </p>
+                          <p *ngIf="isValidOtherDocsFileFormat">
+                            * Please upload png or jpeg file
+                          </p>
+                          <p *ngIf="isValidOtherDocsSizeFileFormat">
+                            * Please upload 380px * 180px dimensions image
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-12" *ngIf="
+                            otherdocsImg != '' && otherdocsImg != undefined
+                          ">
+                        <div class="img-uploaded">
+                          <img src="{{ otherdocsImg }}" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Designation</label>
+                      <select (change)="onDesignationChange($event)" formControlName="designation">
+                        <option value="">Select Designation</option>
+                        <option *ngFor="let item of corpCompanyRolesArr" [value]="item.id">
+                          {{ item.designationName }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.designation">
+                        {{ formErrors.designation }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Corporate Roles</label>
+                      <select formControlName="userType" (change)="onUserTypeChange($event)">
+                        <option value="">Select Corporate Role</option>
+                        <option *ngFor="
+                              let item of corporateUserType;
+                              index as i
+                            " [value]="item.id">
+                          {{ item.description | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.userType">
+                        {{ formErrors.userType }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Temp User Name</label>
+                      <input type="text" formControlName="tempUserName" limit-to="40"
+                        placeholder="Enter Temp User Name" />
+                      <p *ngIf="formErrors.tempUserName">
+                        {{ formErrors.tempUserName }}
+                      </p>
+                      <p *ngIf="
+                            corporateUserEditForm.get('tempUserName').touched &&
+                            corporateUserEditForm.get('tempUserName').value !=
+                              '' &&
+                            corporateUserEditForm.get('tempUserName').invalid
+                          ">
+                        * Invalid temp user name
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>PAN Card Number</label>
+                      <input type="text" formControlName="panCardNo" limit-to="10"
+                        placeholder="Enter PAN Card Number" />
+                      <p *ngIf="formErrors.panCardNo">
+                        {{ formErrors.panCardNo }}
+                      </p>
+                      <p *ngIf="
+                            corporateUserEditForm.get('panCardNo').touched &&
+                            corporateUserEditForm.get('panCardNo').value !=
+                              '' &&
+                            corporateUserEditForm.get('panCardNo').invalid
+                          ">
+                        * Invalid PAN Card Number
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Level</label>
+                      <input type="text" readonly placeholder="Level {{ corpCompanyLevel }}" />
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Status</label>
+                      <select formControlName="statusId">
+                        <option value="">Select Status</option>
+                        <option *ngFor="let option of filterStatus(); index as i" [value]="option.id">
+                          {{ option.shortName | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.statusId">
+                        {{ formErrors.statusId }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                </div>
+              </form>
+              <!--.row-->
+              <div class="row mt-5">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+                <div *ngIf="
+                      this.commonDataShareService.roleType != this.commonDataShareService.corpMakerRole
+                    " class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="editCorporateUser()">
+                    Update
+                  </button>
+                </div>
+
+                <div *ngIf="
+                      this.commonDataShareService.roleType == this.commonDataShareService.corpMakerRole
+                    " class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="
+                        openActionModel(
+                          'remarkField',
+                          corporateUserEditForm.value
+                        )
+                      ">
+                    Update
+                  </button>
+                </div>
+                <!--.col-xs-12-->
+              </div>
+
+              <!--Datatable for remark history-->
+              <div class="row mt-3">
+                <div class="col-12 mb-0">
+                  <div class="datatable-box">
+                    <div class="table-responsive">
+                      <table id="dt-sample" class="table display table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Sr. No.</th>
+                            <th scope="col">Created On</th>
+                            <th scope="col">Created By</th>
+                            <th scope="col">Remark</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="
+                                let item of remarkHistoryArr;
+                                let i = index
+                              ">
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                              {{
+                                  item.createdon == null || item.createdon == ""
+                                    ? "-"
+                                    : (item.createdon | date: "yyyy-MM-dd")
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.createdByName == null ||
+                                  item.createdByName == ""
+                                    ? "-"
+                                    : item.createdByName
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.remarks == null || item.remarks == ""
+                                    ? "-"
+                                    : item.remarks
+                                }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!--.table-responsivebox-->
+                  </div>
+                  <!--.datatable-box-->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+      <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+        <form [formGroup]="remarkForm">
+          <div class="row">
+            <div class="col-12 px-0 mt-2">
+              <div class="ux-input input-error">
+                <textarea formControlName="remark" placeholder="Enter Remark"></textarea>
+                <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-6">
+              <button class="ux-button" (click)="closeActionMoel()">
+                Cancel
+              </button>
+            </div>
+            <div class="col-6">
+              <button class="ux-button primary" (click)="editCorporateUserWithRemark(remarkForm.value)">
+                OK
+              </button>
+            </div>
+            <!--.col-xs-12-->
+          </div>
+        </form>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>

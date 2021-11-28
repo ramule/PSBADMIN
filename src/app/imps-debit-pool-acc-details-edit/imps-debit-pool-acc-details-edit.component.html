@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Reward Points Details</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <app-header></app-header>
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div> -->
+              <div class="in-header d-none">
+                <!-- <div class="header-icons-lft">
+								<div class="header-actions">
+
+									<div class="head-page-title">
+										<h5>Reward Points Details</h5>
+									</div>
+								</div>
+							</div> -->
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+
+                <!-- load form -->
+              <form [formGroup]="debitPoolAccDetailsEditForm">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Transaction Type</label>
+                      <select id="sl_transType" formControlName="transType">
+                        <option value="">Select Transaction Type</option>
+                        <option value="P2P">P2P</option>
+                        <option value="P2A">P2A</option>
+                      </select>
+                      <p *ngIf="formErrors.transType">
+                        {{ formErrors.transType }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Source Identifier</label>
+                      <!-- <input
+                        type="text"
+                        formControlName="sourceIdentifier"
+                        placeholder="Enter Source Identifier"
+                      /> -->
+
+                        <!-- Here it will be a CBS call which provides source identifiers -->
+                        <select id="sl_sourceIdentifier" formControlName="sourceIdentifier">
+                          <option value="">Select Source Identifier</option>
+                          <option>000000000010000</option>
+                          <option>000000000020000</option>
+                          <option>000000000030000</option>
+                          <option>000000000040000</option>
+                          <option>000000000050000</option>
+                          <option>000000000060000</option>
+                          <option>000000000070000</option>
+                          <option>000000000080000</option>
+                          <option>000000000090000</option>
+                        </select>
+                      <p *ngIf="formErrors.sourceIdentifier">
+                        {{ formErrors.sourceIdentifier }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Default Account</label>
+                      <input
+                        type="text"
+                        formControlName="defaultAcc"
+                        placeholder="Enter Default Account"
+                      />
+                      <p *ngIf="formErrors.defaultAcc">
+                        {{ formErrors.defaultAcc }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                </div>
+              </form>
+              <!--.row-->
+
+              <div class="row mt-5">
+                <div class="col-6 col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+                <div class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="update()">
+                    Update
+                  </button>
+                </div>
+              </div>
+              <!--.row-->
+
+              </div>
+
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+      <!-- ===========footer section start========= -->
+	 <div class="sticky-actions-spacer"></div>
+	 <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+	   <div class="tinymodal-overlay"></div>
+	   <!--.tinymodal-overlay-->
+
+	   <!--.tinymodal-->
+	 </div>
+	 <!-- ==============footer section end============ -->
+
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

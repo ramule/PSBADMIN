@@ -1,0 +1,39 @@
+.component-linebottom {
+    background: none;
+    border-bottom: 1px solid #cccccc;
+    width: 100%;
+    padding: 0px 0px 15px 0px;
+}
+.ux-input .usernumber1 {
+    position: absolute;
+    top: 5px;
+    left: -21px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000000;
+}
+.set-limit-heading h5 {
+    color: rgba(0, 0, 0, 0.6);
+}
+h6 .bold1 {
+    font-weight: 700;
+}
+h6 span {
+    font-size: 14px;
+}
+.whitebox1 {
+    display: block;
+    background-color: rgba(0, 0, 0, 0.05);
+    width: 100%;
+    padding: 8px 0px;
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    word-wrap: break-word;
+    height: 100% !important;
+}
+.panel-title3 {
+    color: rgba(0, 0, 0, 0.6);
+    position: relative;
+    margin: 4px 0px;
+    display: block;
+}

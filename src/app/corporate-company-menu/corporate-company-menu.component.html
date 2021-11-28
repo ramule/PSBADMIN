@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Change Password</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <!-- ======== header section start ========== -->
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions"></div>
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+
+            <div class="main-content">
+
+              <form [formGroup]="corpCompanyMenuForm">
+
+                <div *ngIf="priviledgeDataArr.createChecked" class="row">
+                  <div class="col-6 col-lg-2 offset-md-6 offset-sm-6 offset-lg-10">
+                    <button class="ux-button primary" (click)="goToAddCompany()">
+                      + Add
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="priviledgeDataArr.viewChecked" class="row">
+                  <div class="col-6 col-lg-6">
+                    <div class="ux-input input-error">
+                      <label>Company Name</label>
+                      <select (change)="selectedValue($event)" formControlName="companyName">
+                        <option value="">Select Company Name</option>
+                        <option *ngFor="
+                              let option of filterActiveCompanies();
+                              index as i
+                            " [value]="option.id">
+                          {{ option.companyName | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.companyName">
+                        {{ formErrors.companyName }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                </div>
+              </form>
+
+              <div *ngIf="priviledgeDataArr.viewChecked" class="row mb-5 mt-3">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancelClick()">Cancel</button>
+                </div>
+                <div class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="getAllCorpMenuByCompId()">
+                    Submit
+                  </button>
+                </div>
+                <!--.col-xs-12-->
+              </div>
+
+              <div class="row">
+
+              </div>
+              <div class="vspacer20"></div>
+              <div class="row mt-3" *ngIf="priviledgeDataArr.viewChecked && corporateCompanyMenu.length > 0">
+                <div class="col-12 mb-0">
+                  <div class="datatable-box">
+                    <div class="table-responsive">
+                      <table id="dt-sample" class="table display table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Sr. No.</th>
+                            <th scope="col">Menu Name</th>
+                            <th scope="col">Created By</th>
+                            <th scope="col">Created On</th>
+                            <th scope="col">Updated On</th>
+                            <th scope="col">Status</th>
+                            <th scope="col" *ngIf="priviledgeDataArr.updateChecked">
+                              Action
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="
+                                let item of corporateCompanyMenu;
+                                let i = index
+                              ">
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                              {{
+                                  item.menuName == null || item.menuName == ""
+                                    ? "-"
+                                    : item.menuName
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.createdByName == null ||
+                                  item.createdByName == ""
+                                    ? "-"
+                                    : item.createdByName
+                                }}
+                            </td>
+
+                            <td>
+                              {{
+                                  item.createdon == null || item.createdon == ""
+                                    ? "-"
+                                    : (item.createdon | date: "yyyy/MM/dd")
+
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.updatedon == null || item.updatedon == ""
+                                    ? "-"
+                                    : (item.updatedon  | date: "yyyy/MM/dd")
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.statusName == null ||
+                                  item.statusName == ""
+                                    ? "-"
+                                    : item.statusName
+                                }}
+                            </td>
+                            <td *ngIf="priviledgeDataArr.updateChecked">
+                              <div class="ux-selection">
+                                <img class="action-btn" src="assets/images/icons/edit.png"
+                                  (click)="goToEditCompanyMenu(item)" />
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!--.table-responsivebox-->
+                  </div>
+                  <!--.datatable-box-->
+
+                  <div class="dt-extras mt-4" *ngIf="corporateCompanyMenu.length > 0">
+                    <div class="dt-exports">
+                      <em>Export to :<span class="chevron"></span></em>
+                      <button class="linkbutton exp-excel" (click)="commonMethod.downLoadFile('excel')">
+                        Excel <b>(.xlsx)</b>
+                      </button>
+                      <button class="linkbutton exp-pdf" (click)="commonMethod.downLoadFile('pdf')">
+                        Pdf <b>(.pdf)</b>
+                      </button>
+                      <button class="linkbutton exp-csv" (click)="commonMethod.downLoadFile('csv')">
+                        csv <b>(.csv)</b>
+                      </button>
+                    </div>
+                    <!--.dt-exports-->
+                  </div>
+                </div>
+              </div>
+              <!-- <div class="row mt-5" *ngIf="priviledgeDataArr.viewChecked">
+                <div class="col-6 col-lg-2"></div>
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancelClick()">
+                    Cancel
+                  </button>
+                </div>
+              </div> -->
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Add Customize Menu</title>
+
+</head>
+
+<body>
+
+    <div class="main">
+        <app-navmenu></app-navmenu>
+        <div class="nav-overlay"></div>
+        <!--.nav-overlay-->
+        <!-- navigation menu container end -->
+
+        <div class="right-main-column">
+            <div class="right-col-container full-width">
+                <app-header></app-header>
+                <!-- ======== header section end ========== -->
+                <!-- ======== body page content start from here ======== -->
+                <div class="body-page-container">
+                    <div class="vspacer10"></div>
+                    <!--.vspacer10-->
+                    <div class="device-page-titles d-none d-md-none d-lg-block">
+                      <div class="component-title">
+                        <h4>{{commonServiceCall.pageName}}</h4>
+                      </div>
+                        <div class="in-header d-none">
+                            <div class="header-icons-rit">
+                                <div class="header-actions">
+                                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+
+                                </div>
+                                <!--.header-actions-->
+                            </div>
+                            <!--.header-icons-rit-->
+                        </div> <!-- in-header -->
+                    </div> <!-- device-page-titles -->
+                    <div *ngIf="priviledgeDataArr.viewChecked" class="container">
+                      <form [formGroup]="masterTransactionForm">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="ux-input input-error">
+                                    <label><span class="mandatory">* </span>Customer Type</label>
+                                    <select formControlName="customerType">
+                                        <option value=''>Select Customer Type</option>
+                                        <option *ngFor="let customer of customerTypeArr; index as i" [value]='customer'>{{customer}}</option>
+                                    </select>
+                                    <p *ngIf="formErrors.customerType">{{formErrors.customerType}}</p>
+                                </div>
+                            </div>
+                            <div class="col-6">
+                                <div class="ux-input input-error">
+                                    <label><span class="mandatory">* </span>Transaction Type</label>
+                                    <select formControlName="transactionType">
+                                        <option value=''>Select Transaction Type</option>
+                                        <option *ngFor="let transaction of transactionTypeArr; index as i" [value]='transaction'>{{transaction  | titlecase }}</option>
+                                    </select>
+                                    <p *ngIf="formErrors.transactionType">{{formErrors.transactionType}}</p>
+                                </div>
+                            </div>
+                        </div>
+                        <!--.row-->
+                        <div class="row">
+
+                            <div class="col-6">
+                                <div class="ux-input input-error">
+                                    <label><span class="mandatory">* </span>Lower Limit</label>
+                                    <input type="text" formControlName="lowerLimit" limit-to="40"
+                                        placeholder="Enter Lower Limit" numbersOnly>
+                                    <p *ngIf="formErrors.lowerLimit">{{formErrors.lowerLimit}}</p>
+                                </div>
+                                <!--.ux-input-->
+                            </div>
+                            <!--.col-12-->
+
+                            <div class="col-6">
+                                <div class="ux-input input-error">
+                                    <label><span class="mandatory">* </span>Upper Limit</label>
+                                    <input type="text" formControlName="upperLimit" limit-to="40"
+                                        placeholder="Enter Upper Limit" numbersOnly>
+                                    <p *ngIf="formErrors.upperLimit">{{formErrors.upperLimit}}</p>
+                                </div>
+                                <!--.ux-input-->
+                            </div>
+                            <!--.col-12-->
+                        </div>
+                        <!--.row-->
+
+                        <div *ngIf="priviledgeDataArr.createChecked" class="row mb-5 mt-3">
+                            <div class="col-6 col-lg-2 offset-lg-8">
+                                <button class="ux-button" (click) = "cancel()">Cancel</button>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                                <button class="ux-button primary" (click) = "save()">Save</button>
+                            </div>
+                            <!--.col-xs-12-->
+                        </div>
+
+                        <div *ngIf="!priviledgeDataArr.createChecked" class="row mb-5 mt-3">
+                          <div class="col-6 col-lg-2 offset-lg-10">
+                              <button class="ux-button" (click) = "cancel()">Cancel</button>
+                          </div>
+                          <!--.col-xs-12-->
+                      </div>
+
+                      </form>
+                    </div>
+                    <!--.container-->
+                </div>
+                <!--.body-page-container-->
+                <!-- added new -->
+            </div>
+            <!--.right-col-container-->
+            <!-- added new -->
+        </div>
+        <!--.right-main-column-->
+        <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <!-- ==============footer section end============ -->
+
+
+
+</body>

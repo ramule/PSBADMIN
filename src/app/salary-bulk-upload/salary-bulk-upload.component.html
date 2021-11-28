@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Customers Details</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <app-header></app-header>
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <!-- <div class="component-title">
+              <h4>{{ commonServiceCall.pageName }}</h4>
+            </div> -->
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                  <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+
+            <div class="main-content">
+              <form [formGroup]="bulkOfferForm">
+                <div class="row" *ngIf="priviledgeDataArr.viewChecked">
+                  <div class="col-sm-6 col-md-6 col-lg-6">
+                    <div class="ux-input input-error">
+                      <label>Company Name</label>
+                      <select formControlName="company" id="company_dropdown"
+                        (change)="onCompanySelected($event.target.value)">
+                        <option value=''>Select Company Name</option>
+                        <option *ngFor="let company of masterCompany" [value]='company.id'>
+                          {{company.companyName | titlecase }}</option>
+                      </select>
+                      <p *ngIf="formBulkErrors.company">{{ formBulkErrors.company }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-sm-6 col-md-6 col-lg-6">
+
+                      <div class="ux-input">
+                        <div class="file-input">
+                          <input id="salaryupload" type="file" style="width: 100%; height: 100%; z-index: 100"
+                            name="bulkCustomerFile" (change)="addExcelFile($event)" />
+                          <label for="file-sample">
+                            <h4>Upload Excel File</h4>
+                            <p>Upload Files To See Records</p>
+                            <img *ngIf="showSuccess" style="height:20px" src='assets/images/icons/ic-tick.png'>
+                          </label>
+                        </div>
+                        <p style="text-align: center">
+                          Click here to
+                          <a id="myAnchor" href="assets/sampleDataForSalary.xlsx" download="sampleData.xlsx">download </a>sample
+                          file
+                        </p>
+                      </div>
+                      <div class="ux-input input-error">
+                        <p *ngIf="isUploadExcel">* Please upload excel file</p>
+                        <p *ngIf="isValidFileFormat">
+                          * Please upload valid excel file
+                        </p>
+                      </div>
+
+                  </div>
+                </div>
+              </form>
+                <div class="row">
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                  </div>
+                  <div class="col-6 col-lg-2" *ngIf="priviledgeDataArr.createChecked">
+                    <button class="ux-button primary" (click)="upload()">
+                      Process
+                    </button>
+                  </div>
+                </div>
+
+                <!-- <div class="sticky-actions-spacer"></div> -->
+                <div class="row mt-3" *ngIf="customerDetails.length > 0">
+                  <div class="col-12 mb-0">
+                    <div class="datatable-box">
+                      <div class="table-responsive">
+                        <table id="dt-sample" class="table display table-hover">
+                          <thead>
+                            <tr>
+                              <!-- <th scope="col">
+                                  Select All
+                                  <div
+                                    class="ux-selection"
+                                    (click)="select('approve')"
+                                  >
+                                    <label>
+                                      <input
+                                        type="checkbox"
+                                        name="radioboxdemo"
+                                        id="approveCheckBox"
+                                        style="margin-top: -5px"
+                                      />
+                                    </label>
+                                  </div>
+                                </th> -->
+                              <th scope="col">Sr. No.</th>
+                              <th scope="col">Activity Code</th>
+                              <th scope="col">Payee Name</th>
+                              <th scope="col">Payee Account Number</th>
+                              <th scope="col">Amount</th>
+                              <th scope="col">Currency</th>
+                              <th scope="col">Remark</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let item of customerDetails; let i = index">
+                              <!-- <td>
+                                  <div class="ux-selection">
+                                    <label>
+                                      <input
+                                        type="checkbox"
+                                        name="radioboxdemo"
+                                        [(ngModel)]="item.isChecked"
+                                        class="approveall"
+                                        (click)="selectsingle(item)"
+                                      />
+                                    </label>
+                                  </div>
+                                </td> -->
+                              <td>{{ i + 1 }}</td>
+                              <td>
+                                {{
+                                    item.activityCode == null || item.activityCode == ""
+                                      ? "-"
+                                      : item.activityCode
+                                  }}
+                              </td>
+                              <td>
+                                {{
+                                    item.payeeName == null ||
+                                    item.payeeName == ""
+                                      ? "-"
+                                      : item.payeeName
+                                  }}
+                              </td>
+                              <td>
+                                {{
+                                    item.payeeAccountNumber == null || item.payeeAccountNumber == ""
+                                      ? "-"
+                                      : item.payeeAccountNumber
+                                  }}
+                              </td>
+                              <td>
+                                {{
+                                    item.amount == null || item.amount == ""
+                                      ? "-"
+                                      : item.amount
+                                  }}
+                              </td>
+                              <td>
+                                {{
+                                    item.currency == null || item.currency == ""
+                                      ? "-"
+                                      : item.currency
+                                  }}
+                              </td>
+                              <!-- <td>{{item.USERPASSWORD == null || item.USERPASSWORD == '' ? '-' : item.USERPASSWORD }}</td> -->
+                              <td>
+                                {{
+                                    item.remarks == null || item.remarks == ""
+                                      ? "-"
+                                      : item.remarks
+                                  }}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                        <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                      </div>
+                      <!--.table-responsivebox-->
+                    </div>
+
+                    <!--.datatable-box-->
+                  </div>
+                </div>
+                <div class="row mt-5" *ngIf="showButton && customerDetails.length > 0">
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="cancelClick()" style="float: left">
+                      Cancel
+                    </button>
+                  </div>
+                  <div *ngIf="this.commonDataService.roleType != this.commonDataService.corpMakerRole" class="col-6 col-lg-2">
+                    <button class="ux-button primary" type="submit" (click)="bulkCustomerUpload()" style="float: right">
+                      Submit
+                    </button>
+                  </div>
+                  <div *ngIf="this.commonDataService.roleType == this.commonDataService.corpMakerRole" class="col-6 col-lg-2">
+                    <button class="ux-button primary" type="submit" (click)="openActionModel('remarkField')"
+                      style="float: right">
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+
+      <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+        <form [formGroup]="remarkForm">
+          <div class="row">
+            <div class="col-12 px-0 mt-2">
+              <div class="ux-input input-error">
+                <textarea formControlName="remark" placeholder="Enter Remark"></textarea>
+                <p *ngIf="formBulkErrors.remark">{{ formBulkErrors.remark }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-6">
+              <button class="ux-button" (click)="closeActionMoel()">Cancel</button>
+            </div>
+            <div class="col-6">
+              <button class="ux-button primary" (click)="bulkCustomerUploadWithRemark(remarkForm.value)">OK</button>
+            </div>
+            <!--.col-xs-12-->
+          </div>
+        </form>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+  <!--.footer-container-->
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>

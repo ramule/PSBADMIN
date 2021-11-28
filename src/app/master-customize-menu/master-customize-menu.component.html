@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Customize Menu</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <!--.global-nav-->
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <div *ngIf="priviledgeDataArr.createChecked" class="row">
+                  <div class="col-6 offset-lg-10 offset-6 col-lg-2">
+                    <button class="ux-button primary" (click)="gotoAddMenu()">
+                      + Add
+                    </button>
+                  </div>
+                </div>
+                <div class="vspacer20"></div>
+                <div *ngIf="priviledgeDataArr.viewChecked" class="row">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Product Type</label>
+                      <select
+                        (change)="selectedValue($event.target.value, 'type')"
+                      >
+                        <option value="">Select Product Type</option>
+                        <option
+                          *ngFor="let option of type; index as i"
+                          [value]="option.id"
+                        >
+                          {{ option.displayName | titlecase }}
+                        </option>
+                        <!-- <option value='0' >Retail</option>
+                                          <option value='1' >Corporate</option> -->
+                      </select>
+                      <p *ngIf="typeError">* Please Select Product Type</p>
+                    </div>
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6" *ngIf="this.selType == 1">
+                    <div class="ux-input input-error">
+                      <label>Roles</label>
+                      <select
+                        (change)="selectedValue($event.target.value, 'roles')"
+                      >
+                        <option value="">Select Roles</option>
+                        <option
+                          *ngFor="let option of allRoles; index as i"
+                          [value]="option.id"
+                        >
+                          {{ option.name | titlecase }}
+                        </option>
+                      </select>
+                      <!-- <p *ngIf="typeError">Please select type</p> -->
+                    </div>
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Channel Name</label>
+                      <select
+                        (change)="selectedValue($event.target.value, 'product')"
+                      >
+                        <option value="">Select Channel Name</option>
+                        <option
+                          *ngFor="let option of  this.productTypes; index as i"
+                          [value]="option.id"
+                        >
+                          {{ option.shortName | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="productError">* Please Select Channel Name</p>
+                    </div>
+                  </div>
+                </div>
+                <!--.row-->
+
+                <!-- <div class="sticky-actions-spacer"></div> -->
+                <div class="row mt-3" *ngIf="customizeMenu.length > 0">
+                  <div class="col-12 mb-0">
+                    <div class="datatable-box">
+                      <div class="table-responsive">
+                        <table id="dt-sample" class="table display table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">Menu Description</th>
+                              <th scope="col">Status</th>
+                              <th scope="col">Type</th>
+                              <th scope="col">Menu Image</th>
+                              <th scope="col">Actions</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let menu of customizeMenu; let i = index">
+                              <td>
+                                {{
+                                  menu.moduleName == null || menu.moduleName == ""
+                                    ? "-"
+                                    : menu.moduleName
+                                }}
+                              </td>
+                              <td>
+                                {{menu.statusId == "3" ? 'Active' : 'Inactive'}}
+                              </td>
+                              <td>
+                                {{
+                                  menu.type == null || menu.type == ""
+                                    ? "-"
+                                    : (menu.type | titlecase)
+                                }}
+                              </td>
+                              <td>
+                                <img
+                                    class="action-btn"
+                                    src="assets/images/icons/eye.png"
+                                    (click)="viewImage(menu)"
+                                  />
+                                <!-- <img
+                                  [src]="
+                                    'data:image/jpg;base64,' +
+                                    menu.menuImageString
+                                  "
+                                  *ngIf="menu.menuImageString != null"
+                                />
+                                <p *ngIf="menu.menuImageString == null">-</p> -->
+                              </td>
+                              <td>
+                                <div class="ux-selection">
+                                  <img
+                                    *ngIf="priviledgeDataArr.updateChecked"
+                                    class="action-btn"
+                                    src="assets/images/icons/edit.png"
+                                    (click)="gotoCustomizeMasterMenuDetails(menu)"
+                                  />
+                                  <!-- <img
+                                    class="action-btn"
+                                    src="assets/images/icons/eye.png"
+                                    (click)="viewCustomizeMasterSubMenu(menu)"
+                                  /> -->
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!--.table-responsivebox-->
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-5" *ngIf="customizeMenu.length > 0">
+                  <div class="col-6 col-lg-2 offset-lg-10">
+                    <button class="ux-button" (click)="cancel()">Cancel</button>
+                  </div>
+                  <!--.col-xs-12-->
+                </div>
+              </div>
+
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+		<div class="tinymodal-overlay"></div>
+		<!--.tinymodal-overlay-->
+		<div class="tinymodal">
+			<div *ngIf="selModel == 'Image'" class="tinymodal-content">
+				<div class="row">
+					<div class="col-12 tinymodal-header">
+						<div>
+							<button type="button" class="close" (click)="closeActionModel()">
+								<span> <img src="assets/images/icons/cross.png"></span>
+							</button>
+						</div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-12 px-0 mt-2">
+						<img [src]="'data:image/jpg;base64,'+displayImage">
+					</div>
+        </div>
+      </div>
+    <!--.tinymodal-content-->
+		</div>
+		<!--.tinymodal-->
+	</div>
+    <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

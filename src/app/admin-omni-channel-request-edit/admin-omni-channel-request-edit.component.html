@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Edit Omni Channel Request</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <!-- ======== header section start ========== -->
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="in-header d-none">
+              <!--.header-icons-lft-->
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+            <div class="main-content">
+              <!-- load form -->
+              <form [formGroup]="omniChannelReqForm">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Customer Name</label>
+                      <input limit-to="40" alphabetsOnly type="text" formControlName="custName" />
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Status</label>
+                      <input type="text" limitTo="40" formControlName="status" />
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Transaction Amount</label>
+                      <input limit-to="40" type="text" numbersOnly formControlName="transAmt" />
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Reference Number</label>
+                      <input limit-to="40" type="text" numbersOnly formControlName="refNo" />
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Service Type</label>
+                      <input limit-to="40" alphabetsOnly type="text" formControlName="serviceType"
+                        placeholder="Enter Service Type" readonly />
+                      <p *ngIf="formErrors.serviceType">
+                        {{ formErrors.serviceType }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Mobile Number</label>
+                      <input limitTo="10" numbersOnly type="tel" formControlName="mobileNo"
+                        placeholder="Enter Mobile Number" readonly />
+                      <p *ngIf="formErrors.mobileNo">
+                        {{ formErrors.mobileNo }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                </div>
+              </form>
+              <!--.row-->
+              <div class="row mt-5">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+                <div *ngIf="finNonfinVal == 'FT'" class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="sendOtpRequest('fund_transfer')">
+                    Fund Transfer
+                  </button>
+                </div>
+
+                <div *ngIf="finNonfinVal == 'NFT'" class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="sendOtpRequest('fund_transfer')">
+                    Process
+                  </button>
+                </div>
+                <!--.col-xs-12-->
+              </div>
+              <!--.row-->
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+      <div class="tinymodal-content">
+        <div class="row">
+          <div class="col-12 tinymodal-header">
+            <div>
+              <button type="button" class="close" (click)="closeActionModel()">
+                <span>
+                  <img class="w-75" src="assets/images/icons/cross.png" /></span>
+              </button>
+              <!--.tinymodal-info-->
+            </div>
+          </div>
+        </div>
+        <form [formGroup]="otpForm">
+          <div class="row mt-4">
+            <div class="col-12">
+              <div class="ux-otp-input input-error">
+                <input type="tel" placeholder="OTP" formControlName="otp" limit-to="4" numbersOnly />
+                <p *ngIf="otpFormError.otp">{{ otpFormError.otp }}</p>
+                <em>Please enter the OTP sent on your mobile number
+                  <b>{{ maskMobileNo }}</b></em>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-3">
+            <div class="col-12 text-center">
+              <div class="register-here">
+                Didn't Get OTP?
+                <a href="javascript:;" class="ux-linkbutton primary" (click)="sendOtpRequest('resend_otp')">
+                  Resend</a>
+                <p id="resend" style="display: none">
+                  OTP Resend Successfully
+                </p>
+              </div>
+              <!--.text-center-->
+            </div>
+            <!--.col-12-->
+          </div>
+          <div class="row mt-4">
+            <div class="col-6 mx-auto">
+              <button class="ux-button primary" (click)="submitOtp()">
+                Submit
+              </button>
+            </div>
+            <!--.col-xs-12-->
+          </div>
+        </form>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+  <!-- ==============footer section end============ -->
+</body>
+
+</html>

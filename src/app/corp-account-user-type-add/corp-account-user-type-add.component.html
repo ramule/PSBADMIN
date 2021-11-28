@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Change Password</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <!-- ======== header section start ========== -->
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+
+            <div class="main-content">
+              <!-- load form -->
+              <form [formGroup]="corporateAccountUserAddForm">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Account Type</label>
+                      <select formControlName="accountType">
+                        <option value="">Select Account Type</option>
+                        <option *ngFor="let account of masterAccount" [value]="account.id">
+                          {{ account.accountType | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.accountType">
+                        {{ formErrors.accountType }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Corporate Role</label>
+                      <select formControlName="userType">
+                        <option value="">Select Corporate Role</option>
+                        <option *ngFor="let user of masterUser" [value]="user.id">
+                          {{ user.user_TYPE | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.userType">
+                        {{ formErrors.userType }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                </div>
+              </form>
+              <!--.row-->
+              <div class="row">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+                <div class="col-6 col-lg-2" *ngIf="
+                      this.commonDataShareService.roleType != this.commonDataShareService.corpMakerRole
+                    ">
+                  <button class="ux-button primary" (click)="addAccountUserType()">
+                    Save
+                  </button>
+                </div>
+                <div *ngIf="
+                      this.commonDataShareService.roleType == this.commonDataShareService.corpMakerRole
+                    " class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="
+                        openActionModel(
+                          'remarkField',
+                          corporateAccountUserAddForm.value
+                        )
+                      ">
+                    Save
+                  </button>
+                </div>
+                <!--.col-xs-12-->
+              </div>
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+      <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+        <form [formGroup]="remarkForm">
+          <div class="row">
+            <div class="col-12 px-0 mt-2">
+              <div class="ux-input input-error">
+                <textarea formControlName="remark" placeholder="Enter Remark"></textarea>
+                <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-6">
+              <button class="ux-button" (click)="closeActionMoel()">
+                Cancel
+              </button>
+            </div>
+            <div class="col-6">
+              <button class="ux-button primary" (click)="addCorpAccountUserWithRemark(remarkForm.value)">
+                OK
+              </button>
+            </div>
+            <!--.col-xs-12-->
+          </div>
+        </form>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Approver Requests</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!-----.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <!-- ======== header section start ========== -->
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+
+            <div class="main-content">
+              <div class="row">
+              </div>
+              <div class="vspacer20"></div>
+              <div class="row mt-3">
+                <div class="col-12 mb-0">
+                  <div class="datatable-box">
+                    <div class="table-responsive">
+                      <table id="dt-sample" class="table display table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Sr. No.</th>
+                            <th scope="col">Activity Name</th>
+                            <th scope="col">Created On</th>
+                            <th scope="col">Updated On</th>
+                            <th scope="col">Approval Status</th>
+                            <th scope="col" class="notexport">Action</th>
+                            <th scope="col">View</th>
+                            <th scope="col">
+                              Approve All
+                              <div class="ux-selection" (click)="select('approve')">
+                                <label>
+                                  <input type="checkbox" name="radioboxdemo" id="approveCheckBox"
+                                    style="margin-top: -5px" />
+                                </label>
+                              </div>
+                            </th>
+                            <th scope="col">
+                              Reject All
+                              <div class="ux-selection" (click)="select('reject')">
+                                <label>
+                                  <input type="checkbox" name="radioboxdemo" id="rejectCheckBox"
+                                    style="margin-top: -5px" />
+                                </label>
+                              </div>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="
+                                let item of corpApproverRequests;
+                                let i = index
+                              ">
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                              {{
+                                  item.activityName == null ||
+                                  item.activityName == ""
+                                    ? "-"
+                                    : item.activityName
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.createdOn == null || item.createdOn == ""
+                                    ? "-"
+                                    : item.createdOn | date: "yyyy-MM-dd hh:mm:ss a"
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.updatedOn == null || item.updatedOn == ""
+                                    ? "-"
+                                    : (item.updatedOn | date: "yyyy-MM-dd hh:mm:ss a")
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.statusName == null ||
+                                  item.statusName == ""
+                                    ? "-"
+                                    : item.statusName
+                                }}
+                            </td>
+
+                            <td>
+                              <div class="ux-selection">
+
+                                <div class="correct-icon">
+                                  <i class="fa fa-check-circle-o" aria-hidden="true"
+                                    (click)="onApproveClicked(item)"></i>
+                                </div>
+                                <div class="cross-icon">
+                                  <i class="fa fa-times-circle-o" aria-hidden="true"
+                                    (click)="onRejectClicked(item)"></i>
+                                </div>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ux-selection">
+                                <img class="action-btn" src="assets/images/icons/eye.png"
+                                  (click)="showContentData(item)" />
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ux-selection">
+                                <label>
+                                  <input type="checkbox" name="radioboxdemo" [(ngModel)]="item.isApproveChecked"
+                                    class="approveall" (click)="selectsingle('approve', item)" />
+                                </label>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ux-selection">
+                                <label>
+                                  <input type="checkbox" name="radioboxdemo" [(ngModel)]="item.isRejectChecked"
+                                    class="rejectall" (click)="selectsingle('reject', item)" />
+                                </label>
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!--.table-responsivebox-->
+                  </div>
+                  <!--.datatable-box-->
+                </div>
+              </div>
+              <div class="row mt-5">
+
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancelClick()" style="float: left">
+                    Cancel
+                  </button>
+                </div>
+                <div class="col-6 col-lg-2">
+                  <button class="ux-button primary" type="submit" disabled (click)="getdata()" style="float: right">
+                    {{ actionButton }}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+
+  <div class="tiny-modal tm-rounded tiny-modal1" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal tinymodal-1">
+      <div *ngIf="selModel === 'viewdata'" class="tinymodal-content">
+        <div class="row">
+          <div class="col-12 tinymodal-header">
+            <div>
+              <button type="button" class="close" (click)="closeActionModel()">
+                <span> <img src="assets/images/icons/cross.png" /></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="datatable-box" style="overflow-y: scroll">
+            <div class="table-responsive">
+              <table id="dt-sample" class="table display table-hover" style="margin-top: 50px">
+                <thead>
+                  <tr>
+                    <th scope="col" *ngFor="let item of coldynamic; let i = index">
+                      {{ item | titlecase }}
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of finalDataDynamic; let i = index">
+                    <td *ngFor="
+                          let itemdata of finalDataDynamic[i];
+                          let j = index
+                        ">
+                      <p *ngIf="!itemdata.imgactive">{{ itemdata.data }}</p>
+                      <span *ngIf="itemdata.userActive" ><img src="assets/images/icons/eye.png" (click)="onUsersDataShow(i)" /></span>
+                      <img [src]="itemdata.data" *ngIf="itemdata.imgactive" height="50px" weight="50px" />
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--.table-responsivebox-->
+          </div>
+        </div>
+
+        <div *ngIf="finaluserarr.length > 0" class="row">
+
+          <div class="datatable-box" style="overflow-y: scroll">
+            <p class="mt-5"><b>Users Data</b></p>
+            <div class="table-responsive">
+              <table id="dt-sample123" class="table display table-hover" style="margin-top: 50px">
+                <thead>
+                  <tr>
+                    <th scope="col">Username</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Email Id</th>
+                    <th scope="col">Mobile Number</th>
+                    <th scope="col">PAN Card Number</th>
+                    <th scope="col">Aadhar Card Number</th>
+                    <th scope="col">Passport Number</th>
+                    <th scope="col">RRN</th>
+                    <th scope="col">User Role</th>
+                    <th scope="col">Parent Role</th>
+                    <th scope="col">Account List</th>
+                    <th scope="col">Menu List</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let item of finaluserarr">
+                    <td>{{ item.userName == null || item.userName == "" ? '-' : item.userName}}</td>
+                    <td>{{ item.firstName == null || item.firstName == "" ? '-' : item.firstName}}</td>
+                    <td>{{ item.lastName == null || item.lastName == "" ? '-' : item.lastName}}</td>
+                    <td>{{ item.email == null || item.email == "" ? '-' : item.email}}</td>
+                    <td>{{ item.mobile == null || item.mobile == "" ? '-' : item.mobile}}</td>
+                    <td>{{ item.pancardNo == null || item.pancardNo == "" ? '-' : item.pancardNo}}</td>
+                    <td>{{ item.aadharCardNo == null || item.aadharCardNo == "" ? '-' : item.aadharCardNo}}</td>
+                    <td>{{ item.passportNo == null || item.passportNo == "" ? '-' : item.passportNo}}</td>
+                    <td>{{ item.rrn == null || item.rrn == "" ? '-' : item.rrn}}</td>
+                    <td>{{ item.userRole == null || item.userRole == "" ? '-' : item.userRole}}</td>
+                    <td>{{ item.parentRole == null || item.parentRole == "" ? '-' : item.parentRole}}</td>
+                    <td>{{ item.accountList == null || item.accountList == "" ? '-' : item.accountList}}</td>
+                    <td>{{ item.menuName == null || item.menuName == "" ? '-' : item.menuName}}</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <!--.table-responsivebox-->
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <!--.tinymodal-->
+  </div>
+
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm1">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+      <div *ngIf="
+            selModel === 'approveRequest' ||
+            'rejectRequest' ||
+            'approveall' ||
+            'rejectall'
+          " class="tinymodal-content">
+        <form [formGroup]="remarkForm" id="remark">
+          <div class="row">
+            <div class="col-12 px-0 mt-2">
+              <div class="ux-input input-error">
+                <textarea formControlName="remark" placeholder="Enter Remark"></textarea>
+                <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-6">
+              <button class="ux-button" (click)="closeActionModel1()">
+                Cancel
+              </button>
+            </div>
+            <div class="col-6" *ngIf="singlerequestremark">
+              <button class="ux-button primary" (click)="
+                    this.selModel == 'approveRequest'
+                      ? approveRequest(remarkForm.value)
+                      : rejectRequest(remarkForm.value)
+                  ">
+                OK
+              </button>
+            </div>
+            <div class="col-6" *ngIf="allrequestremark">
+              <button class="ux-button primary" (click)="
+                    this.selModel == 'approveall'
+                      ? approveall(remarkForm.value)
+                      : rejectall(remarkForm.value)
+                  ">
+                OK
+              </button>
+            </div>
+            <!--.col-xs-12-->
+          </div>
+        </form>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+  <!--.footer-container-->
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>

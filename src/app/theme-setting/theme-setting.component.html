@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<div lang="en">
+
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Theme</title>
+
+	</head>
+
+	<body>
+		<div class="main">
+			<!-- navigation menu container start -->
+			<app-navmenu></app-navmenu>
+			<div class="nav-overlay"></div>
+			<!--.nav-overlay-->
+			<!-- navigation menu container end -->
+			<div class="right-main-column">
+				<div class="right-col-container full-width">
+					<app-header></app-header>
+					<!-- ======== body page content start from here ======== -->
+					<div class="body-page-container">
+						<div class="vspacer10"></div>
+						<!--.vspacer10-->
+						<div class="device-page-titles d-none d-md-none d-lg-block">
+              <div class="component-title">
+                <h4>{{commonServiceCall.pageName}}</h4>
+              </div>
+							<div class="in-header d-none">
+								<div class="header-icons-rit">
+									<div class="header-actions">
+										<!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+									</div>
+									<!--.header-actions-->
+								</div>
+								<!--.header-icons-rit-->
+							</div> <!-- in-header -->
+						</div> <!-- device-page-titles -->
+						<!-- ========== body section start ========= -->
+
+						<div class="container">
+
+							<form [formGroup]="themeSettingForm">
+								<div class="row">
+									<div class="col-12">
+										<div class="ux-input input-error">
+											<label>Theme Name</label>
+											<input type="text" placeholder="Enter your theme name" limit-to="20"
+												formControlName="themeName">
+                      <p *ngIf="formErrors.themeName">{{ formErrors.themeName }}</p>
+                      <p *ngIf="themeSettingForm.get('themeName').touched && themeSettingForm.get('themeName').value != '' && themeSettingForm.get('themeName').invalid">* Invalid theme name</p>
+										</div>
+										<!--.ux-input-->
+									</div>
+									<!--.col-12-->
+								</div>
+								<!--.row-->
+								<div class="row">
+									<div class="col-12">
+										<div class="ux-input input-error">
+											<label>Channel</label>
+											<select formControlName="channel">
+												<option *ngFor="let product of this.productTypes; index as i" [value]='product.id' >{{product.shortName | titlecase }}</option>
+												<!-- <option value="4">Mobile</option>
+												<option value="3">Wallet</option>
+												<option value="5">Desktop</option> -->
+											</select>
+											<p *ngIf="formErrors.channel">{{ formErrors.channel }}</p>
+										</div>
+										<!--.ux-input-->
+									</div>
+									<!--.col-12-->
+								</div>
+								<!--.row-->
+								<div class="row">
+									<div class="col-12">
+										<div class="ux-input input-error">
+											<label></label>
+											<div class="custom-file mt-3 mb-2">
+												<input type="file" class="custom-file-input" id="customFile"
+													formControlName="uploadLogo" (change)="uploadImg('logo', $event)">
+												<label class="custom-file-label" for="customFile">Upload Logo</label>
+											</div>
+											<p style="text-align: right;padding-right: 10px;color: #777272;"
+												*ngIf="uploadLogoName">{{uploadLogoName}}</p>
+											<p *ngIf="formErrors.uploadLogo">{{ formErrors.uploadLogo }}</p>
+										</div>
+									</div>
+								</div>
+								<!--.row-->
+								<div class="row">
+									<div class="col-12">
+										<div class="ux-input input-error">
+											<label>Postfix</label>
+											<input type="text" placeholder="enter postfix" limit-to="20" formControlName="postfix">
+											<p *ngIf="formErrors.postfix">{{ formErrors.postfix }}</p>
+										</div>
+										<!--.ux-input-->
+									</div>
+									<!--.col-12-->
+								</div>
+								<!--.row-->
+								<div class="row">
+									<div class="col-12">
+										<div class="ux-input input-error">
+											<label></label>
+											<div class="custom-file mt-3 mb-2">
+												<input type="file" class="custom-file-input" id="customFile"
+													formControlName="dashboardBg"
+													(change)="uploadImg('dashboard', $event)">
+												<label class="custom-file-label" for="customFile">Upload Dashboard
+													Background</label>
+											</div>
+											<p style="text-align: right;padding-right: 10px;color: #777272;"
+												*ngIf="dashboardBgImgName">{{dashboardBgImgName}}</p>
+											<p *ngIf="formErrors.dashboardBg">{{ formErrors.dashboardBg }}</p>
+										</div>
+									</div>
+								</div>
+								<!--.row-->
+								<div class="row">
+									<div class="col-12">
+										<div class="ux-input input-error">
+											<label>Css upload format</label>
+										</div>
+										<!--.ux-input-->
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-6 col-lg-2">
+										<div class="ux-selection">
+											<label>
+												<input type="radio" value="file" formControlName="type" name="type"
+													(change)="selFileType($event)">
+												<em>file upload</em>
+											</label>
+										</div> <!-- ux-selection -->
+									</div>
+									<div class="col-6 col-lg-2">
+										<div class="ux-selection">
+											<label>
+												<input type="radio" value="css" formControlName="type" name="type"
+													(change)="selFileType($event)">
+												<em>css</em>
+											</label>
+										</div> <!-- ux-selection -->
+									</div>
+								</div>
+								<!-- <div class="selection-group">
+									<div class="ux-selection">
+										<label>
+											<input type="radio" value="css" formControlName="type" name="type"
+												(change)="selFileType($event)">
+											<em>css</em>
+										</label>
+									</div>
+									<div class="ux-selection">
+										<label>
+											<input type="radio" value="file" formControlName="type" name="type"
+												(change)="selFileType($event)">
+											<em>file upload</em>
+										</label>
+									</div>
+								</div> -->
+								<!--.selection-group-->
+
+								<!-- <div class="row">
+								<div class="col-12">
+									<div class="ux-input input-error">
+										<label>Css upload format</label>
+										<select formControlName="type" (change)="selFileType($event)">
+											<option value="css" >css</option>
+											<option value="file" >file upload</option>
+										</select>
+										<p *ngIf="formErrors.type">{{ formErrors.type }}</p>
+									</div>
+								</div>
+							</div> -->
+
+
+								<div class="row" *ngIf="uploadCssType == 'file'">
+									<div class="col-12">
+										<div class="ux-input input-error">
+											<label></label>
+											<div class="custom-file mt-3 mb-2">
+												<input type="file" class="custom-file-input" id="customFile"
+													formControlName="styleCss" (change)="fileChanged($event)">
+												<label class="custom-file-label" for="customFile">Style CSS</label>
+											</div>
+											<p style="text-align: right;padding-right: 10px;color: #777272;"
+												*ngIf="cssFileName">{{cssFileName}}</p>
+											<p *ngIf="formErrors.styleCss">{{ formErrors.styleCss }}</p>
+										</div>
+									</div>
+								</div>
+								<!--.row-->
+								<div class="row" *ngIf="uploadCssType == 'css'">
+									<div class="col-12">
+										<div class="ux-input input-error">
+											<label>Style CSS</label>
+											<textarea style="border: 1px solid rgba(0, 0, 0, 0.4);"
+												formControlName="styleCss" rows="10"></textarea>
+											<p *ngIf="formErrors.styleCss">{{ formErrors.styleCss }}</p>
+										</div>
+										<!--.ux-input-->
+									</div>
+									<!--.col-12-->
+								</div>
+								<!-- <div class="row">
+									<div class="col-12">
+										<div class="ux-input input-error">
+											<label>Status</label>
+											<select formControlName="status">
+												<option value="1">Active</option>
+												<option value="0">Inactive</option>
+											</select>
+											<p *ngIf="formErrors.status">{{ formErrors.status }}</p>
+										</div>
+									</div>
+								</div> -->
+								<!--.row-->
+								<div class="row">
+									<div class="col-12">
+										<div class="ux-input input-error">
+											<label></label>
+											<div class="custom-file mt-3 mb-2">
+												<input type="file" class="custom-file-input" id="customFile"
+													formControlName="images" (change)="uploadImg('cssImg', $event)">
+												<label class="custom-file-label" for="customFile">Images</label>
+											</div>
+											<p style="text-align: right;padding-right: 10px;color: #777272;"
+												*ngIf="cssImageName">{{cssImageName}}</p>
+											<p *ngIf="formErrors.images">{{ formErrors.images }}</p>
+										</div>
+									</div>
+									<!-- <div class="col-1">
+										<div class="logo">
+											<img src="assets/images/icons/add.png" style="width: 23px;">
+										</div>
+									</div> -->
+								</div>
+								<div class="row">
+									<div class="col-12" style="display: flex;">
+										<label style="margin:10px 0px; padding-right: 10px;">Set as default css</label>
+										<label class="switch">
+											<input type="checkbox" [checked]="isChecked" [value]="status" (change)="changeStatus($event,status)" >
+											<span class="slider round"></span>
+										</label>
+									</div>
+								</div>
+							</form>
+
+
+						</div>
+						<!--.container-->
+
+					</div>
+					<!--.body-page-container-->
+					<!-- added new -->
+				</div>
+				<!--.right-col-container-->
+				<!-- added new -->
+			</div>
+			<!--.right-main-column-->
+			<!-- added new -->
+		</div>
+		<!--.main-->
+
+
+
+
+		<div class="vspacer20"></div>
+		<!--.vspacer20-->
+		<!-- ===========footer section start========= -->
+		<div class="footer-container sticky-actions">
+			<div class="footer-inactions">
+				<div class="container">
+					<div class="row">
+						<div class="col-6">
+							<button class="ux-button primary" (click)="addTheme()">Submit</button>
+						</div>
+						<!--.col-xs-12-->
+						<div class="col-6">
+							<button class="ux-button" (click)="cancel()">Cancel</button>
+						</div>
+						<!--.col-xs-12-->
+					</div>
+					<!--.row-->
+				</div>
+				<!--.container-->
+			</div> <!-- footer-inactions -->
+		</div>
+		<!--.footer-container-->
+		<div class="sticky-actions-spacer"></div>
+		<!-- ==============footer section end============ -->
+
+		<script src="js/lib/jquery.min.js"></script>
+		<script src="js/lib/bootstrap.min.js"></script>
+		<script src="js/common.js"></script>
+
+
+	</body>

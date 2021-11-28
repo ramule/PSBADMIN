@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Charges/Commission Master</title>
+
+	</head>
+
+<body>
+
+	<div class="main">
+		<app-navmenu></app-navmenu>
+		<div class="nav-overlay"></div><!--.nav-overlay-->
+		<!-- navigation menu container end -->
+
+		<div class="right-main-column">
+			<div class="right-col-container full-width">
+				<!-- ======== header section start ========== -->
+				<app-header></app-header>
+				<!-- ======== header section end ========== -->
+				<!-- ======== body page content start from here ======== -->
+				<div class="body-page-container">
+					<div class="vspacer10"></div><!--.vspacer10-->
+					<div class="device-page-titles d-none d-md-none d-lg-block">
+						<div class="in-header">
+							<div class="header-icons-lft">
+								<div class="header-actions">
+
+									<div class="head-page-title">
+										<h5>Charges/Commission Master</h5>
+									</div>
+								</div><!--.header-actions-->
+							</div><!--.header-icons-lft-->
+						 	<div class="header-icons-rit">
+								<div class="header-actions">
+                                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+
+								</div><!--.header-actions-->
+							</div><!--.header-icons-rit-->
+						</div> <!-- in-header -->
+					</div> <!-- device-page-titles -->
+					<div class="container">
+
+						<div class="row">
+							<div class="col-6"></div>
+							<div class="col-6">
+								<button class="ux-button primary" (click)="addCharges()">+ Add</button>
+							</div>
+						</div>
+
+
+						<div class="row">
+							<div class="col-6">
+								<div class="ux-input input-error">
+									<label>Types</label>
+									<select (change)="selectedType($event.target.value)">
+										<option value=''>Select type</option>
+										<option value='CO' >Commission</option>
+										<option value='C' >Charges</option>
+									</select>
+									<p *ngIf="statusError">Please select type</p>
+								</div>
+							</div>
+							<!--.col-12-->
+						</div>
+						<!--.row-->
+
+
+						<!-- <div class="sticky-actions-spacer"></div> -->
+						<div class="row mt-3" *ngIf="showTable">
+							<div class="col-12 mb-0">
+								<div class="datatable-box">
+									<div class="table-responsive">
+										<table id="dt-sample" class="table display table-hover">
+											<thead>
+												<tr>
+													<th scope="col"> Minimum Amount
+													</th>
+													<th scope="col"> Maximum Amount
+													</th>
+													<th scope="col"> Value
+													</th>
+													<th scope="col"> Fixed/Percentage
+													</th>
+													<th scope="col"> Status
+													</th>
+													<th scope="col"> Created On
+													</th>
+													<th scope="col"> Action
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr *ngFor="let item of chargeMaster; let i=index">
+													<td>{{item.min_amount}}</td>
+													<td>{{item.max_amount}}</td>
+													<td>{{item.charges_val}}</td>
+													<td>{{item.type_p_f}}</td>
+													<td>{{item.statusid}}</td>
+													<td>{{item.createdon}}</td>
+													<td>
+														<div class="ux-selection">
+															<img class="action-btn" src="assets/images/icons/edit.png" (click)="gotoChargeDtl(item)">
+														</div>
+													</td>
+												</tr>
+
+
+											</tbody>
+										</table>
+									</div>
+									<!--.table-responsivebox-->
+								</div>
+								<!--.datatable-box-->
+							</div>
+
+						</div>
+
+
+                    </div><!--.container-->
+				</div><!--.body-page-container--> <!-- added new -->
+			</div><!--.right-col-container--> <!-- added new -->
+		</div><!--.right-main-column--> <!-- added new -->
+	</div><!--.main-->
+	<!-- ===========footer section start========= -->
+	<div class="sticky-actions-spacer"></div>
+	<div class="footer-container sticky-actions">
+		<div class="footer-inactions">
+			<div class="container">
+				<div class="row">
+					<div class="col-6 col-lg-2 offset-lg-8">
+						<!-- <button class="ux-button" (click)="cancel()">Cancel</button> -->
+					</div>
+					<div class="col-6 col-lg-2">
+						<button class="ux-button" (click)="cancel()">Cancel</button>
+					</div>
+					<!--.col-xs-12-->
+				</div>
+			</div>
+			<!--.container-->
+		</div> <!-- footer-inactions -->
+	</div>
+	<!-- ==============footer section end============ -->
+
+	<script src="js/lib/jquery.min.js"></script>
+	<script src="js/lib/bootstrap.min.js"></script>
+	<script src="js/common.js"></script>
+
+
+</body>

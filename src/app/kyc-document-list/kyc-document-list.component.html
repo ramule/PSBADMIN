@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Access Menu Right Details</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <!--.global-nav-->
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <div class="vspacer10"></div>
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div>
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container">
+              <form [formGroup]="listForm">
+                <div class="row">
+
+                  <div class="col-12 col-md-6">
+                    <div class="ux-input input-error">
+                      <label>Folder Name</label>
+                      <select
+                        formControlName="selectedFolder"
+                        (change)="selectedValue($event.target.value)"
+                      >
+                        <option value="">Select Folder Name</option>
+                        <option
+                          *ngFor="let option of allFolders; index as i"
+                          [value]="option.id"
+                        >
+                          {{ option.name | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.selectedFolder">
+                        {{ formErrors.selectedFolder }}
+                      </p>
+
+                      <!-- <p *ngIf="typeError">Please select type</p> -->
+                    </div>
+
+                    <a href="" class="" routerLink="/KYCFolderAdd"
+                    >Add folder</a
+                  >
+                  </div>
+                </div>
+                <div class="row mt-4">
+                  <div class="col-12 col-md-6">
+                  </div>
+                  <div class="col-6 col-lg-2 col-md-2 offset-lg-2 offset-md-2">
+                    <button class="ux-button" (click)="cancel()">Cancel</button>
+                  </div>
+
+                  <div class="col-6 col-lg-2 col-md-2">
+                    <button class="ux-button primary" (click)="addDocument()">
+                      + Add
+                    </button>
+                  </div>
+                </div>
+              </form>
+
+              <!-- <div class="row">
+                <div class="col-6">
+                  <a href="" class="" routerLink="/holidayListBulkAdd"
+                    >Add folder</a
+                  >
+                </div>
+              </div> -->
+
+              <!-- <div class="sticky-actions-spacer"></div> -->
+              <div class="row mt-3" *ngIf="showTable">
+                <div class="col-12 mb-0">
+                  <div class="datatable-box">
+                    <div class="table-responsive">
+                      <table id="dt-sample" class="table display table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col" id="col1">File Name</th>
+                            <th scope="col" id="col2">Created On</th>
+                            <th scope="col" id="col2">UUID</th>
+                            <th scope="col" id="col3">View</th>
+                            <th scope="col" id="col3" class="notexport">Action</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let list of fileListArray; let i = index">
+                            <td>{{ list.name }}</td>
+                            <td>{{ list.createdOn | date: 'yyyy-MM-dd'}}</td>
+                            <td>{{ list.uuid }}</td>
+                            <td>
+                              <div class="ux-selection">
+                                <img
+                                  class="action-btn"
+                                  src="assets/images/icons/eye.png"
+                                />
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ux-selection">
+                                <img
+                                  class="action-btn"
+                                  src="assets/images/icons/delete.png"
+                                />
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!--.table-responsivebox-->
+                  </div>
+                </div>
+              </div>
+
+              <div
+                class="row mt-5"
+                *ngIf="showTable && priviledgeDataArr.updateChecked"
+              >
+                <!-- <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div> -->
+                <div class="col-6 col-lg-2 offset-lg-10">
+                  <button class="ux-button primary">Save</button>
+                </div>
+                <!--.col-xs-12-->
+              </div>
+              <div
+                class="row mt-5"
+                *ngIf="showTable && !priviledgeDataArr.updateChecked"
+              >
+                <div class="col-6 col-lg-2 offset-lg-10">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+                <!--.col-xs-12-->
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+
+    <!--.tinymodal-overlay-->
+    <!--.tinymodal-->
+    <!--.footer-container-->
+    <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

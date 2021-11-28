@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Holiday List Add</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <!-- load form -->
+                <form [formGroup]="holidayListAddForm">
+                  <div class="row">
+                    <div class="col-12 col-md-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Holiday Name</label>
+                        <input
+                          type="text"
+                          formControlName="holidayName"
+                          placeholder="Enter Holiday Name"
+                        />
+                        <p *ngIf="formErrors.holidayName">
+                          {{ formErrors.holidayName }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+
+                    <div class="col-12 col-md-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>State Name</label>
+                        <!-- <select id="sl_state" formControlName="state" (change)="onStateChange($event)" multiple>
+                        <option value=''>Select State</option>
+                        <option *ngFor="let state of statesArr; index as i" [value]='state.stateName' >{{state.stateName | titlecase }}</option>
+                      </select> -->
+                        <ng-multiselect-dropdown
+                          [placeholder]="'Select State Name'"
+                          [settings]="dropdownSettings"
+                          [data]="filterStates()"
+                          [(ngModel)]="selectedItems"
+                          (onSelect)="onItemSelect($event)"
+                          (onSelectAll)="onSelectAll($event)"
+                          [formControl]="holidayListAddForm.controls['state']"
+                        >
+                        </ng-multiselect-dropdown>
+                        <p
+                          *ngIf="
+                          holidayListAddForm.get('state').invalid &&
+                            holidayListAddForm.get('state').touched
+                          "
+                        >
+                          {{ formErrors.state }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+
+                    <div class="col-12 col-md-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Holiday Date</label>
+                        <input
+                          id="frmDate"
+                          class="pr-0"
+                          type="date"
+                          formControlName="holidayDate"
+                        />
+                        <p *ngIf="formErrors.holidayDate">
+                          {{ formErrors.holidayDate }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                  </div>
+                </form>
+                <!--.row-->
+
+                <div class="row mt-2">
+                  <div class="col-6">
+                    <a href="" class="" routerLink="/holidayListBulkAdd"
+                      >Add bulk holiday list</a
+                    >
+                  </div>
+                  <!--.col-6-->
+                </div>
+                <!--.row-->
+
+                <div class="row mt-5">
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="cancel()">Cancel</button>
+                  </div>
+                  <div
+                    *ngIf="this.commonDataShareService.roleType == this.commonDataShareService.makerRole"
+                    class="col-6 col-lg-2"
+                  >
+                    <button
+                      class="ux-button primary"
+                      (click)="
+                        openActionModel('remarkField', holidayListAddForm.value)
+                      "
+                    >
+                      Save
+                    </button>
+                  </div>
+
+                  <div
+                    *ngIf="this.commonDataShareService.roleType != this.commonDataShareService.makerRole"
+                    class="col-6 col-lg-2"
+                  >
+                    <button class="ux-button primary" (click)="addHoliday()">
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+      <div class="tinymodal-overlay"></div>
+      <!--.tinymodal-overlay-->
+      <div class="tinymodal">
+        <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+          <form [formGroup]="remarkForm">
+            <div class="row">
+              <div class="col-12 px-0 mt-2">
+                <div class="ux-input input-error">
+                  <textarea
+                    formControlName="remark"
+                    placeholder="Enter Remark"
+                  ></textarea>
+                  <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-6">
+                <button class="ux-button" (click)="closeActionMoel()">
+                  Cancel
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  class="ux-button primary"
+                  (click)="addHolidayWithRemark(remarkForm.value)"
+                >
+                  OK
+                </button>
+              </div>
+              <!--.col-xs-12-->
+            </div>
+          </form>
+        </div>
+        <!--.tinymodal-content-->
+      </div>
+      <!--.tinymodal-->
+    </div>
+    <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

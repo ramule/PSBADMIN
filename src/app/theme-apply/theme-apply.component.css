@@ -1,0 +1,27 @@
+.icon-border {
+  border: 2px solid #007c3d;
+  border-radius: 80%;
+  width: 30px;
+  padding: 3px;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.add-icon {
+  font-size: 14px;
+  color: #007C3D;
+  cursor: pointer;
+  margin-top: 3px;
+}
+
+.close span img {
+  width: 15px;
+  top: -3px;
+  position: absolute;
+  right: 1px;
+}
+
+.dt-scroll {
+  height: 300px;
+  overflow-y: scroll;
+}

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<title>OTP</title>
+</head>
+
+<body>
+
+	<div class="main">
+
+		<app-navmenu></app-navmenu>
+		<div class="nav-overlay"></div><!--.nav-overlay-->
+		<!-- Nav bar menu -->
+
+		<!-- ========== body section start ========= -->
+		<div class="right-main-column">
+			<div class="right-col-container full-width">
+				<!-- ======== header section start ========== -->
+				<app-header></app-header>
+				<!-- ======== header section end ========== -->
+				<!-- ========== body section start ========= -->
+				<div class="body-page-container">
+					<div class="device-page-titles d-none d-md-none d-lg-block">
+						<div class="in-header">
+							<div class="header-icons-lft">
+								<div class="header-actions">
+									<!-- <button class="ux-button-header" (click)="otpBackCall()">
+										<img src="assets/images/icons/back.png">
+									</button> -->
+									<div class="head-page-title">
+										<h5>ENTER OTP</h5>
+									</div>
+								</div>
+							</div>
+							<div class="header-icons-rit">
+								<div class="header-actions">
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="page-pre-login">
+						<div class="container">
+							<form [formGroup]="otpForm">
+								<div class="row">
+									<div class="col-12">
+										<div class="logo-container">
+											<img alt="" src="assets/images/icons/mob_verify.png">
+											<!-- <img alt="" src="assets/images/icons/mob_verify.png"> -->
+											<h5>OTP_HEADING</h5>
+										</div>
+										<!--.logo-container-->
+									</div>
+									<!--.col-12-->
+								</div>
+								<!--.row-->
+								<div class="row">
+									<div class="col-12 col-sm-offset-3">
+										<div class="ux-otp-input input-error">
+											<input type="tel" id="otp2" placeholder="OTP" formControlName="otp" numbersOnly limit-to="6" class="password_number"
+											 autocomplete="off">
+											<p *ngIf="formErrors.otp">{{ formErrors.otp }}</p>
+											<em>OTP_NOTIFICATION
+												<!-- <b>{{userMobileNo}}</b> -->
+											</em>
+										</div>
+										<!--.ux-component-->
+									</div>
+									<!--.col-12-->
+								</div>
+								<!--.row-->
+								<div class="vspacer40"></div>
+								<div class="row">
+									<div class="col-12">
+										<div class="register-here">
+											OTP_TEXT
+											<a href="javascript:;" class="ux-linkbutton primary" id="otp3" (click)="resendOtp()">
+												RESEND_OTP</a>
+										</div>
+										<!--.text-center-->
+									</div>
+									<!--.col-12-->
+								</div>
+							</form>
+						</div>
+						<!--.container-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- ========== body section end ========= -->
+
+	<!-- ===========footer section start========= -->
+	<div class="footer-container sticky-actions footer-area">
+		<div class="footer-inactions">
+			<div class="container">
+				<div class="row">
+					<div class="col-12">
+						<button class="ux-button primary" id="otp4" (click)="otpValidation(otpForm.value)">SUBMIT_BTN</button>
+					</div>
+					<!--.col-xs-12-->
+				</div>
+				<!--.row-->
+			</div>
+			<!--.container-->
+		</div>
+		<!-- footer-inactions -->
+	</div>
+	<!--.footer-container-->
+	<div class="sticky-actions-spacer"></div>
+	<!-- ==============footer section end============ -->
+
+</body>

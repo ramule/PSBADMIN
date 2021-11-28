@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Adapter Source Channel</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <!--.global-nav-->
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                    <!-- <button class="ux-button primary" (click)="showHideForm()">+ Add</button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <div class="row">
+                  <div class="col-6"></div>
+                  <div *ngIf="priviledgeDataArr.createChecked" class="col-6 offset-lg-10 offset-6 col-lg-2">
+                    <button class="ux-button primary" (click)="addTask()">
+                      + Add
+                    </button>
+                  </div>
+                </div>
+                <div *ngIf="priviledgeDataArr.viewChecked" class="row mt-3">
+                  <div class="col-12 mb-0">
+                    <div class="datatable-box">
+                      <div class="table-responsive">
+                        <table id="dt-sample" class="table display table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">Sr. No.</th>
+                              <th scope="col">Title</th>
+                              <th scope="col">Show As SubMenu</th>
+                              <th
+                                *ngIf="
+                                  priviledgeDataArr.updateChecked ||
+                                  priviledgeDataArr.deleteChecked
+                                "
+                                scope="col"
+                              >
+                                Action
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              *ngFor="
+                                let item of impsCategoryMaster;
+                                let i = index
+                              "
+                            >
+                              <td>{{ i + 1 }}</td>
+                              <td>{{ item.title }}</td>
+                              <td>
+                                {{ item.show_as_submenu }}
+                              </td>
+                              <td
+                                *ngIf="
+                                  priviledgeDataArr.updateChecked ||
+                                  priviledgeDataArr.deleteChecked
+                                "
+                              >
+                                <div class="ux-selection">
+                                  <img
+                                    *ngIf="priviledgeDataArr.updateChecked"
+                                    class="action-btn"
+                                    src="assets/images/icons/edit.png"
+                                    (click)="gotoEdit(item)"
+                                  />
+                                  <img
+                                    *ngIf="priviledgeDataArr.deleteChecked"
+                                    class="action-btn"
+                                    src="assets/images/icons/delete.png"
+                                    (click)="openModelToDeleteCategory(item)"
+                                  />
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!--.table-responsivebox-->
+                    </div>
+                    <!--.datatable-box-->
+                    <div
+                      class="dt-extras mt-4"
+                      *ngIf="impsCategoryMaster.length > 0"
+                    >
+                      <div class="dt-exports">
+                        <em>Export to :<span class="chevron"></span></em>
+                        <button
+                          class="linkbutton exp-excel"
+                          (click)="commonMethod.downLoadFile('excel')"
+                        >
+                          Excel <b>(.xlsx)</b>
+                        </button>
+                        <button
+                          class="linkbutton exp-pdf"
+                          (click)="commonMethod.downLoadFile('pdf')"
+                        >
+                          Pdf <b>(.pdf)</b>
+                        </button>
+                        <!-- <button class="linkbutton exp-word" (click)="wordDownload()">word <b>(.docx)</b></button> -->
+                        <!-- <button class="linkbutton exp-xml">XML <b>(.xml)</b></button> -->
+                        <button
+                          class="linkbutton exp-csv"
+                          (click)="commonMethod.downLoadFile('csv')"
+                        >
+                          csv <b>(.csv)</b>
+                        </button>
+                      </div>
+                      <!--.dt-exports-->
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <div class="col-6 col-lg-2"></div>
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="cancel()">Cancel</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+      <div class="tinymodal-overlay"></div>
+      <div class="tinymodal">
+        <div class="tinymodal-content">
+          <div class="row">
+            <div class="col-12 tinymodal-header"></div>
+          </div>
+          <div class="row" *ngIf="selModel == 'deleteCategory'">
+            <div class="col-12 px-0 mt-2">
+              <h5>Are you sure you want to delete report category?</h5>
+            </div>
+          </div>
+          <div class="row mt-5" *ngIf="selModel == 'deleteCategory'">
+            <div class="col-6">
+              <button class="ux-button" (click)="closeActionModel()">
+                Cancel
+              </button>
+            </div>
+            <div class="col-6">
+              <button class="ux-button primary" (click)="deleteCategory()">
+                OK
+              </button>
+            </div>
+            <!--.col-xs-12-->
+          </div>
+        </div>
+        <!--.tinymodal-content-->
+      </div>
+      <!--.tinymodal-overlay-->
+      <!--.tinymodal-->
+    </div>
+    <!-- ==============footer section end============ -->
+  </body>
+</html>

@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Create Agent Account</title>
+
+</head>
+
+<body>
+
+	<div class="main">
+		<app-navmenu></app-navmenu>
+		<div class="nav-overlay"></div>
+		<!--.nav-overlay-->
+		<!-- navigation menu container end -->
+
+		<div class="right-main-column">
+			<div class="right-col-container full-width">
+				<!-- ======== header section start ========== -->
+				<app-header></app-header>
+				<!-- ======== header section end ========== -->
+				<!-- ======== body page content start from here ======== -->
+				<div class="body-page-container">
+					<div class="vspacer10"></div>
+					<!--.vspacer10-->
+					<div class="device-page-titles d-none d-md-none d-lg-block">
+						<div class="in-header">
+							<div class="header-icons-lft">
+								<div class="header-actions">
+
+									<div class="head-page-title">
+										<h5>Create Agent Account</h5>
+									</div>
+								</div>
+								<!--.header-actions-->
+							</div>
+							<!--.header-icons-lft-->
+							<div class="header-icons-rit">
+								<div class="header-actions">
+
+								</div>
+								<!--.header-actions-->
+							</div>
+							<!--.header-icons-rit-->
+						</div> <!-- in-header -->
+					</div> <!-- device-page-titles -->
+					<div class="container">
+
+
+						<form [formGroup]="agentCreateAccountForm">
+							<div class="row">
+
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>First Name</label>
+										<input type="text" formControlName="firstName" placeholder="Enter first name">
+										<p *ngIf="formErrors.firstName">{{ formErrors.firstName }}</p>
+									</div>
+									<!--.ux-input-->
+									<!--.ux-input-->
+								</div>
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Last Name</label>
+										<input type="text" formControlName="lastName" placeholder="Enter last name">
+										<p *ngIf="formErrors.lastName">{{ formErrors.lastName }}</p>
+									</div>
+									<!--.ux-input-->
+									<!--.ux-input-->
+								</div>
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Mobile Number</label>
+										<input type="text" formControlName="mobNo" placeholder="Enter mobile number">
+										<p *ngIf="formErrors.mobNo">{{ formErrors.mobNo }}</p>
+									</div>
+									<!--.ux-input-->
+									<!--.ux-input-->
+								</div>
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Email Id</label>
+										<input type="text" formControlName="emailId" placeholder="Enter email id">
+										<p *ngIf="formErrors.emailId">{{ formErrors.emailId }}</p>
+									</div>
+									<!--.ux-input-->
+									<!--.ux-input-->
+								</div>
+								<!--.col-6-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Gender</label>
+										<select formControlName="gender">
+											<option value="">Select gender</option>
+											<option value="M">MALE</option>
+											<option value="F">FEMALE</option>
+										</select>
+										<p *ngIf="formErrors.gender">{{ formErrors.gender }}</p>
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-6-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Currency</label>
+										<select formControlName="currency">
+											<option value="">Select currency</option>
+											<option value="LAK">LAK</option>
+											<option value="USD">USD</option>
+											<option value="INR">INR</option>
+										</select>
+										<p *ngIf="formErrors.currency">{{ formErrors.currency }}</p>
+									</div>
+									<!--.ux-input-->
+								</div>
+
+
+							</div>
+						</form>
+						<div class="row">
+							<div class="col-12">
+								<button class="ux-button primary" (click)="createAccount()">Save</button>
+							</div>
+							<!--.col-xs-12-->
+						</div>
+
+
+
+					</div>
+					<!--.container-->
+				</div>
+				<!--.body-page-container-->
+				<!-- added new -->
+			</div>
+			<!--.right-col-container-->
+			<!-- added new -->
+		</div>
+		<!--.right-main-column-->
+		<!-- added new -->
+	</div>
+	<!--.main-->
+	<!-- ===========footer section start========= -->
+	<div class="sticky-actions-spacer"></div>
+	<!-- ==============footer section end============ -->
+
+	<script src="js/lib/jquery.min.js"></script>
+	<script src="js/lib/bootstrap.min.js"></script>
+	<script src="js/common.js"></script>
+
+
+</body>

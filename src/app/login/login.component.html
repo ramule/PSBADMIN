@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Login</title>
+
+  <!-- <link href="css/lib/bootstrap.min.css" rel="stylesheet"> -->
+  <!-- <link href="css/mjbl.min.css" rel="stylesheet"> -->
+</head>
+
+<body class="login-container-body">
+  <div class="prelogin-page">
+    <div class="main">
+      <div class="right-main-column minus-rt-col">
+        <div class="right-col-container minus-nav">
+          <!-- ======== header section start ========== -->
+          <header class="global-header minus-nav">
+            <div class="in-header">
+              <div class="header-icons-lft">
+                <div class="header-actions">
+                  <button class="ux-button-header btn-notification-bell">
+                    <img src="assets/images/svg/home1.svg" />
+                    <em></em>
+                  </button>
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-lft-->
+              <div class="brand-logo">
+                <img src="assets/images/logo/psb-bank.png" />
+              </div>
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                  <button class="ux-button-header btn-notification-bell"></button>
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </header>
+          <!-- ======== header section end ========== -->
+          <!-- <div class="vspacer10"></div> -->
+          <!-- ========== body section start ========= -->
+          <div class="body-page-container login-container">
+            <div class="page-wrapper">
+              <div class="loginscreen-logo">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 colxs-12 text-center">
+                      <!-- <div class="logo">
+                          <img src="assets/images/icons/kiya-ADMIN-PORTAL.png" id="loginPageIcon">
+                      </div> -->
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="container">
+              <div class="row">
+                <div class="col-sm-3 col-12"></div>
+                <!--.col-sm-3 col-12-->
+                <div class="col-sm-6 col-12">
+                  <div class="login-content">
+                    <div class="login-heading">
+                      <div class="vspacer5"></div>
+                      <h4>Admin Portal</h4>
+                      <p>
+                        Welcome, Please login to your admin portal account
+                      </p>
+                    </div>
+                    <div class="vspacer20"></div>
+                    <form [formGroup]="loginForm">
+                      <!-- <label class="d-block">Authenticate Using</label> -->
+
+                      <!-- <div class="ux-selection">
+                          <label>
+                            <input
+                              id="ADRadioBtn"
+                              type="radio"
+                              name="radioboxdemo1"
+                              checked
+                              (click)="loginIntoFunction('AD')"
+                            />
+                            <em>Active Directory Login</em>
+                          </label>
+                        </div> -->
+                      <!--.ux-selection-->
+
+                      <!-- <div class="ux-selection">
+                          <label>
+                            <input
+                              id="omniRadioBtn"
+                              type="radio"
+                              name="radioboxdemo1"
+                              (click)="loginIntoFunction('OMNI')"
+                            />
+                            <em>OMNI</em>
+                          </label>
+                        </div> -->
+                      <!-- ux-selection -->
+
+                      <!-- toggle to select OMNI or Active directory -->
+                      <!-- <div class="position-relative">
+                        <label class="toggle mt-2">
+                          <input type="checkbox" [checked]="authenticationLabel == 'Active Directory Login'"
+                            (change)="loginIntoFunction()" />
+                          <span class="slider round"></span>
+                        </label>
+                        <div class="ux-selection position-absolute" style="top: 8px;">
+                          <label class="pl-2">
+                            <em> {{authenticationLabel}} </em>
+                          </label>
+                        </div>
+                      </div> -->
+
+                      <!-- <div class="position-relative">
+                        <label>
+                          <em> {{authenticationLabel}} </em>
+                        </label>
+                      </div> -->
+
+                      <div *ngIf="!adUserType && !isOtpLable" class="ux-input input-error">
+                        <label>Username</label>
+                        <input id="txtUsername" type="text" autocomplete="off" (keypress)="alphaNumericOnly($event)"
+                          formControlName="username" placeholder="Enter Username" />
+                        <p *ngIf="formErrors.username">
+                          {{ formErrors.username }}
+                        </p>
+                        <p *ngIf="
+                            loginForm.get('username').touched &&
+                            loginForm.get('username').value != '' &&
+                            loginForm.get('username').invalid
+                          ">
+                          * Invalid Username
+                        </p>
+                      </div>
+
+                      <div *ngIf="adUserType" class="ux-input input-error">
+                        <label>Active Directory Username</label>
+                        <input id="txtCn" type="text" autocomplete="off" formControlName="cn"
+                          placeholder="Enter Active Directory Username" />
+                        <p *ngIf="formErrors.cn">{{ formErrors.cn }}</p>
+                      </div>
+
+                      <!--.login-group-->
+                      <div *ngIf="!isOtpLable" class="ux-input input-error">
+                        <label>Password</label>
+                        <input id="txtPwd" type="password" formControlName="password" placeholder="Enter Password"
+                          (keyup.enter)="goToDashboard()" />
+                        <p *ngIf="formErrors.password">
+                          {{ formErrors.password }}
+                        </p>
+                      </div>
+
+                      <div *ngIf="!adUserType && isOtpLable" class="ux-input input-error">
+                        <label>OTP</label>
+                        <input id="txtOtp" type="password" autocomplete="off" numbersOnly limit-to="6"
+                          formControlName="otp" placeholder="Enter OTP" />
+                        <p *ngIf="formErrors.otp">
+                          {{ formErrors.otp }}
+                        </p>
+                      </div>
+
+
+
+                      <div *ngIf="!isOtpLable" class="ux-input input-error">
+                        <label>Enter Captcha</label>
+
+                        <input id="recaptcha" type="text" formControlName="recaptcha" placeholder="Enter Captcha" />
+                        <span class="errormsg"
+                          *ngIf="loginForm.controls['recaptcha'].touched && loginForm.value.recaptcha != this.code">*Please
+                          Enter valid Captcha</span>
+                        <!-- <span class="errormsg" *ngIf="LoginForm.controls['captcha'].touched &&  LoginForm.controls['captcha'].hasError('required') && LoginForm.value['captcha'] != '' " >{{"Please_Enter_Captcha"}}</span> -->
+                        <span class="errormsg" *ngIf="captchaExpire">{{captchaError}}</span>
+                        <p></p>
+                      </div>
+
+
+                      <!-- <div class="ux-input input-error">
+                        <label>Login into</label>
+                        <select formControlName="loginInto" (change)="onUserTypeChange($event)">
+                            <option value=''>Select login into</option>
+                            <option *ngFor="let item of loginInto; index as i" [value]='item.id' >{{item.value | uppercase }}</option>
+                        </select>
+                        <p *ngIf="formErrors.loginInto">{{ formErrors.loginInto }}</p>
+                      </div> -->
+
+
+
+                      <!-- <div class="mt-2">
+                        <ngx-recaptcha2 *ngIf="loginUserType == 'OMNI' && !isOtpLable" #captchaElem
+                        [siteKey]="siteKeyVal"
+                        formControlName="recaptcha">
+                        </ngx-recaptcha2>
+                      </div> -->
+
+
+                      <div *ngIf="loginUserType == 'OMNI' && !isOtpLable" class="forgot-pwd"
+                        routerLink="/forgotPassword">
+                        <a href="javascript:;">Forgot Password?</a>
+                      </div>
+
+                      <div class="col-12">
+
+                      </div>
+
+
+                      <div class="col-12" [ngStyle]="{display : !isOtpLable ? 'block' : 'none' }">
+                        <div class="captcha-container">
+                          <div class="captcha-box">
+                            <!-- <img1 src="assets/images/svg/captcha-bg.svg"> -->
+                            <div id="captcha">
+                            </div>
+                          </div>
+                          <div class="captcha-settings">
+                            <div class="refresh-btn" (click)="createCaptcha()">
+                              <img src="assets/images/svg/refresh-g.svg">
+                            </div>
+                            <div class="refresh-btn" (click)="playCaptcha()"
+                              style="margin-left:30px;float: right;margin-top:27px;">
+                              <img src="assets/images/svg/Audio-Captcha.svg">
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+
+                    </form>
+                    <!--.login-group-->
+                    <!-- <div class="ux-selection">
+                      <label>
+                          <em>Biometric Authentication</em>
+                          <input type="checkbox" name="radioboxdemo" id="applyProductCheck">
+                      </label>
+                    </div> -->
+
+                    <div *ngIf="loginUserType == 'OMNI' && isOtpLable" class="forgot-pwd">
+                      <a style="float: left;" href="javascript:;" (click)="onBackToLogin()">Back To Login</a>
+                      <a href="javascript:;" (click)="onResendOTP()">Resend OTP</a>
+                    </div>
+
+                    <div class="vspacer10"></div>
+
+                    <button *ngIf="!isOtpLable" class="ux-button primary" (click)="goToDashboard()">
+                      Login
+                    </button>
+                    <button *ngIf="isOtpLable" class="ux-button primary" (click)="validateOtp()">
+                      Validate OTP
+                    </button>
+                    <div class="vspacer10"></div>
+                  </div>
+                  <!--.login-container-->
+                </div>
+                <!--.col-sm-6 col-12-->
+                <div class="col-sm-3 col-12"></div>
+                <!--.col-sm-3 col-12-->
+              </div>
+              <!--.row-->
+              <!-- OTP Popup Start -->
+
+              <div class="popup-bottom md-popup otp-popup">
+                <div class="row1">
+                  <div class="col-12 col-md-8 col-lg-8 col-xl-8 m-auto">
+                    <div class="mob-icon">
+                      <img src="../assets/images/icons/mobile.svg" alt="mobile-icon">
+                    </div>
+                    <h4 class="greentext text-center mar-b ">OTP Verification</h4>
+                    <h6 class="text-center">OTP sent on your mobile number ending with ********9708 </h6>
+                  </div>
+                </div>
+
+                <div class="row1">
+                  <div class="col-12 col-md-8 col-lg-8 col-xl-8  m-auto">
+                    <div class="row1">
+                      <div class="col-12 col-md-12">
+                        <div class="row4">
+                          <div class="col-sm-2 col-2 col-md-2">
+                            <div class="ux-input password1 mb-1">
+                              <input id="mobile1" type="password" maxlength="1" placeholder="●"
+                                onkeyup="onKeyUpEventforAll(1, event ,'mobile' )" onfocus="onFocusEventAll(1,'mobile')">
+                            </div>
+                          </div>
+                          <div class="col-sm-2 col-2 col-md-2">
+                            <div class="ux-input password1 mb-1">
+                              <input id="mobile2" type="password" maxlength="1" placeholder="●"
+                                onkeyup="onKeyUpEventforAll(2, event,'mobile')" onfocus="onFocusEventAll(2,'mobile')">
+                            </div>
+                          </div>
+                          <div class="col-sm-2 col-2 col-md-2">
+                            <div class="ux-input password1 mb-1">
+                              <input id="mobile3" type="password" maxlength="1" placeholder="●"
+                                onkeyup="onKeyUpEventforAll(3, event,'mobile')" onfocus="onFocusEventAll(3,'mobile')">
+                            </div>
+                          </div>
+                          <div class="col-sm-2 col-2 col-md-2">
+                            <div class="ux-input password1 mb-1">
+                              <input id="mobile4" type="password" maxlength="1" placeholder="●"
+                                onkeyup="onKeyUpEventforAll(4, event,'mobile')" onfocus="onFocusEventAll(4 ,'mobile')">
+                            </div>
+                          </div>
+                          <div class="col-sm-2 col-2 col-md-2">
+                            <div class="ux-input password1  mb-1">
+                              <input id="mobile5" type="password" maxlength="1" placeholder="●"
+                                onkeyup="onKeyUpEventforAll(5, event,'mobile')" onfocus="onFocusEventAll(5 ,'mobile')">
+                            </div>
+                          </div>
+                          <div class="col-sm-2 col-2 col-md-2">
+                            <div class="ux-input password1 mb-1">
+                              <input id="mobile6" type="password" maxlength="1" placeholder="●"
+                                onkeyup="onKeyUpEventforAll(6, event,'mobile')" onfocus="onFocusEventAll(6,'mobile')">
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row1">
+                          <div class="col-12">
+                            <div class="ux-input password1 mt-0 mb-0">
+                              <p class="error-message"></p>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row4">
+                          <div class="col-6 col-md-6">
+                            <div class="text-left">
+                              <p class="text-left">
+                                <span class="success-text">00.20</span>
+                              </p>
+                            </div>
+                          </div>
+                          <div class="col-6 col-md-6">
+                            <div class="text-right">
+                              <button class="ux-linkbutton default-underline mt-3">Resend</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row1 mt-2">
+                  <div class="col-12 col-md-8 col-lg-8 col-xl-8  m-auto">
+                    <div class="row1">
+                      <div class="col-6 text-center">
+                        <button class="ux-button secondary sm-mob close-btn"
+                          onclick="window.location.href ='#'">Cancel</button>
+                      </div>
+                      <div class="col-6 text-center">
+                        <button class="ux-button primary sm-mob otp-submit" onclick="nextStep(1)">Submit</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- OTP Popup End-->
+            </div>
+            <!--.container-->
+          </div>
+          <!-- body-page-container -->
+          <!-- ========== body-page-container end ========= -->
+          <div class="footer-container login-footer footer-area">
+            <div class="footer-inactions minus-rt-col">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-4 col-xl-6 col-lg-6 col-md-6 col-sm-4">
+                    <div class="glfooter-content">
+                      <div class="glfooter-box">
+                        <div class="glcopyright-text">
+                          <em>Powered by</em>
+                          <img src="assets/images/logo/kiya-logo.png" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-8 col-xl-6 col-lg-6 col-md-6 col-sm-8">
+                    <div class="glfooter-content">
+                      <div class="glfooter-box">
+                        <div class="glcopyright-text1">
+                          <em>Copyright © 2020 Infrasoft Technologies Ltd. All
+                            rights reserved.</em>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- footer-inactions -->
+          </div>
+          <!-- footer-container -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column minus-rt-col-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+  </div>
+  <!-- .prelogin-page -->
+  <!-- added new -->
+  <!-- <div class="top-head-spacer login-container">
+    </div>  -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+</body>
+
+</html>

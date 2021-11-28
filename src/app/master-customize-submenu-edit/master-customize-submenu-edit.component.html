@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Master SubMenu Edit</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <!--.global-nav-->
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                    <!-- <button class="ux-button primary" (click)="showHideForm()">+ Add</button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <!-- load form -->
+                <form [formGroup]="masterSubMenuEditForm">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Name</label>
+                        <input
+                          limit-to="40"
+                          alphabetsOnly
+                          type="text"
+                          formControlName="menuName"
+                          placeholder="Enter  Name"
+                        />
+                        <p *ngIf="formErrors.menuName">
+                          {{ formErrors.menuName }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Menu Name</label>
+                        <input
+                          limit-to="40"
+                          alphabetsOnly
+                          type="text"
+                          formControlName="menuName1"
+                          placeholder="Enter Menu Name"
+                        />
+                        <p *ngIf="formErrors.menuName1">
+                          {{ formErrors.menuName1 }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Logo Path</label>
+                        <input
+                          limit-to="40"
+                          type="text"
+                          formControlName="menuLogo"
+                          placeholder="Enter Logo Path"
+                        />
+                        <p *ngIf="formErrors.menuLogo">
+                          {{ formErrors.menuLogo }}
+                        </p>
+                        <!-- <p
+                          *ngIf="
+                            masterSubMenuEditForm.get('menuLogo').touched &&
+                            masterSubMenuEditForm.get('menuLogo').invalid
+                          "
+                        >
+                          * Invalid Logo Path
+                        </p> -->
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Channel Name</label>
+                        <select
+                          formControlName="channel"
+                          (change)="selectedValue($event.target.value)"
+                        >
+                          <option value="">Select Channel Name</option>
+                          <option
+                            *ngFor="let option of this.productTypeArr; index as i"
+                            [value]="option.id"
+                          >
+                            {{ option.shortName | titlecase }}
+
+                          </option>
+                        </select>
+                        <p *ngIf="formErrors.channel">
+                          {{ formErrors.channel }}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Status</label>
+                        <select
+                          id="masterSubMenuEditStatus"
+                          formControlName="status"
+                        >
+                          <option value="">Select Status</option>
+                          <option value="3">Active</option>
+                          <option value="0">Inactive</option>
+                        </select>
+                        <p *ngIf="formErrors.status">{{ formErrors.status }}</p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Page URL</label>
+                        <input
+                          limit-to="40"
+
+                          type="text"
+
+                          formControlName="pageurl"
+                          placeholder="Enter Page URL"
+                        />
+                        <p *ngIf="formErrors.pageurl">
+                          {{ formErrors.pageurl}}
+                        </p>
+                        <!-- <p
+                          *ngIf="
+                            masterSubMenuEditForm.get('pageurl').touched &&
+                            masterSubMenuEditForm.get('pageurl').invalid
+                          "
+                        >
+
+                        </p> -->
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                 <!-- <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Rights</label>
+                      <select formControlName="rights">
+                        <option value="">Select Rights</option>
+                        <option
+                          *ngFor="let option of filterRights(); index as i"
+                          [value]="option.id"
+                        >
+                          {{ option.shortName | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.rights">
+                        {{ formErrors.rights }}
+                      </p>
+                    </div>
+
+                      .ux-input
+                  </div>-->
+                  <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Rights</label>
+                        <select
+
+                          formControlName="rights"
+
+                        >
+                          <option value="">Select Rights</option>
+                           <option>T</option>
+                           <option>V</option>
+
+                          <option
+                            *ngFor="let option of this.right; index as i"
+                            [value]="option.id"
+                          >
+                            {{ option.shortName | titlecase }}
+
+                          </option>
+                        </select>
+                        <p *ngIf="formErrors.rights">{{ formErrors.rights }}</p>
+                      </div>
+                      <!--.ux-input-->
+                  </div>
+                    <div class="col-6">
+                      <div class="ux-input">
+                        <div class="file-input input-error">
+                          <input
+                            type="file"
+                            style="width: 100%; height: 100%; z-index: 100"
+                            name="menuImage"
+                            (change)="addImage($event)"
+                          />
+                          <label for="file-sample">
+                            <h4>Upload Menu Image</h4>
+                            <p>
+                              Note: Please upload 380px * 180px dimensions image
+                            </p>
+                          </label>
+                        </div>
+                      </div>
+
+                      <!--.ux-input-->
+                      <div class="ux-input input-error">
+                        <p *ngIf="isMenuImgError">* Please upload menu image</p>
+                        <p *ngIf="isValidMenuFileFormat">
+                          * Please upload png or jpeg file
+                        </p>
+                        <p *ngIf="isValidMenuSizeFileFormat">
+                          * Please upload 380px * 180px dimensions image
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-6"></div>
+                    <div
+                      class="col-6"
+                      *ngIf="menuImage != '' && menuImage != undefined"
+                    >
+                      <div class="img-uploaded">
+                        <img src="{{ menuImage }}" />
+                      </div>
+                    </div>
+                  </div>
+
+                    <!--.col-12-->
+
+                </form>
+                <!--.row-->
+              </div>
+              <div class="row">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="gotoSubMenuMaster()">
+                    Cancel
+                  </button>
+                </div>
+                <div class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="update()">
+                    Update
+                  </button>
+                </div>
+                <!--.col-xs-12-->
+              </div>
+              <!--.row-->
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <!-- ==============footer section end============ -->
+  </body>
+</html>

@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Transactions Log</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <app-header></app-header>
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+            <div class="main-content">
+              <!-- load form -->
+              <form [formGroup]="auditTransactionForm">
+                <div *ngIf="priviledgeDataArr.viewChecked" class="row md-5">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>From Date</label>
+                      <input class="pr-0" type="date" formControlName="fromDate" [max]="todayDate"
+                        placeholder="Enter from date" (change)="onDateChange(auditTransactionForm.value)" />
+                      <p *ngIf="formErrors.fromDate">
+                        {{ formErrors.fromDate }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-6-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>To Date</label>
+                      <input class="pr-0" type="date" formControlName="toDate" [max]="todayDate"
+                        placeholder="Enter to date" (change)="onDateChange(auditTransactionForm.value)" />
+                      <p *ngIf="formErrors.toDate">{{ formErrors.toDate }}</p>
+                      <p *ngIf="toDateValid">{{ isToDateValidError }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-6-->
+                </div>
+              </form>
+              <!--.row-->
+              <div class="row mt-3" *ngIf="
+                    auditTransaction.length > 0 && priviledgeDataArr.viewChecked
+                  ">
+                <div class="col-12 mb-0">
+                  <div class="datatable-box">
+                    <div class="table-responsive">
+                      <table id="dt-sample" class="table display table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Sr.No.</th>
+                            <th scope="col">Transaction Amount</th>
+                            <th scope="col">Transaction Date</th>
+                            <th scope="col">Activity Code</th>
+                            <th scope="col">Biller</th>
+                            <th scope="col">RRN</th>
+                            <th scope="col">Received By</th>
+                            <th scope="col">Sent By</th>
+                            <th scope="col">Mobile Number</th>
+                            <th scope="col">CBS Ref No</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Remark</th>
+                            <th scope="col">Channel Name</th>
+                            <th scope="col">Created Date</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="
+                                let item of auditTransaction;
+                                let i = index
+                              ">
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                              {{
+                                  item.txn_AMOUNT == null ||
+                                  item.txn_AMOUNT == ""
+                                    ? "-"
+                                    : item.txn_AMOUNT
+                                }}
+                            </td>
+                            <td>
+                              {{ item.date_OF_TXN | date: "yyyy/MM/dd" }}
+                            </td>
+                            <td>
+                              {{
+                                  item.activitycode == null ||
+                                  item.activitycode == ""
+                                    ? "-"
+                                    : item.activitycode
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.biller == null || item.biller == ""
+                                    ? "-"
+                                    : item.biller
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.rrnno == null || item.rrnno == ""
+                                    ? "-"
+                                    : item.rrnno
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.customername == null ||
+                                  item.customername == ""
+                                    ? "-"
+                                    : item.customername
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.sendercust == null ||
+                                  item.sendercust == ""
+                                    ? "-"
+                                    : item.sendercust
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.mobile == null || item.mobile == ""
+                                    ? "-"
+                                    : item.mobile
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.cbsrefno == null || item.cbsrefno == ""
+                                    ? "-"
+                                    : item.cbsrefno
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.status == null || item.status == ""
+                                    ? "-"
+                                    : item.status
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.remark == null || item.remark == ""
+                                    ? "-"
+                                    : item.remark
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.appname == null || item.appname == ""
+                                    ? "-"
+                                    : item.appname
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.createdon == null || item.createdon == ""
+                                    ? "-"
+                                    : (item.createdon | date: "yyyy/MM/dd")
+                                }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                    </div>
+                    <!--.table-responsivebox-->
+                  </div>
+                  <!--.datatable-box-->
+                  <div class="dt-extras mt-4" *ngIf="auditTransaction.length > 0">
+                    <div class="dt-exports">
+                      <em>Export to :<span class="chevron"></span></em>
+                      <button class="linkbutton exp-excel" (click)="commonMethod.downLoadFile('excel')">
+                        Excel <b>(.xlsx)</b>
+                      </button>
+                      <button class="linkbutton exp-pdf" (click)="commonMethod.downLoadFile('pdf')">
+                        Pdf <b>(.pdf)</b>
+                      </button>
+                      <button class="linkbutton exp-csv" (click)="commonMethod.downLoadFile('csv')">
+                        csv <b>(.csv)</b>
+                      </button>
+                    </div>
+                    <!--.dt-exports-->
+                  </div>
+                </div>
+              </div>
+              <div class="row mt-5" *ngIf="priviledgeDataArr.viewChecked">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+                <div class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="addAuditTransaction()">
+                    Submit
+                  </button>
+                </div>
+                <!--.col-xs-12-->
+              </div>
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>

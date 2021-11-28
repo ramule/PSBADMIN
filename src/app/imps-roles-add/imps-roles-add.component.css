@@ -1,0 +1,22 @@
+:host::ng-deep.selected-item {
+    border-radius: 6px !important;
+    background: #00b4f9 !important;
+    border: 1px solid #00b4f1 !important;
+    }
+
+    :host::ng-deep ng-multiselect-dropdown .multiselect-item-checkbox input[type=checkbox] + div:before {
+    border: 2px solid #00b4f1 !important;
+    }
+
+    :host::ng-deep ng-multiselect-dropdown .multiselect-item-checkbox input[type=checkbox]:checked + div:before {
+    background: #00b4f1 !important;
+    }
+
+    :host::ng-deep .dropdown-btn
+    {
+     padding: 3px 12px !important;
+    border-radius: 0px !important;
+    border:0px !important;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.4) !important;
+    color:black !important
+    }

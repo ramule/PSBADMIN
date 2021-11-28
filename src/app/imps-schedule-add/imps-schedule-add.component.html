@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Add Reward Points</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <app-header></app-header>
+
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <!-- load form -->
+                <form [formGroup]="scheduleAddForm">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Schedule Description</label>
+                        <input
+                          type="text"
+                          formControlName="desc"
+                          placeholder="Enter schedule description"
+                        />
+                        <p *ngIf="formErrors.desc">
+                          {{ formErrors.desc }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Task Interval</label>
+                        <select formControlName="taskInterval">
+                          <option value="">Select Task Interval</option>
+                          <option>Hourly</option>
+                          <option>Weekly</option>
+                          <option>Daily</option>
+                          <option>Monthly</option>
+                          <option>Yearly</option>
+                        </select>
+                        <p *ngIf="formErrors.taskInterval">
+                          {{ formErrors.taskInterval }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Interval unit</label>
+                        <input
+                          type="text"
+                          numbersOnly
+                          limit-to="3"
+                          formControlName="unit"
+                          placeholder="Enter interval unit"
+                        />
+                        <p *ngIf="formErrors.unit">
+                          {{ formErrors.unit }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Next Exec Date Time</label>
+                        <input
+                          class="pr-0"
+                          type="date"
+                          formControlName="date"
+                          placeholder="Enter Next Exec Date Time"
+                        />
+                        <p *ngIf="formErrors.date">{{ formErrors.date }}</p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div class="col-12 col-md-6">
+                      <div class="ux-input input-error">
+                        <label>Schedule Tasks</label>
+                        <!-- <select id="sl_state" formControlName="state" (change)="onStateChange($event)" multiple>
+                        <option value=''>Select State</option>
+                        <option *ngFor="let state of statesArr; index as i" [value]='state.stateName' >{{state.stateName | titlecase }}</option>
+                      </select> -->
+                        <ng-multiselect-dropdown
+                          [placeholder]="'Select Schedule Tasks'"
+                          [settings]="dropdownSettings"
+                          [data]="taskArray"
+                          [(ngModel)]="selectedItems"
+                          (onSelect)="onItemSelect($event)"
+                          (onSelectAll)="onSelectAll($event)"
+                          [formControl]="scheduleAddForm.controls['tasks']"
+                        >
+                        </ng-multiselect-dropdown>
+                        <p
+                          *ngIf="
+                          scheduleAddForm.get('tasks').invalid &&
+                          scheduleAddForm.get('tasks').touched
+                          "
+                        >
+                          {{ formErrors.tasks }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Delivery Type</label>
+                        <select formControlName="type" (change)="onDeliveryTypeChange($event)">
+                          <option value="">Select Delivery Type</option>
+                          <option value="email">Email</option>
+                          <option value="ftp">FTP</option>
+                          <option value="sftp">SFTP</option>
+                        </select>
+                        <p *ngIf="formErrors.type">
+                          {{ formErrors.type }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <!-- Email fields -->
+                    <div *ngIf="selectedDeliveryType == 'email'" class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Email From</label>
+                        <input
+                          type="text"
+                          formControlName="emailFrom"
+                          placeholder="Enter Email Id"
+                        />
+                        <p *ngIf="formErrors.emailFrom">
+                          {{ formErrors.emailFrom }}
+                        </p>
+                        <p
+                          *ngIf="scheduleAddForm.get('emailFrom').touched && scheduleAddForm.get('emailFrom').invalid && scheduleAddForm.get('emailFrom').value != ''">
+                          * The email address is invalid</p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div *ngIf="selectedDeliveryType == 'email'" class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Email Password</label>
+                        <input
+                          type="password"
+                          formControlName="emailPassword"
+                          placeholder="Enter Email Password"
+                        />
+                        <p *ngIf="formErrors.emailPassword">
+                          {{ formErrors.emailPassword }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div *ngIf="selectedDeliveryType == 'email'" class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Email To</label>
+                        <input
+                          type="text"
+                          formControlName="emailTo"
+                          placeholder="Enter Email To"
+                        />
+                        <p *ngIf="formErrors.emailTo">
+                          {{ formErrors.emailTo }}
+                        </p>
+                        <p
+                          *ngIf="scheduleAddForm.get('emailTo').touched && scheduleAddForm.get('emailTo').invalid && scheduleAddForm.get('emailTo').value != ''">
+                          * The email address is invalid</p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div *ngIf="selectedDeliveryType == 'email'" class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Email CC</label>
+                        <input
+                          type="text"
+                          formControlName="emailcc"
+                          placeholder="Enter Email CC"
+                        />
+                        <p *ngIf="formErrors.emailcc">
+                          {{ formErrors.emailcc }}
+                        </p>
+                        <p
+                          *ngIf="scheduleAddForm.get('emailcc').touched && scheduleAddForm.get('emailcc').invalid && scheduleAddForm.get('emailcc').value != ''">
+                          * The email address is invalid</p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div *ngIf="selectedDeliveryType == 'email'" class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Email Content</label>
+                        <textarea
+                          type="text"
+                          rows="1"
+                          formControlName="emailContent"
+                          placeholder="Enter Email Content"
+                        >
+                        </textarea>
+                        <p *ngIf="formErrors.emailContent">
+                          {{ formErrors.emailContent }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <!-- FTP or SFTP fields -->
+                    <div *ngIf="selectedDeliveryType == 'ftp' || selectedDeliveryType == 'sftp'" class="col-6">
+                      <div class="ux-input input-error">
+                        <label>FTP Host</label>
+                        <input
+                          type="text"
+                          formControlName="ftpHost"
+                          placeholder="Enter FTP Host"
+                        />
+                        <p *ngIf="formErrors.ftpHost">
+                          {{ formErrors.ftpHost }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div *ngIf="selectedDeliveryType == 'ftp' || selectedDeliveryType == 'sftp'" class="col-6">
+                      <div class="ux-input input-error">
+                        <label>FTP Port</label>
+                        <input
+                          type="text"
+                          numbersOnly
+                          limit-to="4"
+                          formControlName="ftpPort"
+                          placeholder="Enter FTP Port"
+                        />
+                        <p *ngIf="formErrors.ftpPort">
+                          {{ formErrors.ftpPort }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div *ngIf="selectedDeliveryType == 'ftp' || selectedDeliveryType == 'sftp'" class="col-6">
+                      <div class="ux-input input-error">
+                        <label>FTP User</label>
+                        <input
+                          type="text"
+                          formControlName="ftpUser"
+                          placeholder="Enter FTP User"
+                        />
+                        <p *ngIf="formErrors.ftpUser">
+                          {{ formErrors.ftpUser }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div *ngIf="selectedDeliveryType == 'ftp' || selectedDeliveryType == 'sftp'" class="col-6">
+                      <div class="ux-input input-error">
+                        <label>FTP Password</label>
+                        <input
+                          type="password"
+                          formControlName="ftpPassword"
+                          placeholder="Enter FTP Password"
+                        />
+                        <p *ngIf="formErrors.ftpPassword">
+                          {{ formErrors.ftpPassword }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div *ngIf="selectedDeliveryType == 'ftp' || selectedDeliveryType == 'sftp'" class="col-6">
+                      <div class="ux-input input-error">
+                        <label>FTP Remote Directory</label>
+                        <input
+                          type="text"
+                          formControlName="ftpRemoteDir"
+                          placeholder="Enter FTP Remote Directory"
+                        />
+                        <p *ngIf="formErrors.ftpRemoteDir">
+                          {{ formErrors.ftpRemoteDir }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Status</label>
+                        <select formControlName="status">
+                          <option value="">Select Status</option>
+                          <option value="Y">Active</option>
+                          <option value="N">Inactive</option>
+                        </select>
+                        <p *ngIf="formErrors.status">
+                          {{ formErrors.status }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                  </div>
+                </form>
+                <!--.row-->
+                <div class="row mt-5">
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="cancel()">Cancel</button>
+                  </div>
+                  <div class="col-6 col-lg-2">
+                    <button class="ux-button primary" (click)="addSchedule()">
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <div class="tiny-modal1 tm-rounded" id="tm-favouriteconfirm">
+      <div class="tinymodal-overlay"></div>
+      <!--.tinymodal-overlay-->
+
+      <!--.tinymodal-->
+    </div>
+    <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

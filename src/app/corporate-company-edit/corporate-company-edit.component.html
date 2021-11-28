@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Change Password</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <!-- ======== header section start ========== -->
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+
+            <div class="main-content">
+              <!-- load form -->
+              <form [formGroup]="corporateCompanyEditForm">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Company Name</label>
+                      <input type="text" alphabetsOnly formControlName="companyName" limit-to="50" placeholder="Enter Company Name" />
+                      <p *ngIf="formErrors.companyName">
+                        {{ formErrors.companyName }}
+                      </p>
+                      <p *ngIf="
+                          corporateCompanyEditForm.get('companyName').touched &&
+                          corporateCompanyEditForm.get('companyName').value !=
+                            '' &&
+                          corporateCompanyEditForm.get('companyName').invalid
+                        ">
+                        * Invalid company name
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Company Code</label>
+                      <input type="text" numbersOnly formControlName="companyCode" limit-to="10" numbersOnly
+                        placeholder="Enter Company Code" />
+                      <p *ngIf="formErrors.companyCode">
+                        {{ formErrors.companyCode }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Company Info </label>
+                      <input type="text" formControlName="CompanyInfo" limit-to="100" placeholder="Enter Description" />
+                      <p *ngIf="formErrors.CompanyInfo">
+                        {{ formErrors.CompanyInfo }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Establishment On</label>
+                      <input class="pr-0" [max]="todayDate" type="date" formControlName="establishmentOn" />
+                      <p *ngIf="formErrors.establishmentOn">
+                        {{ formErrors.establishmentOn }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Short Name</label>
+                      <input type="text" formControlName="shortName" limit-to="20" placeholder="Enter Description" />
+                      <p *ngIf="formErrors.shortName">
+                        {{ formErrors.shortName }}
+                      </p>
+                      <p *ngIf="
+                        corporateCompanyEditForm.get('shortName').touched &&
+                        corporateCompanyEditForm.get('shortName').value !=
+                          '' &&
+                        corporateCompanyEditForm.get('shortName').invalid
+                      ">
+                        * Invalid short name
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>CIF</label>
+                      <input type="text" formControlName="cif" limit-to="11" numbersOnly
+                        placeholder="Enter Description" />
+                      <p *ngIf="formErrors.cif">{{ formErrors.cif }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Approval Level</label>
+                      <select id="approval" formControlName="approval">
+                        <option value="">Select Approval Level</option>
+                        <option value="S">Single</option>
+                        <option value="M">Multilevel</option>
+                      </select>
+                      <p *ngIf="formErrors.approval">
+                        {{ formErrors.approval }}
+                      </p>
+                    </div>
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Status</label>
+                      <select id="sl_Status" formControlName="status">
+                        <option value="">Select Status</option>
+                        <option *ngFor="let item of filterStatus(); index as i" [value]='item.id'>
+                          {{item.shortName | titlecase }}</option>
+                      </select>
+                      <p *ngIf="formErrors.status">
+                        {{ formErrors.status }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input">
+                      <div class="file-input input-error">
+                        <input type="file" style="width: 100%; height: 100%; z-index: 100;" name="logoImage"
+                          (change)="addImage($event)" />
+                        <label for="file-sample">
+                          <h4>Upload Logo Image</h4>
+                          <p>Upload File To See Records</p>
+                        </label>
+                      </div>
+                    </div>
+                    <!--.ux-input-->
+                    <div class="ux-input input-error">
+                      <p *ngIf="isLogoImgError">* Please upload logo image</p>
+                      <p *ngIf="isValidLogoFileFormat">
+                        * Please upload png or jpeg file
+                      </p>
+                      <p *ngIf="isValidLogoSizeFileFormat">
+                        * Please upload 380px * 180px dimensions image
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-6" *ngIf="logoImage != '' && logoImage != undefined">
+                    <div class="img-uploaded">
+                      <img src="{{ logoImage }}" />
+                    </div>
+                  </div>
+                </div>
+              </form>
+              <!--.row-->
+              <div class="row mt-5">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+                <div class="col-6 col-lg-2"
+                  *ngIf="this.commonDataShareService.roleType != this.commonDataShareService.corpMakerRole">
+                  <button class="ux-button primary" (click)="EditCorporateCompany()">
+                    Update
+                  </button>
+                </div>
+                <div *ngIf="this.commonDataShareService.roleType == this.commonDataShareService.corpMakerRole"
+                  class="col-6 col-lg-2">
+                  <button class="ux-button primary"
+                    (click)="openActionModel('remarkField', corporateCompanyEditForm.value)">
+                    Update
+                  </button>
+                </div>
+                <!--.col-xs-12-->
+              </div>
+
+              <!--Datatable for remark history-->
+              <div class="row mt-3">
+                <div class="col-12 mb-0">
+                  <div class="datatable-box">
+                    <div class="table-responsive">
+                      <table id="dt-sample" class="table display table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Sr. No.</th>
+                            <th scope="col">Created On</th>
+                            <th scope="col">Created By</th>
+                            <th scope="col">Remark</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor=" let item of remarkHistoryArr; let i = index">
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                              {{item.createdon == null || item.createdon == '' ? '-' : item.createdon | date: 'yyyy-MM-dd' }}
+                            </td>
+                            <td>{{ item.createdByName == null || item.createdByName == '' ? '-' : item.createdByName }}
+                            </td>
+                            <td>{{ item.remarks == null || item.remarks == '' ? '-' : item.remarks }}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!--.table-responsivebox-->
+                  </div>
+                  <!--.datatable-box-->
+                </div>
+              </div>
+            </div>
+
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+
+      <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+        <form [formGroup]="remarkForm">
+          <div class="row">
+            <div class="col-12 px-0 mt-2">
+              <div class="ux-input input-error">
+                <textarea formControlName="remark" placeholder="Enter Remark"></textarea>
+                <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-6">
+              <button class="ux-button" (click)="closeActionMoel()">Cancel</button>
+            </div>
+            <div class="col-6">
+              <button class="ux-button primary" (click)="updateCorpCompanyWithRemark(remarkForm.value)">OK</button>
+            </div>
+            <!--.col-xs-12-->
+          </div>
+        </form>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>

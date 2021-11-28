@@ -1,0 +1,12 @@
+input[type=checkbox]:disabled
+{
+    opacity:0.5;
+    display: none;
+}
+
+.ptag
+{
+    color: #a9a9a9;
+    font-size: smaller;
+    margin-top: -20px;
+}

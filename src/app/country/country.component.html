@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<div lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Country</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <!-- navigation menu container start -->
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- global-header -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <!-- ========== body section start ========= -->
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+              <div class="main-content">
+                <form [formGroup]="countryForm" (ngSubmit)="countryFormSubmit(countryForm.value)">
+                  <div *ngIf="priviledgeDataArr.viewChecked" class="row">
+                    <div class="col-6 col-lg-5">
+                      <div class="ux-input input-error">
+                        <label>Select Filter</label>
+                        <select formControlName="filterVal" (change)="onSelectedValueChange($event)">
+                          <option value="">Select</option>
+                          <option value="customerId">Customer Id</option>
+                          <option value="phoneNumber">Mobile Number</option>
+                        </select>
+                        <p *ngIf="formErrors.filterVal">
+                          {{ formErrors.filterVal }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+                    <div class="col-6 col-lg-5">
+                      <div class="ux-input input-error">
+                        <!-- <label *ngIf="selectedFilterValue == ''">Search</label> -->
+                        <label *ngIf="selectedFilterValue == 'customerId'">Customer Id</label>
+                        <label *ngIf="selectedFilterValue == 'phoneNumber'">Mobile Number</label>
+                        <!-- <input *ngIf="selectedFilterValue == ''" type="text" limit-to="10" formControlName="searchVal"
+                          numbersOnly placeholder="Search" /> -->
+                        <input *ngIf="selectedFilterValue == 'customerId'" type="text" limit-to="10"
+                          formControlName="searchVal" numbersOnly placeholder="Enter Customer Id" />
+                        <input *ngIf="selectedFilterValue == 'phoneNumber'" type="text" limit-to="10"
+                          formControlName="searchVal" numbersOnly placeholder="Enter Mobile Number" />
+                        <p *ngIf="formErrors.searchVal">
+                          {{ formErrors.searchVal }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+                    <div class="col-6 col-lg-2 mt-3 offset-6 offset-lg-0">
+                      <button class="ux-button primary" type="submit">
+                        Submit
+                      </button>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+                  </div>
+                  <!--row -->
+                </form>
+                <!--form-->
+                <div class="row mt-5">
+                  <div class="col-6 col-lg-2 offset-lg-10 offset-6"></div>
+                </div>
+
+                <div *ngIf="isFormValid && countryArr.length > 0">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="ux-input">
+                        <label>Name</label>
+                        <h6>{{ countryArr[0].customername }}</h6>
+                      </div>
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input">
+                        <label>Email</label>
+                        <h6>{{ countryArr[0].email }}</h6>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row mt-3">
+                    <div class="col-12 mb-0">
+                      <div class="datatable-box">
+                        <div class="table-responsive">
+                          <table id="dt-sample" class="table display table-hover">
+                            <thead>
+                              <tr>
+                                <th>Sr. No.</th>
+                                <th scope="col">Country</th>
+                                <th *ngIf="priviledgeDataArr.updateChecked" scope="col">
+                                  Status
+                                </th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr *ngFor="
+                                  let country of countryArr;
+                                  let i = index
+                                ">
+                                <td>{{ i + 1 }}</td>
+                                <td>{{ country.countryname }}</td>
+                                <td *ngIf="priviledgeDataArr.updateChecked">
+                                  <label class="switch">
+                                    <input type="checkbox" [(ngModel)]="country.isStatusChecked" (change)="
+                                        openActionModel(
+                                          i,
+                                          country.id,
+                                          country.statusid
+                                        )
+                                      " />
+                                    <span class="slider round"></span>
+                                  </label>
+                                </td>
+                              </tr>
+                            </tbody>
+                          </table>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div *ngIf="isFormValid && countryArr.length > 0" class="row mt-5">
+                  <div class="col-6 col-lg-2"></div>
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="cancelClick()">
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+
+    <div class="vspacer20"></div>
+    <!--.vspacer20-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+      <div class="tinymodal-overlay"></div>
+      <!--.tinymodal-overlay-->
+      <div *ngIf="selModel == 'changeCountryStatus'" class="tinymodal">
+        <div class="tinymodal-content">
+          <div class="row">
+            <div class="col-12 tinymodal-header"></div>
+          </div>
+          <div class="row">
+            <div class="col-12 px-0 mt-2">
+              <h4>Are you sure you want to change status?</h4>
+            </div>
+            <p class="countrymsg mt-3">
+              <b>NOTE: This action will disable entered mobile number for
+                selected country...!</b>
+            </p>
+          </div>
+          <div class="row mt-5">
+            <div class="col-6">
+              <button class="ux-button" (click)="closeActionModel()">
+                Cancel
+              </button>
+            </div>
+            <div class="col-6">
+              <button class="ux-button primary" (click)="toggleToBlockUnblock()">
+                OK
+              </button>
+            </div>
+            <!--.col-xs-12-->
+          </div>
+        </div>
+        <!--.tinymodal-content-->
+      </div>
+      <!--.tinymodal-->
+    </div>
+    <!--.footer-container-->
+    <!-- ==============footer section end============ -->
+  </body>
+</div>

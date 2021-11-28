@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+
+		<title>Edit Charges/Commission Master</title>
+
+	</head>
+
+<body>
+
+	<div class="main">
+		<app-navmenu></app-navmenu>
+		<div class="nav-overlay"></div><!--.nav-overlay-->
+		<!-- navigation menu container end -->
+
+		<div class="right-main-column">
+			<div class="right-col-container full-width">
+				<!-- ======== header section start ========== -->
+				<app-header></app-header>
+				<!-- ======== header section end ========== -->
+				<!-- ======== body page content start from here ======== -->
+				<div class="body-page-container">
+					<div class="vspacer10"></div><!--.vspacer10-->
+					<div class="device-page-titles d-none d-md-none d-lg-block">
+						<div class="in-header">
+							<div class="header-icons-lft">
+								<div class="header-actions">
+
+									<div class="head-page-title">
+										<h5>Edit Charges/Commission Master</h5>
+									</div>
+								</div><!--.header-actions-->
+							</div><!--.header-icons-lft-->
+						 	<div class="header-icons-rit">
+								<div class="header-actions">
+                                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+
+								</div><!--.header-actions-->
+							</div><!--.header-icons-rit-->
+						</div> <!-- in-header -->
+					</div> <!-- device-page-titles -->
+					<div class="container">
+
+
+						<!-- load form -->
+						<form [formGroup]="chargesEditForm">
+							<div class="row">
+
+
+								<!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Minimun amount</label>
+										<input type="text" formControlName="minAmt" placeholder="Enter minimum amount">
+										<p *ngIf="formErrors.minAmt">{{ formErrors.minAmt }}</p>
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Maximum Amount</label>
+										<input type="text" formControlName="maxAmt"
+											placeholder="Enter maximum amount">
+										<p *ngIf="formErrors.maxAmt">{{ formErrors.maxAmt }}</p>
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Charges / Commission value</label>
+										<input type="text" formControlName="chargesValue"
+											placeholder="Enter charges / commission value">
+										<p *ngIf="formErrors.chargesValue">{{ formErrors.chargesValue }}</p>
+									</div>
+									<!--.ux-input-->
+                                </div>
+                                <!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Type(Fixed/Percentage)</label>
+										<input type="text" formControlName="type"
+											placeholder="Enter Type(Fixed/Percentage)">
+										<p *ngIf="formErrors.type">{{ formErrors.type }}</p>
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-12-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Status</label>
+										<select formControlName="status">
+											<option value=''>Select Status</option>
+                                            <option value='0' >INACTIVE</option>
+                                            <option value='3' >ACTIVE</option>
+										</select>
+										<p *ngIf="formErrors.status">{{ formErrors.status }}</p>
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-12-->
+
+
+							</div>
+						</form>
+						<!--.row-->
+						<div class="row" >
+							<div class="col-6">
+								<button class="ux-button primary" (click)="saveMaster()">Save</button>
+							</div>
+							<!--.col-xs-12-->
+							<div class="col-6">
+								<button class="ux-button" (click)="cancel()">Cancel</button>
+							</div>
+						</div>
+						<!--.row-->
+
+
+                    </div><!--.container-->
+				</div><!--.body-page-container--> <!-- added new -->
+			</div><!--.right-col-container--> <!-- added new -->
+		</div><!--.right-main-column--> <!-- added new -->
+	</div><!--.main-->
+	<!-- ===========footer section start========= -->
+	<div class="sticky-actions-spacer"></div>
+	<!-- ==============footer section end============ -->
+
+	<script src="js/lib/jquery.min.js"></script>
+	<script src="js/lib/bootstrap.min.js"></script>
+	<script src="js/common.js"></script>
+
+
+</body>

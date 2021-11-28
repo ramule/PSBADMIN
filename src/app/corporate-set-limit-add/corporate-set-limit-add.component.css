@@ -1,0 +1,78 @@
+.ux-input .usernumber {
+    position: absolute;
+    top: 30px;
+    left: -21px;
+    font-size: 18px;
+    font-weight: 700;
+    color: #000000;
+}
+.component-linetop {
+    background-color: white;
+    border-top: 1px solid #cccccc;
+    width: 100%;
+    overflow: hidden;
+    padding: 15px 0px;
+}
+.component-title3 {
+    background-color: rgba(0, 0, 0, 0.05);
+    border-bottom: 1px solid rgba(3, 135, 253, 0.3);
+    width: 100%;
+    overflow: hidden;
+    padding: 15px 15px;
+}
+.button-list {
+    margin: 0px;
+    padding: 0px;
+    width: 100%;
+}
+.add_new_limit {
+    font-size: 16px;
+    color: rgba(3, 135, 253, 0.9);
+    text-decoration: none;
+}
+.card{
+    border-radius: 0px;
+}
+.card-header{
+    border-bottom: 1px solid rgba(3, 135, 253, 0.3);
+}
+.limit-user {
+    border-right: 1px solid rgba(0, 0, 0, 0.2);
+}
+.limit-user h6 {
+    padding: 10px 0px 0px 0px;
+}
+.limit-user_head {
+    border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+}
+.limit-user_data {
+    padding: 5px 0;
+}
+.remove {
+    color: rgba(0, 0, 0, 0.6);
+    font-size: 12px;
+    text-decoration: none;
+}
+.remove:hover {
+    color: rgba(0, 0, 0, 0.9);
+    text-decoration: none;
+}
+input[type=checkbox]:disabled
+{
+    opacity:0.4;
+}
+
+
+.tiny-modal .tinymodal .tinymodal-content .tinymodal-header .close img
+{
+    height: 20px;
+    width: 20px;
+    margin-right: -23px !important;
+    margin-top: -56px !important;
+}
+
+.tiny-modal .tinymodal {
+  top: 6%;
+  width: 420px;
+  overflow-y: scroll;
+}

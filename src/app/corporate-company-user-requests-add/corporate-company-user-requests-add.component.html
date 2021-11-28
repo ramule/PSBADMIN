@@ -1,0 +1,2320 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Corporate Company Details</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <app-header></app-header>
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions"></div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+              <div class="main-content">
+                <div class="row mt-3">
+                  <div class="container-fluid">
+                    <div>
+                      <div class="component-timeline">
+                        <!--.stepwizard-->
+                        <div class="stepwizard">
+                          <div class="stepwizard-row setup-panel">
+                            <div class="stepwizard-step">
+                              <a
+                                href="#step-1"
+                                id="stp1"
+                                class="btn btn-primary btn-circle"
+                                disabled="disabled"
+                                (click)="onStpClicked()"
+                                >1</a
+                              >
+                              <span>Add Company</span>
+                            </div>
+                            <div class="stepwizard-step">
+                              <a
+                                href="#step-2"
+                                id="stp2"
+                                class="btn btn-default btn-circle"
+                                disabled="disabled"
+                                (click)="onStpClicked()"
+                                >2</a
+                              >
+                              <span>Add Module</span>
+                            </div>
+                            <div class="stepwizard-step">
+                              <a
+                                href="#step-3"
+                                id="stp3"
+                                class="btn btn-default btn-circle"
+                                disabled="disabled"
+                                (click)="onStpClicked()"
+                                >3</a
+                              >
+                              <span>Add Account</span>
+                            </div>
+                            <div class="stepwizard-step">
+                              <a
+                                href="#step-4"
+                                id="stp4"
+                                class="btn btn-default btn-circle"
+                                disabled="disabled"
+                                (click)="onStpClicked()"
+                                >4</a
+                              >
+                              <span>Add User</span>
+                            </div>
+                          </div>
+                        </div>
+                        <!--.stepwizard-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <!--#step-1-->
+                  <div class="row setup-content" id="step-1">
+                    <div class="col-md-12 col-xs-12 px-0">
+                      <!-- load form -->
+                      <form [formGroup]="corpCompanyRequestsAddForm">
+                        <div class="row">
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label> <span class="mandatory">* </span> Corporate Company Name</label>
+                              <input
+                                type="text"
+                                alphabetsOnly
+                                formControlName="corpCompanyName"
+                                limit-to= "40"
+                                placeholder="Enter Corporate Company Name"
+                              />
+                              <p *ngIf="formErrors.corpCompanyName">
+                                {{ formErrors.corpCompanyName }}
+                              </p>
+                              <p *ngIf="
+                              corpCompanyRequestsAddForm.get('corpCompanyName').touched &&
+                              corpCompanyRequestsAddForm.get('corpCompanyName').value != '' &&
+                              corpCompanyRequestsAddForm.get('corpCompanyName').invalid">
+                              * Invalid Corporate Company Name
+                                </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-12-->
+
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label> <span class="mandatory">* </span>Corporate Company Information</label>
+                              <input
+                                type="text"
+                                formControlName="corpCompanyInfo"
+                                placeholder="Enter Corporate Company Information"
+                              />
+                              <p *ngIf="formErrors.corpCompanyInfo">
+                                {{ formErrors.corpCompanyInfo }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-12-->
+
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label> <span class="mandatory">* </span> Company Code</label>
+                              <input
+                                type="text"
+                                minlength="4"
+                                limit-to="10"
+                                numbersOnly
+                                formControlName="rrn"
+                                placeholder="Enter Company Code"
+                              />
+                              <p *ngIf="formErrors.rrn">
+                                {{ formErrors.rrn }}
+                              </p>
+                              <p *ngIf="
+                              corpCompanyRequestsAddForm.get('rrn').touched &&
+                              corpCompanyRequestsAddForm.get('rrn').value != '' &&
+                              corpCompanyRequestsAddForm.get('rrn').invalid">
+                              * Invalid Company Code
+                                </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-12-->
+
+                          <!-- <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label>Corporate Type</label>
+                              <select formControlName="status">
+                                <option value="">Select Corporate Type</option>
+                                <option>Sole Proprietorship</option>
+                              </select>
+                              <p *ngIf="formErrors.status">
+                                {{ formErrors.status }}
+                              </p>
+                            </div>
+                          </div> -->
+
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label> <span class="mandatory">* </span> CIF</label>
+                              <input
+                                type="text"
+                                limit-to="11"
+                                numbersOnly
+                                formControlName="cif"
+                                placeholder="Enter CIF"
+                              />
+                              <p *ngIf="formErrors.cif">
+                                {{ formErrors.cif }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-12-->
+
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label> <span class="mandatory">* </span> Establishment On</label>
+                              <input
+                                class="pr-0"
+                                [max]="todayDate"
+                                type="date"
+                                formControlName="establishmentOn"
+                              />
+                              <p *ngIf="formErrors.establishmentOn">
+                                {{ formErrors.establishmentOn }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-12-->
+
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label> <span class="mandatory">* </span> Phone Number</label>
+                              <input
+                                type="text"
+                                limit-to="10"
+                                numbersOnly
+                                formControlName="phoneNo"
+                                placeholder="Enter Phone Number"
+                              />
+                              <p *ngIf="formErrors.phoneNo">
+                                {{ formErrors.phoneNo }}
+                              </p>
+                              <p *ngIf="
+                              corpCompanyRequestsAddForm.get('phoneNo').touched &&
+                              corpCompanyRequestsAddForm.get('phoneNo').value != '' &&
+                              corpCompanyRequestsAddForm.get('phoneNo').invalid">
+                              * Invalid Phone Number
+                                </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-12-->
+
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label> <span class="mandatory">* </span> PAN Card Number</label>
+                              <input
+                                type="text"
+                                limit-to="10"
+                                formControlName="pancardNo"
+                                placeholder="Enter PAN Card Number"
+                              />
+                              <p *ngIf="formErrors.pancardNo">
+                                {{ formErrors.pancardNo }}
+                              </p>
+                              <p *ngIf="
+                              corpCompanyRequestsAddForm.get('pancardNo').touched &&
+                              corpCompanyRequestsAddForm.get('pancardNo').value != '' &&
+                              corpCompanyRequestsAddForm.get('pancardNo').invalid">
+                              * Invalid PAN Card Number
+                                </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-12-->
+
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label> <span class="mandatory">* </span> Status</label>
+                              <select formControlName="status">
+                                <option value="">Select Status</option>
+                                <option
+                                  *ngFor="
+                                    let item of filterStatus();
+                                    index as i
+                                  "
+                                  [value]="item.id"
+                                >
+                                  {{ item.shortName | titlecase }}
+                                </option>
+                              </select>
+                              <p *ngIf="formErrors.status">
+                                {{ formErrors.status }}
+                              </p>
+                            </div>
+                          </div>
+                          <!--.col-12-->
+
+                          <div class="col-12 col-md-6 col-lg-6">
+                            <div class="row">
+                              <div class="col-12">
+                                <div class="ux-input">
+                                  <div class="file-input input-error">
+                                    <input type="file" style="width: 100%; height: 100%; z-index: 100" name="coi"
+                                      (change)="addImage($event, 'coi')" />
+                                    <label for="file-sample">
+                                      <h4>Upload COI</h4>
+                                      <p>Upload Files To See Records</p>
+                                      <p *ngIf="(pdf.coi != '' && pdf.coi != null) && !isValidCOIFileFormat && !isValidCOISizeFileFormat" style="color: blue;">{{ coi }}</p>
+                                      <img *ngIf="showSuccess" style="height:20px" src='assets/images/icons/ic-tick.png'>
+                                    </label>
+                                  </div>
+                                </div>
+                                <!--.ux-input-->
+                                <div class="ux-input input-error">
+                                  <p *ngIf="corpCompanyRequestsAddForm.get('coi').touched && isCOIImgError">
+                                    * Please upload COI image or pdf file
+                                  </p>
+                                  <p *ngIf="isValidCOIFileFormat">
+                                    * Please upload png/jpeg or pdf file
+                                  </p>
+                                  <p *ngIf="isValidCOISizeFileFormat">
+                                    * Please upload 380px * 180px dimensions image
+                                  </p>
+                                </div>
+                                <!-- <div *ngIf="fileType == 'pdf'">
+                                  <div class="ux-input" *ngIf="coi != '' && coi != undefined && !isValidCOIFileFormat">
+                                    <p>{{ coi }}</p>
+                                  </div>
+                                </div> -->
+
+                                <div *ngIf="images.coi != '' && images.coi != null">
+                                  <div class="col-12" *ngIf="coi != '' && coi != undefined && !isValidCOIFileFormat && !isValidCOISizeFileFormat">
+                                    <div class="img-uploaded">
+                                      <img src="{{ coi }}" />
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6 col-lg-6">
+                            <div class="row">
+                              <div class="col-12">
+                                <div class="ux-input">
+                                  <div class="file-input input-error">
+                                    <input type="file" style="width: 100%; height: 100%; z-index: 100" name="moa"
+                                      (change)="addImage($event, 'moa')" />
+                                    <label for="file-sample">
+                                      <h4>Upload MOA</h4>
+                                      <p>Upload Files To See Records</p>
+                                      <p *ngIf="(pdf.moa != '' && pdf.moa != null) && !isValidMOAFileFormat" style="color: blue;">{{ moa }}</p>
+                                      <img *ngIf="showSuccessMOA" style="height:20px" src='assets/images/icons/ic-tick.png'>
+                                    </label>
+                                  </div>
+                                </div>
+                                <!--.ux-input-->
+                                <div class="ux-input input-error">
+                                  <p *ngIf="corpCompanyRequestsAddForm.get('moa').touched isMOAImgError">
+                                    * Please upload MOA image or pdf file
+                                  </p>
+                                  <p *ngIf="isValidMOAFileFormat">
+                                    * Please upload png/jpeg or pdf file
+                                  </p>
+                                  <p *ngIf="isValidMOASizeFileFormat">
+                                    * Please upload 380px * 180px dimensions image
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div *ngIf="images.moa != '' && images.moa != null">
+                            <div class="col-12" *ngIf="moa != '' && moa != undefined">
+                              <div class="img-uploaded">
+                                <img src="{{ moa }}" />
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+
+                          <div class="col-12 col-md-6 col-lg-6">
+                            <div class="row">
+                              <div class="col-12">
+                                <div class="ux-input">
+                                  <div class="file-input input-error">
+                                    <input type="file" style="width: 100%; height: 100%; z-index: 100" name="logo"
+                                      (change)="addImage($event, 'logo')" />
+                                    <label for="file-sample">
+                                      <h4>Upload Logo</h4>
+                                      <p>Upload Files To See Records</p>
+                                    </label>
+                                  </div>
+                                </div>
+                                <!--.ux-input-->
+                                <div class="ux-input input-error">
+                                  <p *ngIf="corpCompanyRequestsAddForm.get('logo').touched && isLogoImgError">
+                                    * Please upload logo image or pdf file
+                                  </p>
+                                  <p *ngIf="isValidLogoFileFormat">
+                                    * Please upload png or jpeg file
+                                  </p>
+                                  <p *ngIf="isValidLogoSizeFileFormat">
+                                    * Please upload 380px * 180px dimensions image
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col-12" *ngIf="logo != '' && logo != undefined">
+                              <div class="img-uploaded">
+                                <img src="{{ logo }}" />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6 col-lg-6">
+                            <div class="row">
+                              <div class="col-12">
+                                <div class="ux-input">
+                                  <div class="file-input input-error">
+                                    <input type="file" style="width: 100%; height: 100%; z-index: 100" name="otherdocs"
+                                      (change)="addImage($event, 'otherdocs')" />
+                                    <label for="file-sample">
+                                      <h4>Upload Others Documents</h4>
+                                      <p>Upload Files To See Records</p>
+                                      <p *ngIf="(pdf.otherdocs != '' && pdf.otherdocs != null) && !isValidOtherdocsFileFormat" style="color: blue;">{{ otherdocs }}</p>
+                                      <img *ngIf="showSuccessOTHERDOCS" style="height:20px" src='assets/images/icons/ic-tick.png'>
+                                    </label>
+                                  </div>
+                                </div>
+                                <!--.ux-input-->
+                                <div class="ux-input input-error">
+                                  <p *ngIf="corpCompanyRequestsAddForm.get('otherdocs').touched && isOtherdocsImgError">
+                                    * Please upload other docs image or pdf file
+                                  </p>
+                                  <p *ngIf="isValidOtherdocsFileFormat">
+                                    * Please upload png/jpeg or pdf file
+                                  </p>
+                                  <p *ngIf="isValidOtherdocsSizeFileFormat">
+                                    * Please upload 380px * 180px dimensions image
+                                  </p>
+                                </div>
+                              </div>
+                            </div>
+                            <div *ngIf="images.otherdocs != '' && images.otherdocs != null">
+                            <div class="col-12" *ngIf="otherdocs != '' && otherdocs != undefined">
+                              <div class="img-uploaded">
+                                <img src="{{ otherdocs }}" />
+                              </div>
+                            </div>
+                          </div>
+                          </div>
+
+                          <div id="companyRemark" class="col-6">
+                            <div class="ux-input input-error">
+                              <label> <span class="mandatory">* </span> Remark</label>
+                              <textarea
+                                type="text"
+                                rows="1"
+                                formControlName="remark"
+                                placeholder="Enter Remark"
+                              >
+                              </textarea>
+                              <p *ngIf="formErrors.remark">
+                                {{ formErrors.remark }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-12-->
+
+                        </div>
+                      </form>
+                      <!--.row-->
+                      <div class="row mt-5">
+                        <div class="col-6 col-lg-2 offset-lg-8">
+                          <button class="ux-button" (click)="cancel()">
+                            Cancel
+                          </button>
+                        </div>
+                        <div class="col-6 col-lg-2">
+                          <button
+                            type="button"
+                            [disabled]="!corpCompanyRequestsAddForm.valid || this.isCOIImgError || this.isMOAImgError || this.isLogoImgError || this.isOtherdocsImgError"
+                            class="ux-button primary nextBtn next1"
+                            (click)="onNextClick('step1')"
+                          >
+                            Next
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--#step-1-->
+                  <!--#step-2-->
+                  <div class="row setup-content" id="step-2">
+                    <div class="col-md-12 col-xs-12 px-0">
+
+                      <div class="vspacer20"></div>
+
+                      <div>
+                        <!-- <form [formGroup]="corpCompanyMenuForm"> -->
+
+                          <!-- <div class="row"> -->
+
+                            <!-- <div id="companyMenuRemark" class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Remark</label>
+                                <textarea
+                                  type="text"
+                                  rows="1"
+                                  formControlName="remark"
+                                  placeholder="Enter Remark"
+                                >
+                                </textarea>
+                                <p *ngIf="formErrors.remark">
+                                  {{ formErrors.remark }}
+                                </p>
+                              </div>
+                            </div> -->
+
+                            <div class="col-6 offset-lg-10 offset-6 col-lg-2">
+                              <button class="ux-button primary" (click)="goTocorpCompanyMenuAddForm()">
+                                + Add
+                              </button>
+                            </div>
+<!--
+                          </div> -->
+
+                        <!-- </form> -->
+                      </div>
+
+                      <div class="vspacer20"></div>
+
+                      <div id="dttable" class="row mt-3">
+                        <div class="col-12 mb-0">
+                          <div class="datatable-box">
+                            <div class="table-responsive">
+                              <table id="dt-sample1" class="table display table-hover">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Sr. No.</th>
+                                    <th scope="col">Module Name</th>
+                                    <th scope="col">Created On</th>
+                                    <th scope="col">
+                                      Action
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="
+                                        let item of corpCompanyMenuArr;
+                                        let i = index
+                                      ">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>
+                                      {{
+                                          item.menuName == null || item.menuName == ""
+                                            ? "-"
+                                            : item.menuName
+                                        }}
+                                    </td>
+                                    <td>{{ item.createdon == null || item.createdon == "" ? '-' : item.createdon | date: "yyyy/MM/dd" }}</td>
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/delete.png"
+                                          (click)="onCompanyMenuDelete(item)" />
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+
+                          <div class="row mt-5">
+                            <div class="col-6 col-lg-2 offset-lg-8">
+                              <button class="ux-button prevBtn" (click)="onNextClick('step2Back')">
+                                Back
+                              </button>
+                            </div>
+
+                            <div class="col-6 col-lg-2">
+                              <button
+                                type="button"
+                                [disabled]="corpCompanyMenuArr.length==0"
+                                class="ux-button primary nextBtn next1"
+                                (click)="onNextClick('step2')"
+                              >
+                                Next
+                              </button>
+
+                            </div>
+                          </div>
+
+                          <!-- <div *ngIf="!corpMenuFlag" class="row mt-5">
+                            <div class="col-6 col-lg-2 offset-lg-8">
+                              <button class="ux-button prevBtn" (click)="onNextClick('step2Back')">
+                                Back
+                              </button>
+                            </div>
+
+                            <div class="col-6 col-lg-2">
+
+                              <button
+                                type="button"
+                                [disabled]="corpCompanyMenuArr.length==0"
+                                class="ux-button primary nextBtn next1"
+                                (click)="onNextClick('step2')"
+                              >
+                                Next
+                              </button>
+                            </div>
+                          </div> -->
+
+                        </div>
+                      </div>
+
+                      <div *ngIf="corpMenuAddFlag">
+                        <form [formGroup]="corpCompanyMenuAddForm">
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Module Name</label>
+                                <select formControlName="menuName" (change)="onMenuChange($event.target.value)">
+                                  <option value="">Select Module</option>
+                                  <option
+                                    *ngFor="
+                                      let item of corporateMenuMasterArr;
+                                      index as i
+                                    "
+                                    [value]="item.id"
+                                  >
+                                    {{ item.menuName | titlecase }}
+                                  </option>
+                                </select>
+                                <p *ngIf="formErrors.menuName">
+                                  {{ formErrors.menuName }}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Module Description</label>
+                                <input
+                                  type="text"
+                                  readonly
+                                  formControlName="menuDesc"
+                                  placeholder="Enter Module Description"
+                                />
+                                <p *ngIf="formErrors.menuDesc">
+                                  {{ formErrors.menuDesc }}
+                                </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row mt-5">
+                            <div class="col-6 col-lg-2 offset-lg-8">
+                              <button class="ux-button" (click)="onCancelClick('step2')">
+                                Cancel
+                              </button>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                              <button
+                                type="button"
+                                class="ux-button primary"
+                                (click)="onCorpMenuAdd(corpCompanyMenuAddForm.value)"
+                              >
+                                Add
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+
+                    </div>
+                  </div>
+                  <!--#step-2-->
+                  <!--#step-3-->
+                  <div class="row setup-content" id="step-3">
+                    <div class="col-12 col-md-12 col-xl-12 px-0">
+
+                      <div class="vspacer20"></div>
+                      <div *ngIf="!corpAccAddFlag" class="row">
+                        <div class="col-6 col-lg-2 offset-lg-8" > 
+                          <button class="ux-button primary" (click)="goTocorpCompanyAccountAddForm()">
+                            + Add
+                          </button>
+                        </div>
+                        <div class="col-6 col-lg-2">
+                            <button class="ux-button primary" (click)="fetchAccountList()">
+                                Fetch A/C
+                              </button>
+                          </div>
+                      </div>
+                      <div class="vspacer20"></div>
+
+                      <div id="dttable1" class="row mt-3">
+                        <div class="col-12 mb-0">
+                          <div class="datatable-box">
+                            <div class="table-responsive">
+                              <table id="dt-sample2" class="table display table-hover">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Sr. No.</th>
+                                    <th scope="col">Account Number</th>
+                                    <th scope="col">Created On</th>
+                                    <th scope="col" class="notexport">Action</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="
+                                        let item of corpCompanyAccountsArr;
+                                        let i = index
+                                      ">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>
+                                      {{
+                                          item.accountNo == null || item.accountNo == ""
+                                            ? "-"
+                                            : item.accountNo
+                                        }}
+                                    </td>
+                                    <td>{{ item.createdon == null || item.createdon == "" ? '-' : item.createdon | date: "yyyy/MM/dd" }}</td>
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/delete.png"
+                                          (click)="onCompanyAccountDelete(item)" />
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+
+                          <div class="row mt-5">
+                            <div class="col-6 col-lg-2 offset-lg-8">
+                              <button class="ux-button prevBtn" (click)="onNextClick('step3Back')">
+                                Back
+                              </button>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                              <button
+                              [disabled]="corpCompanyAccountsArr.length==0"
+                                class="ux-button primary nextBtn next1"
+                                (click)="onNextClick('step3')"
+                              >
+                                Next
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div *ngIf="corpAccAddFlag">
+                        <form [formGroup]="corpCompanyAccAddForm">
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Account Number</label>
+                                <input
+                                  type="text"
+                                  limit-to= "14"
+                                  numbersOnly
+                                  formControlName="accNo"
+                                  placeholder="Enter Account Number"
+                                />
+                                <p *ngIf="formErrors.accNo">
+                                  {{ formErrors.accNo }}
+                                </p>
+                                <p *ngIf="
+                                corpCompanyAccAddForm.get('accNo').touched &&
+                                corpCompanyAccAddForm.get('accNo').value != '' &&
+                                corpCompanyAccAddForm.get('accNo').invalid
+                              ">
+                            * Invalid  Account Number
+                          </p>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row mt-5">
+                            <div class="col-6 col-lg-2 offset-lg-8">
+                              <button class="ux-button" (click)="onCancelClick('step3')">
+                                Cancel
+                              </button>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                              <button
+                                type="button"
+                                class="ux-button primary"
+                                (click)="onCorpAccountAdd(corpCompanyAccAddForm.value)"
+                              >
+                                Add
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+
+                    </div>
+                  </div>
+                  <!--#step-3-->
+
+                  <!--#step-4-->
+                  <div class="row setup-content" id="step-4">
+                    <div class="col-md-12 col-xs-12 px-0">
+
+                    <div class="vspacer20"></div>
+                      <div *ngIf="!corpUserAddFlag && !corpUserEditFlag" class="row">
+                        <div class="col-6 offset-lg-10 offset-6 col-lg-2">
+                          <button class="ux-button primary" (click)="goTocorpUserAccountAddForm()">
+                            + Add
+                          </button>
+                        </div>
+                      </div>
+                    <div class="vspacer20"></div>
+
+                      <div id="dttable2" class="row mt-3">
+                        <div class="col-12 mb-0">
+                          <div class="datatable-box">
+                            <div class="table-responsive">
+                              <table id="dt-sample3" class="table display table-hover">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Sr. No.</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">User Role</th>
+                                    <th scope="col">Parent Role</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Email ID</th>
+                                    <th scope="col">Mobile Number</th>
+                                    <th scope="col">Date Of Birth</th>
+                                    <th scope="col">PAN Card Number</th>
+                                    <!-- <th scope="col">RRN</th> -->
+                                    <th scope="col">Passport Number</th>
+                                    <!-- <th scope="col">National ID</th> -->
+                                    <th scope="col">Aadhar Card</th>
+                                    <th scope="col">Module Mapped</th>
+                                    <th scope="col">Accounts Mapped</th>
+                                    <!-- <th scope="col">Created On</th> -->
+                                    <!-- <th scope="col">Board Resolution</th>
+                                    <th scope="col">Certificate Of Incorporation</th>
+                                    <th scope="col">National ID</th>
+                                    <th scope="col">Passport</th> -->
+                                    <th scope="col">User Image</th>
+                                    <th scope="col">Other Documents</th>
+                                    <!-- <th scope="col">Accounts Mapped</th> -->
+                                    <th scope="col">Actions</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="
+                                        let item of corpUsersArr;
+                                        let i = index
+                                      ">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>
+                                      {{
+                                          item.userName == null || item.userName == ""
+                                            ? "-"
+                                            : item.userName
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                        item.userRole == null || item.userRole == ""
+                                          ? "-"
+                                          : item.userRole
+                                      }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.parentRole == null || item.parentRole == ""
+                                            ? "-"
+                                            : item.parentRole
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.firstName == null || item.firstName == ""
+                                            ? "-"
+                                            : item.firstName
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.lastName == null || item.lastName == ""
+                                            ? "-"
+                                            : item.lastName
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.email == null || item.email == ""
+                                            ? "-"
+                                            : item.email
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.mobile == null || item.mobile == ""
+                                            ? "-"
+                                            : item.mobile
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.dob == null || item.dob == ""
+                                            ? "-"
+                                            : item.dob
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.pancardNo == null || item.pancardNo == ""
+                                            ? "-"
+                                            : item.pancardNo
+                                        }}
+                                    </td>
+                                    <!-- <td>
+                                      {{
+                                          item.rrn == null || item.rrn == ""
+                                            ? "-"
+                                            : item.rrn
+                                        }}
+                                    </td> -->
+                                    <td>
+                                      {{
+                                          item.passNumber == null || item.passNumber == ""
+                                            ? "-"
+                                            : item.passNumber
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.aadharCardNo == null || item.aadharCardNo == ""
+                                            ? "-"
+                                            : item.aadharCardNo
+                                        }}
+                                    </td>
+                                    <!-- <td>
+                                      {{
+                                          item.nationalId == null || item.nationalId == ""
+                                            ? "-"
+                                            : item.nationalId
+                                        }}
+                                    </td> -->
+                                    <td>
+                                      {{
+                                          item.menuMapped == null || item.menuMapped == ""
+                                            ? "-"
+                                            : item.menuMapped
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.accountsMapped == null || item.accountsMapped == ""
+                                            ? "-"
+                                            : item.accountsMapped
+                                        }}
+                                    </td>
+                                    <!-- <td>{{ item.createdon == null || item.createdon == "" ? '-' : item.createdon | date: "yyyy/MM/dd" }}</td> -->
+                                    <!-- <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/eye.png"
+                                          (click)="getLogoImage(item, 'boardResolution')" />
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/eye.png"
+                                          (click)="getLogoImage(item, 'certificateIncorporation')" />
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/eye.png"
+                                          (click)="getLogoImage(item, 'nationalId')" />
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/eye.png"
+                                          (click)="getLogoImage(item, 'passport')" />
+                                      </div>
+                                    </td> -->
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/eye.png"
+                                          (click)="getLogoImage(item, 'userImage')" />
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/eye.png"
+                                          (click)="getLogoImage(item, 'otherDoc')" />
+                                      </div>
+                                    </td>
+                                    <!-- <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/eye.png"
+                                          (click)="getMenusMappedData(item)" />
+                                      </div>
+                                    </td> -->
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/edit.png"
+                                          (click)="gotoCorpUsersEdit(item)" />
+                                      </div>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/delete.png"
+                                          (click)="onCorpUserDelete(item)" />
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+
+                          <div class="row mt-5">
+                            <div class="col-6 col-lg-2 offset-lg-8">
+                              <button class="ux-button prevBtn" (click)="onNextClick('step4Back')">
+                                Back
+                              </button>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                              <button
+                                type="button"
+                                [disabled]="corpUsersArr.length==0"
+                                class="ux-button primary"
+                                (click)="openActionModal(corpCompanyRequestsAddForm.value)"
+                              >
+                                Save
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                      <!--Corp users add form-->
+                      <div *ngIf="corpUserAddFlag">
+                        <form [formGroup]="corpUserAccAddForm">
+                            <div class="col-6" *ngIf="corpUsersArr.length==0">
+                                <div class="ux-input input-error">
+                                  <label>Regulator</label>
+                                  <select formControlName="regulator" (change)="onRegulatorChange($event.target.value)">
+                                    <option value="">Select Is Regulator</option>
+                                    <option value="Y">Yes</option>
+                                    <option value="N">No</option>
+                                  </select>
+                                  <p *ngIf="formErrors.regulator">
+                                    {{ formErrors.regulator }}
+                                  </p>
+                                </div>
+                              </div>
+
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Username</label>
+                                <input
+                                  type="text"
+                                  formControlName="username"
+                                  placeholder="Enter Username"
+                                />
+                                <p *ngIf="formErrors.username">
+                                  {{ formErrors.username }}
+                                </p>
+                                <p *ngIf="
+                                corpUserAccAddForm.get('username').touched &&
+                                corpUserAccAddForm.get('username').value != '' &&
+                                corpUserAccAddForm.get('username').invalid
+                              ">
+                            * Invalid username
+                          </p>
+                              </div>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>First Name</label>
+                                <input
+                                  type="text"
+                                  alphabetsOnly
+                                  limit-to="40"
+                                  formControlName="fName"
+                                  placeholder="Enter First Name"
+                                />
+                                <p *ngIf="formErrors.fName">
+                                  {{ formErrors.fName }}
+                                </p>
+                                <!-- <p *ngIf="
+                                corpUserAccAddForm.get('fName').touched &&
+                                corpUserAccAddForm.get('fName').value != '' &&
+                                corpUserAccAddForm.get('fName').invalid
+                              ">
+                            * Invalid first name
+                          </p> -->
+                              </div>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Last Name</label>
+                                <input
+                                  type="text"
+                                  alphabetsOnly
+                                  limit-to="40"
+                                  formControlName="lName"
+                                  placeholder="Enter Last Name"
+                                />
+                                <p *ngIf="formErrors.lName">
+                                  {{ formErrors.lName }}
+                                </p>
+                                <!-- <p *ngIf="
+                                corpUserAccAddForm.get('lName').touched &&
+                                corpUserAccAddForm.get('lName').value != '' &&
+                                corpUserAccAddForm.get('lName').invalid
+                              ">
+                            * Invalid last name
+                          </p> -->
+                              </div>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Email ID</label>
+                                <input
+                                  type="email"
+                                  formControlName="emailId"
+                                  placeholder="Enter Email ID"
+                                  (blur)="checkEmail()"
+                                />
+                                <p *ngIf="formErrors.emailId">
+                                  {{ formErrors.emailId }}
+                                </p>
+                                <p *ngIf="
+                            corpUserAccAddForm.get('emailId').touched &&
+                            corpUserAccAddForm.get('emailId').value != '' &&
+                            corpUserAccAddForm.get('emailId').invalid
+                          ">
+                        * Invalid email id
+                      </p>
+                      <p *ngIf="emailExist==false">
+                        Email Id already exist.
+                      </p>
+                      <p *ngIf="emailExist==true" style="color:green">
+                        Email Id available.
+                      </p>
+                              </div>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Role</label>
+                                <select formControlName="role" (change)="onRoleChange($event.target.value)" style="width: 95%;">
+                                  <option value="">Select Role</option>
+                                  <option [value]="role.id" *ngFor="let role of filterRole()">{{role.name}}</option>
+                                </select>
+                                <i class="fa fa-info-circle more-info">
+                                  <span class="tooltiptext">
+                                    You have to add atleast one Regulator, two Admins and then subsequent users
+                                    and if no Regulator then add atleast two Admins and then subsequent users
+                                  </span>
+                                </i>
+                                <p *ngIf="formErrors.role">
+                                  {{ formErrors.role }}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div class="col-6" id="addUser">
+                              <div class="ux-input input-error">
+                                <label>Admin User</label>
+                                <select formControlName="user" (change)="onUserChange($event.target.value)">
+                                  <option value="">Select Admin User</option>
+                                  <option [value]="userItem.userName" *ngFor="let userItem of filterUser()">{{userItem.userName}}</option>
+                                </select>
+                                <p *ngIf="formErrors.user">
+                                  {{ formErrors.user }}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div class="col-6" id="addmenu">
+                              <div class="ux-input input-error">
+                                <label>Modules Mapped</label>
+
+                                <ng-multiselect-dropdown
+                                  [placeholder]="'Select Module'"
+                                  [settings]="dropdownSettings"
+                                  [data]="corpCompanyMenuArr"
+                                  [(ngModel)]="selectedItemsAdd"
+                                  (onSelect)="onItemSelectAdd($event)"
+                                  (onSelectAll)="onSelectAllAdd($event)"
+                                  [formControl]="corpUserAccAddForm.controls['menuMapped']"
+                                  [disabled]="isDropdownDisabled"
+                                >
+                                </ng-multiselect-dropdown>
+                                <!-- <p
+                                  *ngIf="
+                                  corpUserAccAddForm.get('menuMapped').invalid &&
+                                  corpUserAccAddForm.get('menuMapped').touched
+                                  "
+                                >
+                                  {{ formErrors.menuMapped }}
+                                </p> -->
+                              </div>
+                            </div>
+                          <!--.col-12-->
+
+                          <div class="col-6" id="addacc">
+                            <div class="ux-input input-error">
+                              <label>Accounts Mapped</label>
+
+                              <ng-multiselect-dropdown
+                                [placeholder]="'Select Account Numbers'"
+                                [settings]="dropdownSettingsAccounts"
+                                [data]="corpCompanyAccountsArr"
+                                [(ngModel)]="selectedItemsAccountsAdd"
+                                (onSelect)="onItemSelectAdd($event)"
+                                (onSelectAll)="onSelectAllAdd($event)"
+                                [formControl]="corpUserAccAddForm.controls['accountsMapped']"
+                                [disabled]="isDropdownDisabled"
+                              >
+                              </ng-multiselect-dropdown>
+                              <!-- <p
+                                *ngIf="
+                                corpUserAccAddForm.get('accountsMapped').invalid &&
+                                corpUserAccAddForm.get('accountsMapped').touched
+                                "
+                              >
+                                {{ formErrors.accountsMapped }}
+                              </p> -->
+                            </div>
+                          </div>
+                        <!--.col-12-->
+
+
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Mobile Number</label>
+                                <input
+                                  type="text"
+                                  limit-to= "10"
+                                  numbersOnly
+                                  formControlName="mobileNo"
+                                  placeholder="Enter Mobile Number"
+                                />
+                                <p *ngIf="formErrors.mobileNo">
+                                  {{ formErrors.mobileNo }}
+                                </p>
+                                <p *ngIf="
+                            corpUserAccAddForm.get('mobileNo').touched &&
+                            corpUserAccAddForm.get('mobileNo').value != '' &&
+                            corpUserAccAddForm.get('mobileNo').invalid
+                          ">
+                        * Invalid mobile number
+                      </p>
+                              </div>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>PAN Number</label>
+                                <input
+                                  type="text"
+                                  limit-to= "10"
+                                  formControlName="panNumber"
+                                  placeholder="Enter PAN Number"
+                                />
+                                <p *ngIf="formErrors.panNumber">
+                                  {{ formErrors.panNumber }}
+                                </p>
+                                <p *ngIf="
+                                corpUserAccAddForm.get('panNumber').touched &&
+                                corpUserAccAddForm.get('panNumber').value != '' &&
+                                corpUserAccAddForm.get('panNumber').invalid
+                              ">
+                            * Invalid pan number
+                          </p>
+                              </div>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>DOB</label>
+                                <input
+                                  class="pr-0"
+                                  [max]="todayDate"
+                                  type="date"
+                                  formControlName="dob"
+                                />
+                                <p *ngIf="formErrors.dob">
+                                  {{ formErrors.dob }}
+                                </p>
+                              </div>
+                              <!--.ux-input-->
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Passport Number</label>
+                                <input
+                                  type="text"
+                                  formControlName="passNumber"
+                                  placeholder="Enter Passport Number"
+                                />
+                                <p *ngIf="formErrors.passNumber">
+                                  {{ formErrors.passNumber }}
+                                </p>
+                                <p *ngIf="
+                                corpUserAccAddForm.get('passNumber').touched &&
+                                corpUserAccAddForm.get('passNumber').value != '' &&
+                                corpUserAccAddForm.get('passNumber').invalid
+                              ">
+                            * Invalid passport number
+                          </p>
+                              </div>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Aadhar Card Number</label>
+                                <input
+                                  type="text"
+                                  numbersOnly
+                                  limit-to="12"
+                                  formControlName="aadharCardNo"
+                                  placeholder="Enter Aadhar Card Number"
+                                />
+                                <p *ngIf="formErrors.aadharCardNo">
+                                  {{ formErrors.aadharCardNo }}
+                                </p>
+                                <p *ngIf="
+                                corpUserAccAddForm.get('aadharCardNo').touched &&
+                                corpUserAccAddForm.get('aadharCardNo').value != '' &&
+                                corpUserAccAddForm.get('aadharCardNo').invalid
+                                ">
+                                * Invalid aadhar number
+                                </p>
+                              </div>
+                            </div>
+
+                            <!-- <div class="col-12 col-md-6 col-lg-6">
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="ux-input">
+                                    <div class="file-input input-error">
+                                      <input type="file" style="width: 100%; height: 100%; z-index: 100" name="br"
+                                        (change)="addImage($event, 'br')" />
+                                      <label for="file-sample">
+                                        <h4>Upload Board Resolution</h4>
+                                        <p>Upload Files To See Records</p>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="ux-input input-error">
+                                    <p *ngIf="corpUserAccAddForm.get('br').touched && isBRImgError">
+                                      * Please upload Board Resolution image
+                                    </p>
+                                    <p *ngIf="isValidBRFileFormat">
+                                      * Please upload png or jpeg file
+                                    </p>
+                                    <p *ngIf="isValidBRSizeFileFormat">
+                                      * Please upload 380px * 180px dimensions image
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12" *ngIf="br != '' && br != undefined">
+                                <div class="img-uploaded">
+                                  <img src="{{ br }}" />
+                                </div>
+                              </div>
+                            </div> -->
+
+                            <!-- <div class="col-12 col-md-6 col-lg-6">
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="ux-input">
+                                    <div class="file-input input-error">
+                                      <input type="file" style="width: 100%; height: 100%; z-index: 100" name="br"
+                                        (change)="addImage($event, 'coii')" />
+                                      <label for="file-sample">
+                                        <h4>Upload Certificate of Incorporation</h4>
+                                        <p>Upload Files To See Records</p>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="ux-input input-error">
+                                    <p *ngIf="corpUserAccAddForm.get('coii').touched && isCOIIImgError">
+                                      * Please upload Certificate of Incorporation image
+                                    </p>
+                                    <p *ngIf="isValidCOIIFileFormat">
+                                      * Please upload png or jpeg file
+                                    </p>
+                                    <p *ngIf="isValidCOIISizeFileFormat">
+                                      * Please upload 380px * 180px dimensions image
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12" *ngIf="coii != '' && coii != undefined">
+                                <div class="img-uploaded">
+                                  <img src="{{ coii }}" />
+                                </div>
+                              </div>
+                            </div> -->
+
+                            <!-- <div class="col-12 col-md-6 col-lg-6">
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="ux-input">
+                                    <div class="file-input input-error">
+                                      <input type="file" style="width: 100%; height: 100%; z-index: 100" name="br"
+                                        (change)="addImage($event, 'ni')" />
+                                      <label for="file-sample">
+                                        <h4>Upload National Id</h4>
+                                        <p>Upload Files To See Records</p>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="ux-input input-error">
+                                    <p *ngIf="corpUserAccAddForm.get('ni').touched && isNIImgError">
+                                      * Please upload National Id image
+                                    </p>
+                                    <p *ngIf="isValidNIFileFormat">
+                                      * Please upload png or jpeg file
+                                    </p>
+                                    <p *ngIf="isValidNISizeFileFormat">
+                                      * Please upload 380px * 180px dimensions image
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12" *ngIf="ni != '' && ni != undefined">
+                                <div class="img-uploaded">
+                                  <img src="{{ ni }}" />
+                                </div>
+                              </div>
+                            </div> -->
+
+                            <!-- <div class="col-12 col-md-6 col-lg-6">
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="ux-input">
+                                    <div class="file-input input-error">
+                                      <input type="file" style="width: 100%; height: 100%; z-index: 100" name="br"
+                                        (change)="addImage($event, 'pass')" />
+                                      <label for="file-sample">
+                                        <h4>Upload Passport</h4>
+                                        <p>Upload Files To See Records</p>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="ux-input input-error">
+                                    <p *ngIf="corpUserAccAddForm.get('pass').touched && isPASSImgError">
+                                      * Please upload Passport image
+                                    </p>
+                                    <p *ngIf="isValidPASSFileFormat">
+                                      * Please upload png or jpeg file
+                                    </p>
+                                    <p *ngIf="isValidPASSSizeFileFormat">
+                                      * Please upload 380px * 180px dimensions image
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12" *ngIf="pass != '' && pass != undefined">
+                                <div class="img-uploaded">
+                                  <img src="{{ pass }}" />
+                                </div>
+                              </div>
+                            </div> -->
+
+                            <div class="col-12 col-md-6 col-lg-6">
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="ux-input">
+                                    <div class="file-input input-error">
+                                      <input type="file" style="width: 100%; height: 100%; z-index: 100" name="ui"
+                                        (change)="addImage($event, 'ui')" />
+                                      <label for="file-sample">
+                                        <h4>Upload User Image</h4>
+                                        <p>Upload Files To See Records</p>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <!--.ux-input-->
+                                  <div class="ux-input input-error">
+                                    <!-- <p *ngIf="corpUserAccAddForm.get('ui').touched && isUIImgError">
+                                      * Please upload User Image image
+                                    </p> -->
+                                    <p *ngIf="isValidUIFileFormat">
+                                      * Please upload png or jpeg file
+                                    </p>
+                                    <p *ngIf="isValidUISizeFileFormat">
+                                      * Please upload 380px * 180px dimensions image
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12" *ngIf="ui != '' && ui != undefined">
+                                <div class="img-uploaded">
+                                  <div class="edit-prof">
+                                    <a href="javascript:;">
+                                      <i class="fa fa-times-circle fa-lg remove-doc">
+                                        <input
+                                          style="
+                                            position: absolute;
+                                            opacity: 0;
+                                            margin: auto;
+                                            right: 0;
+                                            left: 0;
+                                            cursor: pointer;
+                                          "
+                                          (click)="onImgDelete('ui', 'addForm')"
+                                        />
+                                      </i>
+                                    </a>
+                                  </div>
+                                  <img src="{{ ui }}" />
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-6">
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="ux-input">
+                                    <div class="file-input input-error">
+                                      <input type="file" style="width: 100%; height: 100%; z-index: 100" name="od"
+                                        (change)="addImage($event, 'od')" />
+                                      <label for="file-sample">
+                                        <h4>Upload Other Documents</h4>
+                                        <p>Upload Files To See Records</p>
+                                        <p *ngIf="(pdf.od != '' && pdf.od != null) && !isValidODFileFormat" style="color: blue;">{{ od }}</p>
+                                        <img *ngIf="showSuccessOD" style="height:20px" src='assets/images/icons/ic-tick.png'>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <!--.ux-input-->
+                                  <div class="ux-input input-error">
+                                    <!-- <p *ngIf="corpUserAccAddForm.get('od').touched && isODImgError">
+                                      * Please upload Other Documents image
+                                    </p> -->
+                                    <p *ngIf="isValidODFileFormat">
+                                      * Please upload png/jpeg or pdf file
+                                    </p>
+                                    <p *ngIf="isValidODSizeFileFormat">
+                                      * Please upload 380px * 180px dimensions image
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="images.od != '' && images.od != null">
+                              <div class="col-12" *ngIf="od != '' && od != undefined">
+                                <div class="img-uploaded">
+                                  <div class="edit-prof">
+                                    <a href="javascript:;">
+                                      <i class="fa fa-times-circle fa-lg remove-doc">
+                                        <input
+                                          style="
+                                            position: absolute;
+                                            opacity: 0;
+                                            margin: auto;
+                                            right: 0;
+                                            left: 0;
+                                            cursor: pointer;
+                                          "
+                                          (click)="onImgDelete('od', 'addForm')"
+                                        />
+                                      </i>
+                                    </a>
+                                  </div>
+                                        <img src="{{ od }}" />
+                                </div>
+                              </div>
+                            </div>
+                            </div>
+
+                          </div>
+
+                          <div class="row mt-5">
+                            <div class="col-6 col-lg-2 offset-lg-8">
+                              <button class="ux-button" (click)="onCancelClick('step4CorpUserAdd')">
+                                Cancel
+                              </button>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                              <button
+                                type="button"
+                                class="ux-button primary"
+                                [disabled]="!corpUserAccAddForm.valid"
+                                (click)="onCorpUserAdd(corpUserAccAddForm.value)"
+                              >
+                                Add
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+
+                      <!--Corp users edit form-->
+                      <div *ngIf="corpUserEditFlag">
+                        <form [formGroup]="corpUserAccEditForm">
+                          <div class="row">
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Username</label>
+                                <input
+                                  type="text"
+                                  readonly
+                                  formControlName="username"
+                                  placeholder="Enter Username"
+                                />
+                                <p *ngIf="formErrors.username">
+                                  {{ formErrors.username }}
+                                </p>
+                                <p *ngIf="
+                                corpUserAccEditForm.get('username').touched &&
+                                corpUserAccEditForm.get('username').value != '' &&
+                                corpUserAccEditForm.get('username').invalid
+                              ">
+                            * Invalid username
+                          </p>
+                              </div>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>First Name</label>
+                                <input
+                                  type="text"
+                                  alphabetsOnly
+                                  limit-to="40"
+                                  formControlName="fName"
+                                  placeholder="Enter First Name"
+                                />
+                                <p *ngIf="formErrors.fName">
+                                  {{ formErrors.fName }}
+                                </p>
+                                <!-- <p *ngIf="
+                                corpUserAccEditForm.get('fName').touched &&
+                                corpUserAccEditForm.get('fName').value != '' &&
+                                corpUserAccEditForm.get('fName').invalid
+                              ">
+                            * Invalid first name
+                          </p> -->
+                              </div>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Last Name</label>
+                                <input
+                                  type="text"
+                                  alphabetsOnly
+                                  limit-to="40"
+                                  formControlName="lName"
+                                  placeholder="Enter Last Name"
+                                />
+                                <p *ngIf="formErrors.lName">
+                                  {{ formErrors.lName }}
+                                </p>
+                                <!-- <p *ngIf="
+                                corpUserAccEditForm.get('lName').touched &&
+                                corpUserAccEditForm.get('lName').value != '' &&
+                                corpUserAccEditForm.get('lName').invalid
+                              ">
+                            * Invalid last name
+                          </p> -->
+                              </div>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Email ID</label>
+                                <input
+                                  type="email"
+                                  formControlName="emailId"
+                                  placeholder="Enter Email ID"
+                                />
+                                <p *ngIf="formErrors.emailId">
+                                  {{ formErrors.emailId }}
+                                </p>
+                                <p *ngIf="
+                                corpUserAccEditForm.get('emailId').touched &&
+                                corpUserAccEditForm.get('emailId').value != '' &&
+                                corpUserAccEditForm.get('emailId').invalid
+                              ">
+                            * Invalid email id
+                          </p>
+                              </div>
+                            </div>
+
+                            <div class="col-6" id="editUser" *ngIf="isUserDisabled">
+                              <div class="ux-input input-error">
+                                <label>Admin User</label>
+                                <select formControlName="user" (change)="onUserChange($event.target.value)">
+                                  <option value="">Select Admin User</option>
+                                  <option [value]="userItem.userName" *ngFor="let userItem of editUserArray">{{userItem.userName}}</option>
+                                </select>
+                                <p *ngIf="formErrors.user">
+                                  {{ formErrors.user }}
+                                </p>
+                              </div>
+                            </div>
+
+                            <div class="col-6" id="editmenu">
+                              <div class="ux-input input-error">
+                                <label>Modules Mapped</label>
+
+                                <ng-multiselect-dropdown
+                                  [placeholder]="'Select Module'"
+                                  [settings]="dropdownSettings"
+                                  [data]="editmenuArray"
+                                  [(ngModel)]="selectedItemsEdit"
+                                  (onSelect)="onItemSelectEdit($event)"
+                                  (onSelectAll)="onSelectAllEdit($event)"
+                                  [formControl]="corpUserAccEditForm.controls['menuMapped']"
+                                  [disabled] = "isEditDropdownDisabled"
+                                >
+                                </ng-multiselect-dropdown>
+                                <!-- <p
+                                  *ngIf="
+                                  corpUserAccEditForm.get('menuMapped').invalid &&
+                                  corpUserAccEditForm.get('menuMapped').touched
+                                  "
+                                >
+                                  {{ formErrors.menuMapped }}
+                                </p> -->
+                              </div>
+                            </div>
+                          <!--.col-12-->
+
+                          <div class="col-6" id="editacc">
+                            <div class="ux-input input-error">
+                              <label>Accounts Mapped</label>
+
+                              <ng-multiselect-dropdown
+                                [placeholder]="'Select Account Numbers'"
+                                [settings]="dropdownSettingsAccounts"
+                                [data]="editAccountArray"
+                                [(ngModel)]="selectedItemsAccountsEdit"
+                                (onSelect)="onItemSelectEdit($event)"
+                                (onSelectAll)="onSelectAllEdit($event)"
+                                [formControl]="corpUserAccEditForm.controls['accountsMapped']"
+                                [disabled] = "isEditDropdownDisabled"
+                              >
+                              </ng-multiselect-dropdown>
+                              <!-- <p
+                                *ngIf="
+                                corpUserAccEditForm.get('accountsMapped').invalid &&
+                                corpUserAccEditForm.get('accountsMapped').touched
+                                "
+                              >
+                                {{ formErrors.accountsMapped }}
+                              </p> -->
+                            </div>
+                          </div>
+
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Mobile Number</label>
+                                <input
+                                  type="text"
+                                  limit-to= "10"
+                                  numbersOnly
+                                  formControlName="mobileNo"
+                                  placeholder="Enter Mobile Number"
+                                />
+                                <p *ngIf="formErrors.mobileNo">
+                                  {{ formErrors.mobileNo }}
+                                </p>
+
+                              </div>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>PAN Number</label>
+                                <input
+                                  type="text"
+                                  limit-to= "10"
+                                  formControlName="panNumber"
+                                  placeholder="Enter PAN Number"
+                                />
+                                <p *ngIf="formErrors.panNumber">
+                                  {{ formErrors.panNumber }}
+                                </p>
+                                <p *ngIf="
+                                corpUserAccEditForm.get('panNumber').touched &&
+                                corpUserAccEditForm.get('panNumber').value != '' &&
+                                corpUserAccEditForm.get('panNumber').invalid
+                              ">
+                              * Invalid pan number
+                            </p>
+                              </div>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>DOB</label>
+                                <input
+                                  class="pr-0"
+                                  [max]="todayDate"
+                                  type="date"
+                                  formControlName="dob"
+                                />
+                                <p *ngIf="formErrors.dob">
+                                  {{ formErrors.dob }}
+                                </p>
+                              </div>
+                              <!--.ux-input-->
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Passport Number</label>
+                                <input
+                                  type="text"
+                                  formControlName="passNumber"
+                                  placeholder="Enter Passport Number"
+                                />
+                                <p *ngIf="formErrors.passNumber">
+                                  {{ formErrors.passNumber }}
+                                </p>
+                                <p *ngIf="
+                                corpUserAccEditForm.get('passNumber').touched &&
+                                corpUserAccEditForm.get('passNumber').value != '' &&
+                                corpUserAccEditForm.get('passNumber').invalid
+                              ">
+                              * Invalid passport number
+                            </p>
+                              </div>
+                            </div>
+
+                            <div class="col-6">
+                              <div class="ux-input input-error">
+                                <label>Aadhar Card Number</label>
+                                <input
+                                  type="text"
+                                  numbersOnly
+                                  limit-to="12"
+                                  formControlName="aadharCardNo"
+                                  placeholder="Enter Aadhar Card Number"
+                                />
+                                <p *ngIf="formErrors.aadharCardNo">
+                                  {{ formErrors.aadharCardNo }}
+                                </p>
+                                <p *ngIf="
+                                corpUserAccEditForm.get('aadharCardNo').touched &&
+                                corpUserAccEditForm.get('aadharCardNo').value != '' &&
+                                corpUserAccEditForm.get('aadharCardNo').invalid
+                                ">
+                                * Invalid aadhar number
+                                </p>
+                              </div>
+                            </div>
+
+                            <!-- <div class="col-12 col-md-6 col-lg-6">
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="ux-input">
+                                    <div class="file-input input-error">
+                                      <input type="file" style="width: 100%; height: 100%; z-index: 100" name="br"
+                                        (change)="addImage($event, 'br')" />
+                                      <label for="file-sample">
+                                        <h4>Upload Board Resolution</h4>
+                                        <p>Upload Files To See Records</p>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="ux-input input-error">
+                                    <p *ngIf="corpUserAccEditForm.get('br').touched && isBRImgError">
+                                      * Please upload Board Resolution image
+                                    </p>
+                                    <p *ngIf="isValidBRFileFormat">
+                                      * Please upload png or jpeg file
+                                    </p>
+                                    <p *ngIf="isValidBRSizeFileFormat">
+                                      * Please upload 380px * 180px dimensions image
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12" *ngIf="br != '' && br != undefined">
+                                <div class="img-uploaded">
+                                  <img src="{{ br }}" />
+                                </div>
+                              </div>
+                            </div> -->
+
+                            <!-- <div class="col-12 col-md-6 col-lg-6">
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="ux-input">
+                                    <div class="file-input input-error">
+                                      <input type="file" style="width: 100%; height: 100%; z-index: 100" name="br"
+                                        (change)="addImage($event, 'coii')" />
+                                      <label for="file-sample">
+                                        <h4>Upload Certificate of Incorporation</h4>
+                                        <p>Upload Files To See Records</p>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="ux-input input-error">
+                                    <p *ngIf="corpUserAccEditForm.get('coii').touched && isCOIIImgError">
+                                      * Please upload Certificate of Incorporation image
+                                    </p>
+                                    <p *ngIf="isValidCOIIFileFormat">
+                                      * Please upload png or jpeg file
+                                    </p>
+                                    <p *ngIf="isValidCOIISizeFileFormat">
+                                      * Please upload 380px * 180px dimensions image
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12" *ngIf="coii != '' && coii != undefined">
+                                <div class="img-uploaded">
+                                  <img src="{{ coii }}" />
+                                </div>
+                              </div>
+                            </div> -->
+
+                            <!-- <div class="col-12 col-md-6 col-lg-6">
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="ux-input">
+                                    <div class="file-input input-error">
+                                      <input type="file" style="width: 100%; height: 100%; z-index: 100" name="br"
+                                        (change)="addImage($event, 'ni')" />
+                                      <label for="file-sample">
+                                        <h4>Upload National Id</h4>
+                                        <p>Upload Files To See Records</p>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="ux-input input-error">
+                                    <p *ngIf="corpUserAccEditForm.get('ni').touched && isNIImgError">
+                                      * Please upload National Id image
+                                    </p>
+                                    <p *ngIf="isValidNIFileFormat">
+                                      * Please upload png or jpeg file
+                                    </p>
+                                    <p *ngIf="isValidNISizeFileFormat">
+                                      * Please upload 380px * 180px dimensions image
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12" *ngIf="ni != '' && ni != undefined">
+                                <div class="img-uploaded">
+                                  <img src="{{ ni }}" />
+                                </div>
+                              </div>
+                            </div> -->
+
+                            <!-- <div class="col-12 col-md-6 col-lg-6">
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="ux-input">
+                                    <div class="file-input input-error">
+                                      <input type="file" style="width: 100%; height: 100%; z-index: 100" name="br"
+                                        (change)="addImage($event, 'pass')" />
+                                      <label for="file-sample">
+                                        <h4>Upload Passport</h4>
+                                        <p>Upload Files To See Records</p>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <div class="ux-input input-error">
+                                    <p *ngIf="corpUserAccEditForm.get('pass').touched && isPASSImgError">
+                                      * Please upload Passport image
+                                    </p>
+                                    <p *ngIf="isValidPASSFileFormat">
+                                      * Please upload png or jpeg file
+                                    </p>
+                                    <p *ngIf="isValidPASSSizeFileFormat">
+                                      * Please upload 380px * 180px dimensions image
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12" *ngIf="pass != '' && pass != undefined">
+                                <div class="img-uploaded">
+                                  <img src="{{ pass }}" />
+                                </div>
+                              </div>
+                            </div> -->
+
+                            <div class="col-12 col-md-6 col-lg-6">
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="ux-input">
+                                    <div class="file-input input-error">
+                                      <input type="file" style="width: 100%; height: 100%; z-index: 100" name="ui"
+                                        (change)="addImage($event, 'ui')" />
+                                      <label for="file-sample">
+                                        <h4>Upload User Image</h4>
+                                        <p>Upload Files To See Records</p>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <!--.ux-input-->
+                                  <div class="ux-input input-error">
+                                    <!-- <p *ngIf="corpUserAccEditForm.get('ui').touched && isUIImgError">
+                                      * Please upload User Image image
+                                    </p> -->
+                                    <p *ngIf="isValidUIFileFormat">
+                                      * Please upload png or jpeg file
+                                    </p>
+                                    <p *ngIf="isValidUISizeFileFormat">
+                                      * Please upload 380px * 180px dimensions image
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="col-12" *ngIf="ui != '' && ui != undefined">
+                                <div class="img-uploaded">
+                                  <div class="edit-prof">
+                                    <a href="javascript:;">
+                                      <i class="fa fa-times-circle fa-lg remove-doc">
+                                        <input
+                                          style="
+                                            position: absolute;
+                                            opacity: 0;
+                                            margin: auto;
+                                            right: 0;
+                                            left: 0;
+                                            cursor: pointer;
+                                          "
+                                          (click)="onImgDelete('ui', 'editForm')"
+                                        />
+                                      </i>
+                                    </a>
+                                  </div>
+                                  <img src="{{ ui }}" />
+                                </div>
+                              </div>
+                            </div>
+
+                            <div class="col-12 col-md-6 col-lg-6">
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="ux-input">
+                                    <div class="file-input input-error">
+                                      <input type="file" style="width: 100%; height: 100%; z-index: 100" name="od"
+                                        (change)="addImage($event, 'od')" />
+                                      <label for="file-sample">
+                                        <h4>Upload Other Documents</h4>
+                                        <p>Upload Files To See Records</p>
+                                        <p *ngIf="(pdf.od != '' && pdf.od != null) && !isValidODFileFormat" style="color: blue;">{{ od }}</p>
+                                        <img *ngIf="showSuccessOD" style="height:20px" src='assets/images/icons/ic-tick.png'>
+                                      </label>
+                                    </div>
+                                  </div>
+                                  <!--.ux-input-->
+                                  <div class="ux-input input-error">
+                                    <!-- <p *ngIf="corpUserAccEditForm.get('od').touched && isODImgError">
+                                      * Please upload Other Documents image
+                                    </p> -->
+                                    <p *ngIf="isValidODFileFormat">
+                                      * Please upload png or jpeg file
+                                    </p>
+                                    <p *ngIf="isValidODSizeFileFormat">
+                                      * Please upload 380px * 180px dimensions image
+                                    </p>
+                                  </div>
+                                </div>
+                              </div>
+                              <div *ngIf="images.od != '' && images.od != null">
+                              <div class="col-12" *ngIf="od != '' && od != undefined">
+                                <div class="img-uploaded">
+                                  <div class="edit-prof">
+                                    <a href="javascript:;">
+                                      <i class="fa fa-times-circle fa-lg remove-doc">
+                                        <input
+                                          style="
+                                            position: absolute;
+                                            opacity: 0;
+                                            margin: auto;
+                                            right: 0;
+                                            left: 0;
+                                            cursor: pointer;
+                                          "
+                                          (click)="onImgDelete('od', 'editForm')"
+                                        />
+                                      </i>
+                                    </a>
+                                  </div>
+                                  <img src="{{ od }}" />
+                                </div>
+                              </div>
+                            </div>
+                            </div>
+                          </div>
+
+
+
+                          <div class="row mt-5">
+                            <div class="col-6 col-lg-2 offset-lg-8">
+                              <button class="ux-button" (click)="onCancelClick('step4CorpUserEdit')">
+                                Cancel
+                              </button>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                              <button
+                                type="button"
+                                [disabled]="!corpUserAccEditForm.valid"
+                                class="ux-button primary"
+                                (click)="onCorpUserUpdate(corpUserAccEditForm.value)"
+                              >
+                                Update
+                              </button>
+                            </div>
+                          </div>
+                        </form>
+                      </div>
+
+                    </div>
+                  </div>
+                  <!--#step-4-->
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+
+    <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+      <div *ngIf="selModel == 'corpAccounts'" class="tinymodal-content">
+        <div class="row">
+          <div class="col-12 tinymodal-header">
+            <div>
+              <button type="button" class="close" (click)="closeActionModel('corpAccounts')">
+                <span> <img src="assets/images/icons/cross.png" /></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!--Datatable in popup-->
+        <div class="row mt-3">
+          <div class="col-12 mb-0">
+            <div class="datatable-box">
+              <div class="table-responsive">
+                <table id="dt-sample4" class="table display table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Sr. No.</th>
+                      <th scope="col">Account Number</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="
+                          let item of corpUsersAccountsArr;
+                          let i = index
+                        ">
+                      <td>{{ i + 1 }}</td>
+                      <td>
+                        {{
+                            item.accountNo == null || item.accountNo == ""
+                              ? "-"
+                              : item.accountNo
+                          }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+
+  <div class="tiny-modal tm-rounded tiny-modal1" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+      <div *ngIf="selModel == 'corpMenus'" class="tinymodal-content">
+        <div class="row">
+          <div class="col-12 tinymodal-header">
+            <div>
+              <button type="button" class="close" (click)="closeActionModel('corpMenus')">
+                <span> <img src="assets/images/icons/cross.png" /></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!--Datatable in popup-->
+        <div class="row mt-3">
+          <div class="col-12 mb-0">
+            <div class="datatable-box">
+              <div class="table-responsive">
+                <table id="dt-sample5" class="table display table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Sr. No.</th>
+                      <th scope="col">Menu Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="
+                          let item of corpUsersMenusArr;
+                          let i = index
+                        ">
+                      <td>{{ i + 1 }}</td>
+                      <td>
+                        {{
+                            item.menuName == null || item.menuName == ""
+                              ? "-"
+                              : item.menuName
+                          }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+      <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+        <form [formGroup]="remarkForm">
+          <div class="row">
+            <div class="col-12 px-0 mt-2">
+              <div class="ux-input input-error">
+                <textarea formControlName="remark" placeholder="Enter Remark"></textarea>
+                <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-6">
+              <button class="ux-button" (click)="closeActionModel('remarkField')">
+                Cancel
+              </button>
+            </div>
+            <div class="col-6">
+              <button class="ux-button primary">
+                OK
+              </button>
+            </div>
+            <!--.col-xs-12-->
+          </div>
+        </form>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+      <div *ngIf="selModel == 'Image'" class="tinymodal-content">
+        <div class="row">
+          <div class="col-12 tinymodal-header">
+            <div>
+              <button type="button" class="close" (click)="closeActionModel('Image')">
+                <span> <img src="assets/images/icons/cross.png" /></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 px-0 mt-2">
+            <img [src]="displayImage" />
+          </div>
+        </div>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+
+  <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

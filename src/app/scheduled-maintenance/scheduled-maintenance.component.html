@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Select Customers</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <!--.global-nav-->
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+                        <h4>{{commonServiceCall.pageName}}</h4>
+                      </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                    <!-- <button class="ux-button primary" (click)="showHideForm()">+ Add</button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <div *ngIf="priveledge" class="body-page-container">
+                  <div class="vspacer10"></div>
+                  <div class="container">
+                    <div>
+                      <form [formGroup]="scheduledMaintenanceForm">
+                        <div class="row">
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label
+                                ><span class="mandatory">* </span>Select Customer Or Enter Email Manually</label
+                              >
+                              <select
+                                id="sel_Cust"
+                                formControlName="searchBy"
+                                (change)="
+                                  getSearchByCustomer(
+                                    scheduledMaintenanceForm.value
+                                  )
+                                "
+                              >
+                                <option value="">Select Customer By</option>
+                                <option value="all">All Customers</option>
+                                <option value="custId">Customer Id</option>
+                                <option value="customerName">
+                                  Customer Name
+                                </option>
+                                <option value="email">Email Id</option>
+                                <option value="mobileNo">Mobile Number</option>
+                                <option value="date">Date</option>
+                                <option value="manual_email">Enter Email Manually</option>
+                              </select>
+                              <p *ngIf="formErrors.searchBy">
+                                {{ formErrors.searchBy }}
+                              </p>
+                            </div>
+                          </div>
+                          <div class="col-6" *ngIf="type == 'custId'">
+                            <div class="ux-input input-error">
+                              <label
+                                ><span class="mandatory">* </span>Customer
+                                Id</label
+                              >
+                              <input
+                                limit-to="11"
+                                type="tel"
+                                numbersOnly
+                                formControlName="custId"
+                                placeholder="Enter Customer Id"
+                              />
+                              <p *ngIf="formErrors.custId">
+                                {{ formErrors.custId }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+
+                          <div class="col-6" *ngIf="type == 'customerName'">
+                            <div class="ux-input input-error">
+                              <label
+                                ><span class="mandatory">* </span>Customer
+                                Name</label
+                              >
+                              <input
+                                type="text"
+                                alphabetsOnly
+                                formControlName="customerName"
+                                limit-to="40"
+                                placeholder="Enter Customer Name"
+                              />
+                              <p *ngIf="formErrors.customerName">
+                                {{ formErrors.customerName }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+
+                          <div class="col-6" *ngIf="type == 'email'">
+                            <div class="ux-input input-error">
+                              <label
+                                ><span class="mandatory">* </span>Email
+                                Id</label
+                              >
+                              <input
+                                type="text"
+                                formControlName="emailId"
+                                placeholder="Enter Email Id"
+                              />
+                              <p *ngIf="formErrors.emailId">
+                                {{ formErrors.emailId }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+
+                          <div class="col-6" *ngIf="type == 'mobileNo'">
+                            <div class="ux-input input-error">
+                              <label
+                                ><span class="mandatory">* </span>Mobile
+                                Number</label
+                              >
+                              <input
+                                limit-to="10"
+                                type="tel"
+                                numbersOnly
+                                formControlName="mobileNo"
+                                placeholder="Enter Mobile Number"
+                              />
+                              <p *ngIf="formErrors.mobileNo">
+                                {{ formErrors.mobileNo }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col-6" *ngIf="type == 'date'">
+                            <div class="ux-input date input-error">
+                              <label
+                                ><span class="mandatory">* </span>From
+                                Date</label
+                              >
+                              <input
+                                type="date"
+                                class="pr-0"
+                                [max]="todayDate"
+                                formControlName="fromDate"
+                                placeholder="Enter From date"
+                                (change)="
+                                  onDateChange(scheduledMaintenanceForm.value)
+                                "
+                              />
+                              <p *ngIf="formErrors.fromDate">
+                                {{ formErrors.fromDate }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-6-->
+                          <div class="col-6" *ngIf="type == 'date'">
+                            <div class="ux-input date input-error">
+                              <label
+                                ><span class="mandatory">* </span>To Date</label
+                              >
+                              <input
+                                type="date"
+                                class="pr-0"
+                                [max]="todayDate"
+                                formControlName="toDate"
+                                placeholder="Enter To date"
+                                (change)="
+                                  onDateChange(scheduledMaintenanceForm.value)
+                                "
+                              />
+                              <p *ngIf="formErrors.toDate">
+                                {{ formErrors.toDate }}
+                              </p>
+                              <p *ngIf="toDateValid">
+                                {{ isToDateValidError }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-6-->
+                        </div>
+                        <div *ngIf="!isAllCustSelected && type != 'manual_email'" class="row mb-5 mt-3">
+                          <div class="col-6 col-lg-2 offset-lg-8">
+                            <!-- <button class="ux-button" (click)="cancel()">Cancel</button> -->
+                          </div>
+                          <div class="col-6 col-lg-2">
+                            <button
+                              class="ux-button primary"
+                              (click)="getCustomerDetails()"
+                            >
+                              Submit
+                            </button>
+                          </div>
+                          <!--.col-xs-12-->
+                        </div>
+                      </form>
+
+                      <!--.row-->
+                      <div *ngIf="showCustomerDetails" class="row mt-3">
+                        <div class="col-12 mb-0">
+                          <div class="datatable-box">
+                            <div class="table-responsive">
+                              <table
+                                id="dt-sample"
+                                class="table display table-hover"
+                              >
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Sr. No.</th>
+                                    <th scope="col">Customer Name</th>
+                                    <th scope="col">Email Id</th>
+                                    <th scope="col">Mobile Number</th>
+                                    <th scope="col">Created On</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">
+                                      Select All
+                                      <div
+                                        class="ux-selection"
+                                        (click)="select()"
+                                      >
+                                        <label
+                                          ><span class="mandatory">* </span>
+                                          <input
+                                            type="checkbox"
+                                            id="selCheckBox"
+                                            name="radioboxdemo"
+                                          />
+                                        </label>
+                                      </div>
+                                    </th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr
+                                    *ngFor="let item of custList; let i = index"
+                                  >
+                                    <td>{{ i + 1 }}</td>
+                                    <td>
+                                      {{
+                                        item.customername != null ||
+                                        item.customername != ""
+                                          ? item.customername
+                                          : "-"
+                                      }}
+                                    </td>
+                                    <td>
+                                      {{
+                                        item.email == null || item.email == ""
+                                          ? "-"
+                                          : item.email
+                                      }}
+                                    </td>
+                                    <td>
+                                      {{
+                                        item.mobile == null || item.mobile == ""
+                                          ? "-"
+                                          : item.mobile
+                                      }}
+                                    </td>
+
+                                    <td>
+                                      {{
+                                        item.createdon == null ||
+                                        item.createdon == ""
+                                          ? "-"
+                                          : (item.createdon
+                                            | date: "yyyy/MM/dd")
+                                      }}
+                                    </td>
+
+                                    <td>{{ item.statusname | titlecase }}</td>
+                                    <td>
+                                      <div class="ux-selection mt-3">
+                                        <label
+                                          ><span class="mandatory">* </span>
+                                          <input
+                                            type="checkbox"
+                                            id="custNameCheckBox"
+                                            name="radioboxdemo"
+                                            [(ngModel)]="item.isCustNameChecked"
+                                            [value]="item.value"
+                                          />
+                                        </label>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <!--.table-responsivebox-->
+                          </div>
+                          <!--.datatable-box-->
+                        </div>
+                      </div>
+                    </div>
+                    <form *ngIf="type != ''" [formGroup]="customerEmailsForm">
+                        <div
+                          class="row"
+                          style="margin-top: 20px"
+                        >
+
+                        <div class="col-6" *ngIf="type == 'manual_email'">
+                          <div class="ux-input input-error">
+                            <label
+                              ><span class="mandatory">* </span>Email Ids</label
+                            >
+                            <textarea
+                              formControlName="emails"
+                              placeholder="Enter Comma Seperated Email Ids"
+                            ></textarea>
+                            <p *ngIf="formErrors.emails">
+                              {{ formErrors.emails }}
+                            </p>
+                            <p
+                              class="ux-input.input-error"
+                              [hidden]="invalidEmail"
+                            >
+                              *Please enter valid comma seperated email
+                              addresses
+                            </p>
+                          </div>
+                        </div>
+
+                        <div class="col-12">
+                          <div class="ux-input input-error">
+                            <label
+                              ><span class="mandatory">* </span>Message Body</label
+                            >
+                            <ckeditor
+                              formControlName="msgBody"
+                              placeholder="Enter Message Body"
+                              debounce="500"
+                            >
+                            </ckeditor>
+                            <p *ngIf="formErrors.msgBody">
+                              {{ formErrors.msgBody }}
+                            </p>
+                          </div>
+                        </div>
+
+                      </div>
+                    </form>
+
+                    <div
+                      class="row mt-5"
+                      *ngIf="type != ''"
+                    >
+                      <div class="col-6 col-lg-2 offset-lg-8">
+                        <button class="ux-button" (click)="cancel()">
+                          Cancel
+                        </button>
+                      </div>
+                      <div class="col-6 col-lg-2">
+                        <button
+                          class="ux-button primary"
+                          (click)="onSendClick()"
+                        >
+                          Send
+                        </button>
+                      </div>
+                      <!--.col-xs-12-->
+                    </div>
+                  </div>
+                  <!--.row-->
+                </div>
+                <!--.container-->
+              </div>
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <!-- ==============footer section end============ -->
+  </body>
+</html>

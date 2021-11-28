@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Customer Notification Add</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <!--.global-nav-->
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions"></div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <div class="body-page-container">
+                  <div class="vspacer10"></div>
+                  <div class="container">
+                    <div *ngIf="!isNextButtonClicked">
+                      <form [formGroup]="custNotificationCategoriesForm">
+                        <div class="row">
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label>Search Customer By</label>
+                              <select
+                                id="sel_Cust"
+                                formControlName="searchBy"
+                                (change)="
+                                  getSearchByCustomer(
+                                    custNotificationCategoriesForm.value
+                                  )
+                                "
+                              >
+                                <option value="">Select Customer By</option>
+                                <option value="custId">Customer Id</option>
+                                <option value="customerName">
+                                  Customer Name
+                                </option>
+                                <option value="email">Email Id</option>
+                                <option value="mobileNo">Mobile Number</option>
+                                <option value="date">
+                                  Date Of Registration
+                                </option>
+                              </select>
+                              <p *ngIf="formErrors.searchBy">
+                                {{ formErrors.searchBy }}
+                              </p>
+                            </div>
+                          </div>
+                          <div class="col-6" *ngIf="type == 'custId'">
+                            <div class="ux-input input-error">
+                              <label>Customer Id</label>
+                              <input
+                                limit-to="11"
+                                type="tel"
+                                numbersOnly
+                                formControlName="custId"
+                                placeholder="Enter Customer Id"
+                              />
+                              <p *ngIf="formErrors.custId">
+                                {{ formErrors.custId }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+
+                          <div class="col-6" *ngIf="type == 'customerName'">
+                            <div class="ux-input input-error">
+                              <label>Customer Name</label>
+                              <input
+                                type="text"
+                                alphabetsOnly
+                                formControlName="customerName"
+                                limit-to="40"
+                                placeholder="Enter Customer Name"
+                              />
+                              <p *ngIf="formErrors.customerName">
+                                {{ formErrors.customerName }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+
+                          <div class="col-6" *ngIf="type == 'email'">
+                            <div class="ux-input input-error">
+                              <label>Email Id</label>
+                              <input
+                                type="text"
+                                formControlName="emailId"
+                                placeholder="Enter Email Id"
+                              />
+                              <p *ngIf="formErrors.emailId">
+                                {{ formErrors.emailId }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+
+                          <div class="col-6" *ngIf="type == 'mobileNo'">
+                            <div class="ux-input input-error">
+                              <label>Mobile Number</label>
+                              <input
+                                limit-to="10"
+                                type="tel"
+                                numbersOnly
+                                formControlName="mobileNo"
+                                placeholder="Enter Mobile Number"
+                              />
+                              <p *ngIf="formErrors.mobileNo">
+                                {{ formErrors.mobileNo }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-6" *ngIf="type == 'date'">
+                            <div class="ux-input date input-error">
+                              <label>From Date</label>
+                              <input
+                                type="date"
+                                class="pr-0"
+                                [max]="todayDate"
+                                formControlName="fromDate"
+                                placeholder="Enter From date"
+                                (change)="
+                                  onDateChange(
+                                    custNotificationCategoriesForm.value
+                                  )
+                                "
+                              />
+                              <p *ngIf="formErrors.fromDate">
+                                {{ formErrors.fromDate }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-6-->
+                          <div class="col-6" *ngIf="type == 'date'">
+                            <div class="ux-input date input-error">
+                              <label>To Date</label>
+                              <input
+                                type="date"
+                                class="pr-0"
+                                [max]="todayDate"
+                                formControlName="toDate"
+                                placeholder="Enter To date"
+                                (change)="
+                                  onDateChange(
+                                    custNotificationCategoriesForm.value
+                                  )
+                                "
+                              />
+                              <p *ngIf="formErrors.toDate">
+                                {{ formErrors.toDate }}
+                              </p>
+                              <p *ngIf="toDateValid">
+                                {{ isToDateValidError }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-6-->
+                        </div>
+                        <div class="row mb-5 mt-3" *ngIf="!isNextButtonClicked">
+                          <div class="col-6 col-lg-2 offset-lg-8">
+                            <button class="ux-button" (click)="cancel()">Cancel</button>
+                          </div>
+                          <div class="col-6 col-lg-2">
+                            <button
+                              class="ux-button primary"
+                              (click)="getCustomerDetails()"
+                            >
+                              Submit
+                            </button>
+                          </div>
+                          <!--.col-xs-12-->
+                        </div>
+                      </form>
+                      <!--.row-->
+                      <div *ngIf="showCustomerDetails" class="row mt-3">
+                        <div class="col-6">
+                          <div class="ux-input">
+                            <p><b>NOTE: </b>Please Select Customer</p>
+                          </div>
+                        </div>
+                        <div class="col-12 mb-0">
+                          <div class="datatable-box">
+                            <div class="table-responsive">
+                              <table
+                                id="dt-sample"
+                                class="table display table-hover"
+                              >
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Sr. No.</th>
+                                    <th scope="col">Customer Id</th>
+                                    <th scope="col">Customer Name</th>
+                                    <th scope="col">Email Id</th>
+                                    <th scope="col">Mobile Number</th>
+                                    <th scope="col">Created On</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Select</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr
+                                    *ngFor="let item of custList; let i = index"
+                                  >
+                                    <td>{{ i + 1 }}</td>
+                                    <td>
+                                      {{
+                                        item.id != null ||
+                                        item.id != ""
+                                          ? item.id
+                                          : "-"
+                                      }}
+                                    </td>
+                                    <td>
+                                      {{
+                                        item.customername != null ||
+                                        item.customername != ""
+                                          ? item.customername
+                                          : "-"
+                                      }}
+                                    </td>
+                                    <td>
+                                      {{
+                                        item.email == null || item.email == ""
+                                          ? "-"
+                                          : item.email
+                                      }}
+                                    </td>
+                                    <td>
+                                      {{
+                                        item.mobile == null || item.mobile == ""
+                                          ? "-"
+                                          : item.mobile
+                                      }}
+                                    </td>
+
+                                    <td>
+                                      {{
+                                        item.createdon == null ||
+                                        item.createdon == ""
+                                          ? "-"
+                                          : (item.createdon
+                                            | date: "yyyy/MM/dd")
+                                      }}
+                                    </td>
+
+                                    <td>{{ item.statusname | titlecase }}</td>
+                                    <td>
+                                      <div class="ux-selection mt-3">
+                                        <label>
+                                          <input
+                                            type="checkbox"
+                                            name="radioboxdemo"
+                                            [(ngModel)]="item.isCustNameChecked"
+                                            [ngModelOptions]="{
+                                              standalone: true
+                                            }"
+                                          />
+                                        </label>
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                            <!--.table-responsivebox-->
+                          </div>
+                          <!--.datatable-box-->
+
+                          <div
+                            class="dt-extras mt-4"
+                            *ngIf="custList.length > 0 && !isNextButtonClicked"
+                          >
+                            <div class="dt-exports">
+                              <em>Export to :<span class="chevron"></span></em>
+                              <button
+                                class="linkbutton exp-excel"
+                                (click)="commonMethod.downLoadFile('excel')"
+                              >
+                                Excel <b>(.xlsx)</b>
+                              </button>
+                              <button
+                                class="linkbutton exp-pdf"
+                                (click)="commonMethod.downLoadFile('pdf')"
+                              >
+                                Pdf <b>(.pdf)</b>
+                              </button>
+                              <button
+                                class="linkbutton exp-csv"
+                                (click)="commonMethod.downLoadFile('csv')"
+                              >
+                                csv <b>(.csv)</b>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div
+                      class="row mt-5"
+                      *ngIf="custList.length > 0 && !isNextButtonClicked"
+                    >
+                      <!-- <div class="col-6 col-lg-2 offset-lg-8">
+                        <button class="ux-button" (click)="cancel()">
+                          Cancel
+                        </button>
+                      </div> -->
+                      <div class="col-6 col-lg-2 offset-lg-10">
+                        <button
+                          class="ux-button primary"
+                          (click)="onNextClick()"
+                        >
+                          Next
+                        </button>
+                      </div>
+                      <!--.col-xs-12-->
+                    </div>
+                    <form [formGroup]="editCustNotificationCategoriesForm">
+                      <div class="row" *ngIf="isNextButtonClicked">
+                        <div class="col-6">
+                          <div class="ux-input input-error">
+                            <label>Customer Name</label>
+                            <input
+                              type="text"
+                              limit-to="40"
+                              alphabetsOnly
+                              formControlName="custName"
+                              readonly
+                            />
+                          </div>
+                        </div>
+                        <!--.col-12-->
+                        <div class="col-6">
+                          <div class="ux-input input-error">
+                            <label>Customer CIF Number</label>
+                            <input
+                              type="text"
+                              limit-to="40"
+                              formControlName="custCIFNo"
+                              readonly
+                            />
+                          </div>
+                        </div>
+                        <!--.col-12-->
+                        <div class="col-6">
+                          <div class="ux-input input-error">
+                            <label>Category Name</label>
+                            <select formControlName="categoryName">
+                              <option value="">Select Category Name</option>
+                              <option
+                                *ngFor="let category of CategoriesArr"
+                                [value]="category.id"
+                              >
+                                {{ category.categoryName }}
+                              </option>
+                            </select>
+                            <p *ngIf="formErrorsNot.categoryName">
+                              {{ formErrorsNot.categoryName }}
+                            </p>
+                          </div>
+                        </div>
+                        <!--.col-12-->
+                        <div class="col-6">
+                          <div class="ux-input input-error">
+                            <label>Channel Name</label>
+                            <select
+                              id="sl_Product"
+                              formControlName="productType"
+                            >
+                              <option value="">Select Channel Name</option>
+                              <option
+                                *ngFor="
+                                  let product of this.productTypes;
+                                  index as i
+                                "
+                                [value]="product.id"
+                              >
+                                {{ product.shortName | titlecase }}
+                              </option>
+                            </select>
+                            <p *ngIf="formErrorsNot.productType">
+                              {{ formErrorsNot.productType }}
+                            </p>
+                          </div>
+                        </div>
+                        <!--.col-12-->
+                        <div class="col-6">
+                          <div class="ux-input input-error">
+                            <label>From Time</label>
+                            <div class="input-group date" id="fromTm">
+                              <input
+                                formControlName="fromTime"
+                                placeholder="hh:mm"
+                                type="time"
+                                class="pr-0"
+                              />
+                            </div>
+                            <p *ngIf="formErrorsNot.fromTime">
+                              {{ formErrorsNot.fromTime }}
+                            </p>
+                          </div>
+                          <!--.ux-input-->
+                        </div>
+                        <!--.col-12-->
+                        <div class="col-6">
+                          <div class="ux-input input-error">
+                            <label>To Time</label>
+                            <div class="input-group date" id="toTm">
+                              <input
+                                formControlName="toTime"
+                                placeholder="hh:mm"
+                                class="pr-0"
+                                type="time"
+                              />
+                            </div>
+                            <p *ngIf="formErrorsNot.toTime">
+                              {{ formErrorsNot.toTime }}
+                            </p>
+                          </div>
+                          <!--.ux-input-->
+                        </div>
+                        <!--.col-12-->
+                        <div class="col-6">
+                          <div class="ux-input input-error">
+                            <label>Status</label>
+                            <select id="sl_Status" formControlName="status">
+                              <option value="">Select Status</option>
+                              <option
+                                *ngFor="
+                                  let status of filterStatus();
+                                  index as i
+                                "
+                                [value]="status.id"
+                              >
+                                {{ status.shortName | titlecase }}
+                              </option>
+                            </select>
+                            <p *ngIf="formErrorsNot.status">
+                              {{ formErrorsNot.status }}
+                            </p>
+                          </div>
+                          <!--.ux-input-->
+                        </div>
+                        <!--.col-12-->
+
+                        <!--.col-12-->
+                      </div>
+                    </form>
+                  </div>
+
+                  <!--.row-->
+                </div>
+
+                <div class="row mt-5" *ngIf="isNextButtonClicked">
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="onBackClick()">
+                      Back
+                    </button>
+                  </div>
+
+                  <div
+                    *ngIf="
+                      this.commonDataService.roleType ==
+                      this.commonDataService.makerRole
+                    "
+                    class="col-6 col-lg-2"
+                  >
+                    <button
+                      class="ux-button primary"
+                      (click)="
+                        openActionModel(
+                          'remarkField',
+                          editCustNotificationCategoriesForm.value
+                        )
+                      "
+                    >
+                      Save
+                    </button>
+                  </div>
+                  <div
+                    *ngIf="
+                      this.commonDataService.roleType !=
+                      this.commonDataService.makerRole
+                    "
+                    class="col-6 col-lg-2"
+                  >
+                    <button
+                      class="ux-button primary"
+                      (click)="saveCustomerInfo()"
+                    >
+                      Save
+                    </button>
+                  </div>
+                  <!--.col-xs-12-->
+                </div>
+                <!--.row-->
+              </div>
+
+              <!--.container-->
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+      <div class="tinymodal-overlay"></div>
+      <!--.tinymodal-overlay-->
+      <div class="tinymodal">
+        <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+          <form [formGroup]="remarkForm">
+            <div class="row">
+              <div class="col-12 px-0 mt-2">
+                <div class="ux-input input-error">
+                  <textarea
+                    formControlName="remark"
+                    placeholder="Enter Remark"
+                  ></textarea>
+                  <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-6">
+                <button class="ux-button" (click)="closeActionMoel()">
+                  Cancel
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  class="ux-button primary"
+                  (click)="saveCustomerInfoWithRemark(remarkForm.value)"
+                >
+                  OK
+                </button>
+              </div>
+              <!--.col-xs-12-->
+            </div>
+          </form>
+        </div>
+        <!--.tinymodal-content-->
+      </div>
+      <!--.tinymodal-->
+    </div>
+    <!-- ==============footer section end============ -->
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

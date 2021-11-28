@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Administration</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <!-- ======== header section start ========== -->
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+            <div class="main-content">
+              <div *ngIf="priviledgeDataArr.createChecked" class="row">
+                <div class="col-6 offset-lg-10 offset-6 col-lg-2">
+                  <button class="ux-button primary" (click)="gotoAddRecord(commonData.page)">
+                    + Add
+                  </button>
+                </div>
+              </div>
+
+              <div class="vspacer20"></div>
+
+              <div *ngIf="priviledgeDataArr.viewChecked" class="row">
+                <div class="col-12">
+                  <!-- Nav tabs -->
+                  <div class="ux-nav-tabs">
+                    <ul class="nav nav-tabs nav-justified" role="tablist">
+                      <li class="nav-item" (click)="onRoleTabClicked()">
+                        <a class="nav-link account-details" data-toggle="tab" href="#role"
+                          [ngClass]="{ active: commonData.page == 'role' }">Role</a>
+                      </li>
+                      <li class="nav-item" (click)="onUserTabClicked()">
+                        <a class="nav-link recent-trans" data-toggle="tab" href="#user"
+                          [ngClass]="{ active: commonData.page == 'user' }">User</a>
+                      </li>
+                    </ul>
+
+                    <!-- Tab panes -->
+                    <div class="tab-content">
+                      <div id="role" class="tab-pane" [ngClass]="
+                            commonData.page == 'role' ? 'active' : 'fade'
+                          ">
+                        <!-- my table -->
+                        <div class="row mt-3">
+                          <div class="col-12">
+                            <div class="datatable-box">
+                              <div class="table-responsive">
+                                <table id="dt-role-sample" class="table display table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Sr. No.</th>
+                                      <th scope="col">Role Name</th>
+                                      <th scope="col">Role Code</th>
+                                      <th scope="col">Role Type</th>
+                                      <th scope="col">Description</th>
+                                      <th *ngIf="
+                                            priviledgeDataArr.updateChecked
+                                          " scope="col">
+                                        Status
+                                      </th>
+                                      <th *ngIf="
+                                            priviledgeDataArr.updateChecked ||
+                                            priviledgeDataArr.deleteChecked
+                                          " scope="col">
+                                        Action
+                                      </th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="
+                                          let item of roles;
+                                          let i = index
+                                        ">
+                                      <td>{{ i + 1 }}</td>
+                                      <td>
+                                        {{
+                                            item.name == "" ||
+                                            item.name == null
+                                              ? "-"
+                                              : item.name
+                                          }}
+                                      </td>
+                                      <td>
+                                        {{
+                                            item.code == "" || item.code == null
+                                              ? "-"
+                                              : item.code
+                                          }}
+                                      </td>
+                                      <td>
+                                        {{
+                                            item.roleTypeName == "" ||
+                                            item.roleTypeName == null
+                                              ? "-"
+                                              : item.roleTypeName
+                                          }}
+                                      </td>
+                                      <td>
+                                        {{
+                                            item.description == "" ||
+                                            item.description == null
+                                              ? "-"
+                                              : item.description
+                                          }}
+                                      </td>
+                                      <td *ngIf="
+                                            priviledgeDataArr.updateChecked
+                                          ">
+                                        <!-- Rounded switch -->
+                                        <label class="toggle">
+                                          <input type="checkbox" [(ngModel)]="
+                                                item.isRoleStatusActive
+                                              " (change)="
+                                                openModelToChangeRoleStatus(
+                                                  i,
+                                                  item
+                                                )
+                                              " [disabled]="
+                                                item.id == userDetails.role_ID
+                                              " />
+                                          <span class="slider round" [ngStyle]="
+                                                item.id ==
+                                                  userDetails.role_ID && {
+                                                  opacity: '0.5'
+                                                }
+                                              "></span>
+                                        </label>
+                                      </td>
+                                      <td *ngIf="
+                                            priviledgeDataArr.updateChecked ||
+                                            priviledgeDataArr.deleteChecked
+                                          ">
+                                        <div class="ux-selection">
+                                          <img *ngIf="
+                                                priviledgeDataArr.updateChecked
+                                              " class="action-btn" src="assets/images/icons/edit.png"
+                                            (click)="editRole(item)" />
+                                          <img *ngIf="
+                                                priviledgeDataArr.deleteChecked
+                                              " class="action-btn" src="assets/images/icons/delete.png" (click)="
+                                                openModelToDeleteRole(item)
+                                              " />
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              <!--.table-responsivebox-->
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row mt-5">
+                          <div class="col-6 col-lg-2"></div>
+                          <div class="col-6 col-lg-2 offset-lg-8">
+                            <button class="ux-button" (click)="cancelClick()">
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                      <div id="user" class="container tab-pane" [ngClass]="
+                            commonData.page == 'user' ? 'active' : 'fade'
+                          ">
+                        <!-- my table -->
+                        <div class="row mt-3">
+                          <div class="col-12 mb-0">
+                            <div class="datatable-box">
+                              <div class="table-responsive">
+                                <table id="dt-user-sample" class="table display table-hover">
+                                  <thead>
+                                    <tr>
+                                      <th scope="col">Sr. No.</th>
+                                      <th scope="col">Name</th>
+                                      <th scope="col">User Id</th>
+                                      <th scope="col">Email</th>
+                                      <th scope="col">Phone Number</th>
+                                      <th scope="col">Role Name</th>
+                                      <th scope="col">Role Type</th>
+                                      <th scope="col">User Type</th>
+                                      <th *ngIf="
+                                            priviledgeDataArr.updateChecked
+                                          " scope="col">
+                                        Status
+                                      </th>
+                                      <th *ngIf="
+                                            priviledgeDataArr.updateChecked ||
+                                            priviledgeDataArr.deleteChecked
+                                          " scope="col">
+                                        Action
+                                      </th>
+                                      <th scope="col">Reset Password</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr *ngFor="
+                                          let item of users;
+                                          let i = index
+                                        ">
+                                      <td>{{ i + 1 }}</td>
+                                      <td>
+                                        {{
+                                            (item.first_NAME == "" || item.first_NAME == null) ||
+                                            (item.last_NAME == "" || item.last_NAME == null)
+                                              ? "-"
+                                              : item.first_NAME+ ' ' + item.last_NAME
+                                          }}
+                                      </td>
+                                      <td>
+                                        {{
+                                            item.userid == "" ||
+                                            item.userid == null
+                                              ? "-"
+                                              : item.userid
+                                          }}
+                                      </td>
+                                      <td>
+                                        {{
+                                            item.email == "" ||
+                                            item.email == null
+                                              ? "-"
+                                              : item.email
+                                          }}
+                                      </td>
+                                      <td>
+                                        {{
+                                            item.phonenumber == "" ||
+                                            item.phonenumber == null
+                                              ? "-"
+                                              : item.phonenumber
+                                          }}
+                                      </td>
+                                      <td>
+                                        {{
+                                            item.role == "" || item.role == null
+                                              ? "-"
+                                              : item.role
+                                          }}
+                                      </td>
+                                      <td>
+                                        {{
+                                            item.roleTypeName == "" ||
+                                            item.roleTypeName == null
+                                              ? "-"
+                                              : item.roleTypeName
+                                          }}
+                                      </td>
+                                      <td>
+                                        {{
+                                            item.usertype == "AD"
+                                              ? "Active Directory"
+                                              : "OMNI"
+                                          }}
+                                      </td>
+                                      <td *ngIf="
+                                            priviledgeDataArr.updateChecked
+                                          ">
+                                        <!-- Rounded switch -->
+                                        <label class="toggle">
+                                          <input type="checkbox" [(ngModel)]="
+                                                item.isUserStatusActive
+                                              " (change)="
+                                                openModelToChangeUserStatus(
+                                                  i,
+                                                  item
+                                                )
+                                              " [disabled]="
+                                                item.role_ID ==
+                                                  userDetails.role_ID &&
+                                                item.email == userEmail
+                                              " />
+                                          <span class="slider round" [ngStyle]="
+                                                item.role_ID ==
+                                                  userDetails.role_ID &&
+                                                item.email == userEmail && {
+                                                  opacity: '0.5'
+                                                }
+                                              "></span>
+                                        </label>
+                                      </td>
+                                      <td *ngIf="
+                                            priviledgeDataArr.updateChecked ||
+                                            priviledgeDataArr.deleteChecked
+                                          ">
+                                        <div class="ux-selection w-100">
+                                          <img *ngIf="
+                                                priviledgeDataArr.updateChecked
+                                              " class="action-btn" src="assets/images/icons/edit.png"
+                                            (click)="editUser(item)" />
+                                          <img *ngIf="priviledgeDataArr.deleteChecked" class="action-btn" src="assets/images/icons/delete.png" (click)="openModelToDeleteUser(item)" />
+                                        </div>
+                                      </td>
+                                      <td>
+                                        <div class="ux-selection">
+                                          <img class="action-btn" src="assets/images/icons/resetPass.png" (click)="openModelToResetPwd(item)" />
+                                        </div>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                              </div>
+                              <!--.table-responsivebox-->
+                            </div>
+                            <!--.datatable-box-->
+                            <!-- <div class="dt-extras mt-4" *ngIf="users.length > 0">
+                              <div class="dt-exports">
+                                <em>Export to :<span class="chevron"></span></em>
+                                <button class="linkbutton exp-excel" (click)="commonMethod.downLoadFile('excel')">
+                                  Excel <b>(.xlsx)</b>
+                                </button>
+                                <button class="linkbutton exp-pdf" (click)="commonMethod.downLoadFile('pdf')">
+                                  Pdf <b>(.pdf)</b>
+                                </button>
+                                <button class="linkbutton exp-csv" (click)="commonMethod.downLoadFile('csv')">
+                                  csv <b>(.csv)</b>
+                                </button>
+                              </div>
+                            </div> -->
+                          </div>
+                        </div>
+                        <div class="row mt-5">
+                          <div class="col-6 col-lg-2"></div>
+                          <div class="col-6 col-lg-2 offset-lg-8">
+                            <button class="ux-button" (click)="cancelClick()">
+                              Cancel
+                            </button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- tab-content -->
+                  </div>
+                  <!--.ux-nav-tabs-->
+                </div>
+                <!--.col-12-->
+              </div>
+              <!--.row-->
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+      <div class="tinymodal-content">
+        <div class="row">
+          <div class="col-12 tinymodal-header"></div>
+        </div>
+        <div class="row" *ngIf="selModel == 'deleteRole'">
+          <div class="col-12 px-0 mt-2">
+            <h5>Are you sure you want to delete role?</h5>
+          </div>
+        </div>
+        <div class="row mt-5" *ngIf="selModel == 'deleteRole'">
+          <div class="col-6">
+            <button class="ux-button" (click)="closeActionModel()">
+              Cancel
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="ux-button primary" (click)="deleteRole()">
+              OK
+            </button>
+          </div>
+          <!--.col-xs-12-->
+        </div>
+        <div class="row" *ngIf="selModel == 'deleteUser'">
+          <div class="col-12 px-0 mt-2">
+            <h5>Are you sure you want to delete user?</h5>
+          </div>
+        </div>
+        <div class="row mt-5" *ngIf="selModel == 'deleteUser'">
+          <div class="col-6">
+            <button class="ux-button" (click)="closeActionModel()">
+              Cancel
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="ux-button primary" (click)="deleteUser()">
+              OK
+            </button>
+          </div>
+          <!--.col-xs-12-->
+        </div>
+        <div class="row" *ngIf="selModel == 'passwordReset'">
+          <div class="col-12 px-0 mt-2">
+            <h5>Do you want to reset password?</h5>
+          </div>
+        </div>
+        <div class="row mt-5" *ngIf="selModel == 'passwordReset'">
+          <div class="col-6">
+            <button class="ux-button" (click)="closeActionModel()">
+              Cancel
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="ux-button primary" (click)="resetPassword()">
+              OK
+            </button>
+          </div>
+          <!--.col-xs-12-->
+        </div>
+
+        <div class="row" *ngIf="selModel == 'roleStatusChange'">
+          <div class="col-12 px-0 mt-2">
+            <h4>Are you sure you want to change role status?</h4>
+            <p class="statchangemsg mt-3">
+              <b>NOTE: This action will be responsible for changing role
+                status...!</b>
+            </p>
+          </div>
+        </div>
+        <div class="row mt-5" *ngIf="selModel == 'roleStatusChange'">
+          <div class="col-6">
+            <button class="ux-button" (click)="closeRoleActionModel()">
+              Cancel
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="ux-button primary" (click)="onRoleStatusChange()">
+              OK
+            </button>
+          </div>
+          <!--.col-xs-12-->
+        </div>
+
+        <div class="row" *ngIf="selModel == 'userStatusChange'">
+          <div class="col-12 px-0 mt-2">
+            <h4>Are you sure you want to change user status?</h4>
+            <p class="statchangemsg mt-3">
+              <b>NOTE: This action will be responsible for changing role
+                status...!</b>
+            </p>
+          </div>
+        </div>
+        <div class="row mt-5" *ngIf="selModel == 'userStatusChange'">
+          <div class="col-6">
+            <button class="ux-button" (click)="closeUserActionModel()">
+              Cancel
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="ux-button primary" (click)="onUserStatusChange()">
+              OK
+            </button>
+          </div>
+          <!--.col-xs-12-->
+        </div>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+  <!--.footer-container-->
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>

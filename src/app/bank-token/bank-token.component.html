@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Customers Details</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <app-header></app-header>
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+
+            <div class="main-content">
+              <div *ngIf="priviledgeDataArr.viewChecked" class="row">
+                <div class="col-6">
+                  <div class="ux-input input-error">
+                    <label>Channel</label>
+                    <select (change)="selectedValue($event.target.value)">
+                      <option value="">Select Channel</option>
+                      <option value="Retail">
+                        Retail
+                      </option>
+                      <option value="Corp">
+                        Corporate
+                      </option>
+                    </select>
+    
+
+                  </div>
+                </div>
+              </div>
+                <div class="row mt-5" *ngIf="priviledgeDataArr.viewChecked">
+                    <div class="col-6 col-lg-2"></div>
+                    <div class="col-6 col-lg-2 offset-lg-8">
+                      <button class="ux-button primary" (click)="refresh()" *ngIf="customerDetails.length>0">Refresh</button>
+                    </div>
+                  </div>
+              <div class="row mt-3" *ngIf="priviledgeDataArr.viewChecked && customerDetails.length > 0">
+                <div class="col-12 mb-0">
+                  <div class="datatable-box">
+                    <div class="table-responsive">
+                      <table id="dt-sample" class="table display table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Sr. No.</th>
+                            <th scope="col">Customer Name</th>
+                            <th scope="col">Reference Number</th>
+                            <th scope="col">Mobile Number</th>
+                            <th scope="col">Status</th>
+                            <!-- <th scope="col"> Created Date
+                            </th>
+                            <th scope="col"> Customer Image
+                            </th> -->
+                            <th *ngIf="
+                                  priviledgeDataArr.updateChecked ||
+                                  priviledgeDataArr.deleteChecked
+                                " scope="col">
+                              Action
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="
+                                let item of customerDetails;
+                                let i = index
+                              ">
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                              {{
+                                  item.customername == null ||
+                                  item.customername == ""
+                                    ? "-"
+                                    : item.customername
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.referencenumber == null ||
+                                  item.referencenumber == ""
+                                    ? "-"
+                                    : item.referencenumber
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.mobile == null || item.mobile == ""
+                                    ? "-"
+                                    : item.mobile
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.statusName == null ||
+                                  item.statusName == ""
+                                    ? "-"
+                                    : item.statusName
+                                }}
+                            </td>
+                            <td *ngIf="
+                                  priviledgeDataArr.updateChecked ||
+                                  priviledgeDataArr.deleteChecked
+                                ">
+                              <div class="ux-selection">
+                                <img *ngIf="priviledgeDataArr.updateChecked" class="action-btn"
+                                  src="assets/images/icons/edit.png" (click)="gotoBankTokenDetails(item)" />
+                                <img *ngIf="priviledgeDataArr.deleteChecked" class="action-btn"
+                                  src="assets/images/icons/delete.png" (click)="openTinyModelAction(item)" />
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                    </div>
+                    <!--.table-responsivebox-->
+                  </div>
+                  <!--.datatable-box-->
+                  <div class="dt-extras mt-4" *ngIf="customerDetails.length > 0">
+                    <div class="dt-exports">
+                      <em>Export to :<span class="chevron"></span></em>
+                      <button class="linkbutton exp-excel" (click)="commonMethod.downLoadFile('excel')">
+                        Excel <b>(.xlsx)</b>
+                      </button>
+                      <button class="linkbutton exp-pdf" (click)="commonMethod.downLoadFile('pdf')">
+                        Pdf <b>(.pdf)</b>
+                      </button>
+                      <button class="linkbutton exp-csv" (click)="commonMethod.downLoadFile('csv')">
+                        csv <b>(.csv)</b>
+                      </button>
+                    </div>
+                    <!--.dt-exports-->
+                  </div>
+                </div>
+              </div>
+
+              <div class="row mt-5" *ngIf="priviledgeDataArr.viewChecked && customerDetails.length > 0">
+                <div class="col-6 col-lg-2"></div>
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+      <div class="tinymodal-content">
+        <div class="row" *ngIf="selModel == 'kycImage'">
+          <div class="col-12 tinymodal-header">
+            <div>
+              <button type="button" class="close" (click)="closeActionModel()">
+                <span> <img src="assets/images/icons/cross.png" /></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row" *ngIf="selModel == 'kycImage'">
+          <div class="col-12 px-0 mt-2">
+            <img [src]="'data:image/jpg;base64,' + displayImage" />
+          </div>
+        </div>
+        <div class="row" *ngIf="selModel == 'deleteToken'">
+          <div class="col-12 px-0 mt-2">
+            <h5>Are you sure you want to reject token?</h5>
+          </div>
+        </div>
+        <div class="row mt-5" *ngIf="selModel == 'deleteToken'">
+          <div class="col-6">
+            <button class="ux-button" (click)="closeActionModel()">
+              Cancel
+            </button>
+          </div>
+          <div class="col-6">
+            <button class="ux-button primary" (click)="deleteToken()">
+              OK
+            </button>
+          </div>
+          <!--.col-xs-12-->
+        </div>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+  <!--.footer-container-->
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>

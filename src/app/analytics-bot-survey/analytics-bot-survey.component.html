@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>BOT Survey</title>
+
+</head>
+
+<body>
+
+	<div class="main">
+		<app-navmenu></app-navmenu>
+		<div class="nav-overlay"></div>
+		<!--.nav-overlay-->
+		<!-- navigation menu container end -->
+
+		<div class="right-main-column">
+			<div class="right-col-container full-width">
+				<!-- ======== header section start ========== -->
+				<app-header></app-header>
+				<!-- ======== header section end ========== -->
+				<!-- ======== body page content start from here ======== -->
+				<div class="body-page-container">
+					<div class="vspacer10"></div>
+					<!--.vspacer10-->
+					<div class="device-page-titles d-none d-md-none d-lg-block">
+						<div class="in-header">
+							<div class="header-icons-lft">
+								<div class="header-actions">
+
+									<div class="head-page-title">
+										<h5>BOT Survey</h5>
+									</div>
+								</div>
+								<!--.header-actions-->
+							</div>
+							<!--.header-icons-lft-->
+							<div class="header-icons-rit">
+								<div class="header-actions">
+									<!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+
+								</div>
+								<!--.header-actions-->
+							</div>
+							<!--.header-icons-rit-->
+						</div> <!-- in-header -->
+					</div> <!-- device-page-titles -->
+					<div class="container">
+
+
+                        <!-- load form -->
+						<form [formGroup]="analyticsBOTForm">
+							<div class="row md-5">
+
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>From Date</label>
+										<input class="pr-0" type="date" formControlName="fromDate" placeholder="Enter from date">
+										<p *ngIf="formErrors.fromDate">{{ formErrors.fromDate }}</p>
+									</div>
+									<!--.ux-input-->
+									<!--.ux-input-->
+								</div>
+								<!--.col-6-->
+								<div class="col-6 md-5">
+									<div class="ux-input input-error">
+										<label>To Date</label>
+										<input class="pr-0" type="date" formControlName="toDate" placeholder="Enter to date">
+										<p *ngIf="formErrors.toDate">{{ formErrors.toDate }}</p>
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-6-->
+
+
+							</div>
+						</form>
+						<!--.row-->
+						<!-- <div class="row">
+							<div class="col-12">
+								<button class="ux-button primary" (click)="getanalyticsDtl()">Submit</button>
+							</div>
+						</div> -->
+						<!--.row-->
+						<div class="row mt-5">
+							<div class="col-6 col-lg-2 offset-lg-8">
+								<button class="ux-button" (click)="cancel()">Cancel</button>
+							</div>
+							<div class="col-6 col-lg-2">
+								<button class="ux-button primary" (click)="getanalyticsDtl()">Submit</button>
+							</div>
+							<!--.col-xs-12-->
+						</div>
+
+						<div class="row mt-3" *ngIf="botAnalytics.length > 0">
+							<div class="col-12 mb-0">
+								<div class="datatable-box">
+									<div class="table-responsive">
+										<table id="dt-sample" class="table display table-hover">
+											<thead>
+												<tr>
+													<th scope="col"></th>
+													<th scope="col"> Channel Id
+													</th>
+													<th scope="col"> Customer Id
+													</th>
+													<th scope="col"> Latitude
+													</th>
+													<th scope="col"> Longitude
+													</th>
+													<th scope="col"> Answer1
+													</th>
+													<th scope="col"> Answer2
+													</th>
+													<th scope="col"> Answer3
+													</th>
+													<th scope="col"> Answer4
+													</th>
+													<th scope="col"> Answer5
+													</th>
+													<th scope="col"> Survey Date
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr
+													*ngFor="let item of botAnalytics | paginate: { itemsPerPage: 7, currentPage: p }; let i=index">
+													<td>{{i}}</td>
+													<td>{{item.channelid}}</td>
+													<td>{{item.customerid}}</td>
+													<td>{{item.lat}}</td>
+													<td>{{item.lon}}</td>
+													<td>{{item.question1}}</td>
+													<td>{{item.question2}}</td>
+													<td>{{item.question3}}</td>
+													<td>{{item.question4}}</td>
+													<td>{{item.question5}}</td>
+													<td>{{item.survey_TIME}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<pagination-controls (pageChange)="p = $event"></pagination-controls>
+									<!--.table-responsivebox-->
+								</div>
+								<!--.datatable-box-->
+							</div>
+
+						</div>
+
+
+
+					</div>
+					<!--.container-->
+				</div>
+				<!--.body-page-container-->
+				<!-- added new -->
+			</div>
+			<!--.right-col-container-->
+			<!-- added new -->
+		</div>
+		<!--.right-main-column-->
+		<!-- added new -->
+	</div>
+	<!--.main-->
+	<!-- ===========footer section start========= -->
+	<div class="sticky-actions-spacer"></div>
+	<!-- ==============footer section end============ -->
+
+	<script src="js/lib/jquery.min.js"></script>
+	<script src="js/lib/bootstrap.min.js"></script>
+	<script src="js/common.js"></script>
+
+
+</body>

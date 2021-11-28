@@ -1,0 +1,206 @@
+<!-- <header class="global-header">
+  <div class="desk-header d-none d-md-none d-lg-block">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5 col-sm-5 col-5">
+
+          <div class="logo" [routerLink]="['/dashboard']">
+            <img src="assets/images/icons/kiya-ADMIN-PORTAL.png">
+          </div>
+
+        </div>
+        <div class="col-md-7 col-sm-7 col-7">
+          <div class="text-right user-profile">
+          <ul>
+            <li style="float: right;margin-left: 10px;">
+              <div class="log-out" (click)="logout()">
+                <a href="javascript:;">
+                  <img style="width: 32px;" src="assets/images/icons/logout1.png">
+
+                </a>
+              </div>
+            </li>
+            <li>
+
+                <h5>Welcome, {{commonDataServiceCall.user_Name}}</h5>
+                <small>Last Login {{commonServiceCall.lastLogin}}</small>
+
+            </li>
+
+          </ul>
+        </div>
+
+
+        </div>
+
+      </div>
+
+    </div>
+
+  </div>
+
+  <div class="in-header d-lg-none">
+    <div class="header-icons-lft">
+      <div class="header-actions">
+        <button class="ux-button-header menu-btn">
+          <img src="assets/images/icons/menu.png">
+        </button>
+      </div>
+
+    </div>
+
+    <div class="page-title">
+      <h5>{{commonServiceCall.pageName}}</h5>
+    </div>
+    <div class="header-icons-rit">
+      <div class="header-actions">
+        <button class="ux-button-header"><img
+            src="assets/images/icons/notify-bell.png"></button>
+      </div>
+
+    </div>
+
+  </div>
+</header> -->
+
+<header class="global-header">
+  <div class="desk-header d-none d-md-none d-lg-block">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-12">
+          <div class="header-items">
+            <div class="logo">
+              <img src="assets/images/logo/psb-bank.png" />
+            </div>
+            <!--.logo-->
+            <div class="right-heading">
+              <div class="user-details" (click)="addProfileImage()">
+                <!-- <img src="assets/images/icons/profile.jpg"> -->
+                <span class="round-circle">
+                  <img
+                  *ngIf="
+                    thumbnailstring == null ||
+                    thumbnailstring == '' ||
+                    thumbnailstring == undefined
+                  "
+                  src="assets/images/icons/profile.jpg"
+                />
+                <img
+                  *ngIf="
+                    thumbnailstring != null &&
+                    thumbnailstring != '' &&
+                    thumbnailstring != undefined
+                  "
+                  [src]="
+                    'data:image/jpg;base64,' + thumbnailstring
+                  "
+                />
+                </span>
+              </div>
+              <!--.user-details-->
+              <!-- <a href="javascript:;" class="right-i"><img src="assets/images/icons/notify-bell.png"></a> -->
+              <a
+                href="javascript:;"
+                class="right-i btn-expand"
+                (click)="fullScreen()"
+                ><img src="assets/images/icons/Expand.svg"
+              /></a>
+              <!-- <a href="javascript:;" class="right-i"
+                ><img src="assets/images/icons/Font-updown.svg"
+              /></a> -->
+              <a href="javascript:;" class="right-i"
+                ><img src="assets/images/icons/Settings.svg"
+              /></a>
+              <a href="javascript:;" class="right-i"
+                ><img src="assets/images/icons/Notification.svg"
+              /></a>
+              <a
+                href="javascript:;"
+                class="right-i btn-logout-confirm"
+                (click)="openModelToDeleteRole()"
+                ><img src="assets/images/icons/Logout.svg"
+              /></a>
+            </div>
+          </div>
+          <!-- .header-items -->
+        </div>
+        <!-- .col-md-7 col-sm-7 col-7 -->
+      </div>
+      <!--.row-->
+    </div>
+    <!--.container-fluid-->
+  </div>
+  <!--.desk-header-->
+  <div class="in-header d-lg-none">
+    <div class="header-icons-lft">
+      <div class="header-actions">
+        <button class="ux-button-header menu-btn">
+          <img src="assets/images/icons/menu-y.svg" />
+        </button>
+      </div>
+      <!--.header-actions-->
+    </div>
+    <!--.header-icons-lft-->
+    <div class="page-title">
+      <h5>{{this.commonServiceCall.pageName}}</h5>
+    </div>
+    <div class="header-icons-rit">
+      <div class="header-actions">
+        <!-- <button class="ux-button-header "><img src="assets/images/icons/Expand.svg"></button> -->
+        <!-- <button class="ux-button-header">
+          <img src="assets/images/icons/Font-updown.svg" />
+        </button> -->
+        <button class="ux-button-header">
+          <img src="assets/images/icons/Settings.svg" />
+        </button>
+        <button class="ux-button-header">
+          <img src="assets/images/icons/Notification.svg" />
+        </button>
+        <button (click)="openModelToDeleteRole()" class="ux-button-header">
+          <img src="assets/images/icons/Logout.svg" />
+        </button>
+      </div>
+      <!--.header-actions-->
+    </div>
+    <!--.header-icons-rit-->
+  </div>
+  <!-- in-header -->
+</header>
+<!-- global-header -->
+
+
+<!-- ===========footer section start========= -->
+
+<div class="tiny-modal tm-rounded" id="tm-favouriteconfirm2">
+  <div class="tinymodal-overlay"></div>
+  <!--.tinymodal-overlay-->
+  <div class="tinymodal">
+    <div *ngIf="selModel == 'logoutUser'" class="tinymodal-content">
+      <div class="row">
+        <div class="col-12 tinymodal-header"></div>
+      </div>
+      <div class="row">
+        <div class="col-12 px-0 mt-2">
+          <h5>Are you sure you want to logout?</h5>
+        </div>
+      </div>
+      <div class="row mt-5">
+        <div class="col-6">
+          <button class="ux-button" (click)="closeActionModel()">
+            Cancel
+          </button>
+        </div>
+        <div class="col-6">
+          <button class="ux-button primary" (click)="logout()">
+            OK
+          </button>
+        </div>
+        <!--.col-xs-12-->
+      </div>
+    </div>
+    <!--.tinymodal-content-->
+  </div>
+  <!--.tinymodal-->
+</div>
+<!--.footer-container-->
+<!-- ==============footer section end============ -->

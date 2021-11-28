@@ -1,0 +1,882 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Corporate Company Details</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <app-header></app-header>
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions"></div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+              <div class="main-content">
+                <div class="row mt-3">
+                  <div class="container-fluid">
+                    <div>
+                      <div class="component-timeline">
+                        <!--.stepwizard-->
+                        <div class="stepwizard">
+                          <div class="stepwizard-row setup-panel">
+                            <div class="stepwizard-step">
+                              <a
+                                href="#step-1"
+                                id="stp1"
+                                class="btn btn-primary btn-circle"
+                                disabled="disabled"
+                                (click)="onStpClicked()"
+                                >1</a
+                              >
+                              <!-- <span>step-1</span> -->
+                              <span>Corporate Company Data</span>
+                            </div>
+                            <div class="stepwizard-step">
+                              <a
+                                href="#step-2"
+                                id="stp2"
+                                class="btn btn-default btn-circle"
+                                disabled="disabled"
+                                (click)="onStpClicked()"
+                                >2</a
+                              >
+                              <!-- <span>step-2</span> -->
+                              <span>Corporate Menus Mapped</span>
+                            </div>
+                            <div class="stepwizard-step">
+                              <a
+                                href="#step-3"
+                                id="stp3"
+                                class="btn btn-default btn-circle"
+                                disabled="disabled"
+                                (click)="onStpClicked()"
+                                >3</a
+                              >
+                              <!-- <span>step-3</span> -->
+                              <span>Corporate Accounts Mapped</span>
+                            </div>
+                            <div class="stepwizard-step">
+                              <a
+                                href="#step-4"
+                                id="stp4"
+                                class="btn btn-default btn-circle"
+                                disabled="disabled"
+                                (click)="onStpClicked()"
+                                >4</a
+                              >
+                              <!-- <span>step-4</span> -->
+                              <span>Corporate Users</span>
+                            </div>
+                          </div>
+                        </div>
+                        <!--.stepwizard-->
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-12">
+                  <!--#step-1-->
+                  <div class="row setup-content" id="step-1">
+                    <div class="col-md-12 col-xs-12 px-0">
+                      <!-- <div class="vspacer20"></div>
+                      <p><b>Corporate Company Data</b></p>
+                      <div class="vspacer20"></div> -->
+                      <!-- load form -->
+                      <form [formGroup]="corpCompanyRequestsEditForm">
+                        <div class="row">
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label>Corporate Company Name</label>
+                              <input
+                                type="text"
+                                alphabetsOnly
+                                formControlName="corpCompanyName"
+                                readonly
+                                placeholder="Enter Corporate Company Name"
+                              />
+                              <p *ngIf="formErrors.corpCompanyName">
+                                {{ formErrors.corpCompanyName }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-12-->
+
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label>Corporate Company Information</label>
+                              <input
+                                type="text"
+                                formControlName="corpCompanyInfo"
+                                readonly
+                                placeholder="Enter Corporate Company Information"
+                              />
+                              <p *ngIf="formErrors.corpCompanyInfo">
+                                {{ formErrors.corpCompanyInfo }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-12-->
+
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label>RRN</label>
+                              <input
+                                type="text"
+                                formControlName="rrn"
+                                readonly
+                                placeholder="Enter RRN"
+                              />
+                              <p *ngIf="formErrors.rrn">
+                                {{ formErrors.rrn }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-12-->
+
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label>CIF</label>
+                              <input
+                                type="text"
+                                formControlName="cif"
+                                readonly
+                                placeholder="Enter CIF"
+                              />
+                              <p *ngIf="formErrors.cif">
+                                {{ formErrors.cif }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-12-->
+
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label>Establishment On</label>
+                              <input
+                                class="pr-0"
+                                [max]="todayDate"
+                                type="date"
+                                readonly
+                                formControlName="establishmentOn"
+                              />
+                              <p *ngIf="formErrors.establishmentOn">
+                                {{ formErrors.establishmentOn }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-12-->
+
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label>Phone Number</label>
+                              <input
+                                type="text"
+                                formControlName="phoneNo"
+                                readonly
+                                placeholder="Enter Phone Number"
+                              />
+                              <p *ngIf="formErrors.phoneNo">
+                                {{ formErrors.phoneNo }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-12-->
+
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label>PAN Card Number</label>
+                              <input
+                                type="text"
+                                formControlName="pancardNo"
+                                readonly
+                                placeholder="Enter PAN Card Number"
+                              />
+                              <p *ngIf="formErrors.pancardNo">
+                                {{ formErrors.pancardNo }}
+                              </p>
+                            </div>
+                            <!--.ux-input-->
+                          </div>
+                          <!--.col-12-->
+
+                          <div class="col-6">
+                            <div class="ux-input input-error">
+                              <label>Status</label>
+                              <select formControlName="status">
+                                <option disabled value="">Select Status</option>
+                                <option
+                                  disabled
+                                  *ngFor="
+                                    let item of status;
+                                    index as i
+                                  "
+                                  [value]="item.id"
+                                >
+                                  {{ item.shortName | titlecase }}
+                                </option>
+                              </select>
+                              <p *ngIf="formErrors.status">
+                                {{ formErrors.status }}
+                              </p>
+                            </div>
+                          </div>
+                          <!--.col-12-->
+
+                          <div class="col-12 col-md-6 col-lg-6">
+                            <div class="ux-input">
+                              <label>COI</label>
+                            </div>
+                            <!--.ux-input-->
+                            <div
+                              class="col-12"
+                              *ngIf="documentsObj.coi != '' && documentsObj.coi != undefined"
+                            >
+                              <div class="img-uploaded">
+                                <img src="{{ documentsObj.coi }}" />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6 col-lg-6">
+                            <div class="ux-input">
+                              <label>MOA</label>
+                            </div>
+                            <!--.ux-input-->
+                            <div
+                              class="col-12"
+                              *ngIf="documentsObj.moa != '' && documentsObj.moa != undefined"
+                            >
+                              <div class="img-uploaded">
+                                <img src="{{ documentsObj.moa }}" />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6 col-lg-6">
+                            <div class="ux-input">
+                              <label>Logo</label>
+                            </div>
+                            <!--.ux-input-->
+                            <div
+                              class="col-12"
+                              *ngIf="documentsObj.logo != '' && documentsObj.logo != undefined"
+                            >
+                              <div class="img-uploaded">
+                                <img src="{{ documentsObj.logo }}" />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-12 col-md-6 col-lg-6">
+                            <div class="ux-input">
+                              <label>Other Documents</label>
+                            </div>
+                            <!--.ux-input-->
+                            <div
+                              class="col-12"
+                              *ngIf="documentsObj.otherdocs != '' && documentsObj.otherdocs != undefined"
+                            >
+                              <div class="img-uploaded">
+                                <img src="{{ documentsObj.otherdocs }}" />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </form>
+                      <!--.row-->
+                      <div class="row mt-5">
+                        <div class="col-6 col-lg-2 offset-lg-8">
+                          <button class="ux-button" (click)="cancel()">
+                            Cancel
+                          </button>
+                        </div>
+                        <div class="col-6 col-lg-2">
+                          <button
+                            type="button"
+                            class="ux-button primary nextBtn next1"
+                            (click)="onNextClick('step1')"
+                          >
+                            Next
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--#step-1-->
+                  <!--#step-2-->
+                  <div class="row setup-content" id="step-2">
+                    <div class="col-md-12 col-xs-12 px-0">
+
+                      <div class="row mt-3">
+                        <div class="col-12 mb-0">
+                          <div class="datatable-box">
+                            <div class="table-responsive">
+                              <table id="dt-sample1" class="table display table-hover">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Sr. No.</th>
+                                    <th scope="col">Menu Name</th>
+                                    <th scope="col">Created On</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="
+                                        let item of corpCompanyMenuArr;
+                                        let i = index
+                                      ">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>
+                                      {{
+                                          item.menuName == null || item.menuName == ""
+                                            ? "-"
+                                            : item.menuName
+                                        }}
+                                    </td>
+                                    <td>{{ item.createdon == null || item.createdon == "" ? '-' : item.createdon | date: "yyyy/MM/dd" }}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+
+                          <div class="row mt-5">
+                            <div class="col-6 col-lg-2 offset-lg-8">
+                              <button class="ux-button prevBtn" (click)="onNextClick('step2Back')">
+                                Back
+                              </button>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                              <button
+                                type="button"
+                                class="ux-button primary nextBtn next1"
+                                (click)="onNextClick('step2')"
+                              >
+                                Next
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--#step-2-->
+                  <!--#step-3-->
+                  <div class="row setup-content" id="step-3">
+                    <div class="col-12 col-md-12 col-xl-12 px-0">
+
+                      <!-- <div class="vspacer20"></div>
+                      <p><b>Corporate Company Accounts Mapped</b></p>
+                      <div class="vspacer20"></div> -->
+
+                      <div class="row mt-3">
+                        <div class="col-12 mb-0">
+                          <div class="datatable-box">
+                            <div class="table-responsive">
+                              <table id="dt-sample2" class="table display table-hover">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Sr. No.</th>
+                                    <th scope="col">Account Number</th>
+                                    <th scope="col">Created On</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="
+                                        let item of corpCompanyAccountsArr;
+                                        let i = index
+                                      ">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>
+                                      {{
+                                          item.accountNo == null || item.accountNo == ""
+                                            ? "-"
+                                            : item.accountNo
+                                        }}
+                                    </td>
+                                    <td>{{ item.createdon == null || item.createdon == "" ? '-' : item.createdon | date: "yyyy/MM/dd" }}</td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+
+                          <div class="row mt-5">
+                            <div class="col-6 col-lg-2 offset-lg-8">
+                              <button class="ux-button prevBtn verifyAccBtn" (click)="onNextClick('step3Back')">
+                                Back
+                              </button>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                              <button
+                                class="ux-button primary verifyAccBtn"
+                                (click)="verifyAccounts('step3')"
+                              >
+                                Verify Accounts
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--#step-3-->
+
+                  <!--#step-4-->
+                  <div class="row setup-content" id="step-4">
+                    <div class="col-md-12 col-xs-12 px-0">
+
+                      <!-- <div class="vspacer20"></div>
+                      <p><b>Corporate Company Users</b></p>
+                      <div class="vspacer20"></div> -->
+
+                      <div class="row mt-3">
+                        <div class="col-12 mb-0">
+                          <div class="datatable-box">
+                            <div class="table-responsive">
+                              <table id="dt-sample3" class="table display table-hover">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Sr. No.</th>
+                                    <th scope="col">Username</th>
+                                    <th scope="col">User Role</th>
+                                    <th scope="col">Parent Role</th>
+                                    <th scope="col">Parent User Name</th>
+                                    <th scope="col">First Name</th>
+                                    <th scope="col">Last Name</th>
+                                    <th scope="col">Email ID</th>
+                                    <th scope="col">Mobile Number</th>
+                                    <th scope="col">Date Of Birth</th>
+                                    <th scope="col">PAN Card Number</th>
+                                    <th scope="col">RRN</th>
+                                    <th scope="col">Passport Number</th>
+                                    <th scope="col">Aadhar Card Number</th>
+                                    <th scope="col">Token</th>
+                                    <th scope="col">Created On</th>
+                                    <th scope="col">Board Resolution</th>
+                                    <th scope="col">Certificate Of Incorporation</th>
+                                    <th scope="col">Aadhar Card</th>
+                                    <th scope="col">Passport</th>
+                                    <th scope="col">User Image</th>
+                                    <th scope="col">Other Documents</th>
+                                    <th scope="col">Menu Mapped</th>
+                                    <th scope="col">Accounts Mapped</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr *ngFor="
+                                        let item of corpUsersArr;
+                                        let i = index
+                                      ">
+                                    <td>{{ i + 1 }}</td>
+                                    <td>
+                                      {{
+                                          item.userName == null || item.userName == ""
+                                            ? "-"
+                                            : item.userName
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.corpRoleName == null || item.corpRoleName == ""
+                                            ? "-"
+                                            : item.corpRoleName
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.parentRoleName == null || item.parentRoleName == ""
+                                            ? "-"
+                                            : item.parentRoleName
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.parentUserName == null || item.parentUserName == ""
+                                            ? "-"
+                                            : item.parentUserName
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.firstName == null || item.firstName == ""
+                                            ? "-"
+                                            : item.firstName
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.lastName == null || item.lastName == ""
+                                            ? "-"
+                                            : item.lastName
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.email == null || item.email == ""
+                                            ? "-"
+                                            : item.email
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.mobile == null || item.mobile == ""
+                                            ? "-"
+                                            : item.mobile
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.dob == null || item.dob == ""
+                                            ? "-"
+                                            : item.dob
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.pancardNo == null || item.pancardNo == ""
+                                            ? "-"
+                                            : item.pancardNo
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.rrn == null || item.rrn == ""
+                                            ? "-"
+                                            : item.rrn
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.passportNo == null || item.passportNo == ""
+                                            ? "-"
+                                            : item.passportNo
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.aadharCardNo == null || item.aadharCardNo == ""
+                                            ? "-"
+                                            : item.aadharCardNo
+                                        }}
+                                    </td>
+                                    <td>
+                                      {{
+                                          item.token == null || item.token == ""
+                                            ? "-"
+                                            : item.token
+                                        }}
+                                    </td>
+                                    <td>{{ item.createdon == null || item.createdon == "" ? '-' : item.createdon | date: "yyyy/MM/dd" }}</td>
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/eye.png"
+                                          (click)="getLogoImage(item, 'boardResolution')" />
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/eye.png"
+                                          (click)="getLogoImage(item, 'certificateIncorporation')" />
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/eye.png"
+                                          (click)="getLogoImage(item, 'aadharCard')" />
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/eye.png"
+                                          (click)="getLogoImage(item, 'passport')" />
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/eye.png"
+                                          (click)="getLogoImage(item, 'userImage')" />
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/eye.png"
+                                          (click)="getLogoImage(item, 'otherDoc')" />
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/eye.png"
+                                          (click)="getMenusMappedData(item)" />
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <div class="ux-selection">
+                                        <img class="action-btn" src="assets/images/icons/eye.png"
+                                          (click)="getAccountsMappedData(item)" />
+                                      </div>
+                                    </td>
+                                  </tr>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+
+                          <div class="row mt-5">
+                            <div class="col-6 col-lg-2 offset-lg-6">
+                              <button class="ux-button prevBtn" (click)="onNextClick('step4Back')">
+                                Back
+                              </button>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                              <button
+                                type="button"
+                                class="ux-button"
+                                (click)="openActionModal(corpCompanyRequestsEditForm.value, 'reject')"
+                              >
+                                Reject
+                              </button>
+                            </div>
+                            <div class="col-6 col-lg-2">
+                              <button
+                                type="button"
+                                class="ux-button primary"
+                                (click)="openActionModal(corpCompanyRequestsEditForm.value, 'approved')"
+                              >
+                                Approve
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--#step-4-->
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+
+    <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <div class="tiny-modal tm-rounded tiny-modal3" id="tm-favouriteconfirm3">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal tinymodal-3">
+      <div *ngIf="selModel == 'corpAccounts'" class="tinymodal-content">
+        <div class="row">
+          <div class="col-12 tinymodal-header">
+            <div>
+              <button type="button" class="close" (click)="closeActionModel('corpAccounts')">
+                <span> <img src="assets/images/icons/cross.png" /></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!--Datatable in popup-->
+        <div class="row mt-3">
+          <div class="col-12 mb-0">
+            <div class="datatable-box">
+              <div class="table-responsive">
+                <table id="dt-sample4" class="table display table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Sr. No.</th>
+                      <th scope="col">Account Number</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="
+                          let item of corpUsersAccountsArr;
+                          let i = index
+                        ">
+                      <td>{{ i + 1 }}</td>
+                      <td>
+                        {{
+                            item.accountNo == null || item.accountNo == ""
+                              ? "-"
+                              : item.accountNo
+                          }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+
+  <div class="tiny-modal tm-rounded tiny-modal1" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal tinymodal-1">
+      <div *ngIf="selModel == 'corpMenus'" class="tinymodal-content">
+        <div class="row">
+          <div class="col-12 tinymodal-header">
+            <div>
+              <button type="button" class="close" (click)="closeActionModel('corpMenus')">
+                <span> <img src="assets/images/icons/cross.png" /></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <!--Datatable in popup-->
+        <div class="row mt-3">
+          <div class="col-12 mb-0">
+            <div class="datatable-box">
+              <div class="table-responsive">
+                <table id="dt-sample5" class="table display table-hover">
+                  <thead>
+                    <tr>
+                      <th scope="col">Sr. No.</th>
+                      <th scope="col">Menu Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="
+                          let item of corpUsersMenusArr;
+                          let i = index
+                        ">
+                      <td>{{ i + 1 }}</td>
+                      <td>
+                        {{
+                            item.menuName == null || item.menuName == ""
+                              ? "-"
+                              : item.menuName
+                          }}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm1">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+      <div *ngIf="selModel == 'Image'" class="tinymodal-content">
+        <div class="row">
+          <div class="col-12 tinymodal-header">
+            <div>
+              <button type="button" class="close" (click)="closeActionModel('Image')">
+                <span> <img src="assets/images/icons/cross.png" /></span>
+              </button>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-12 px-0 mt-2">
+            <img [src]="'data:image/jpg;base64,' + displayImage" />
+          </div>
+        </div>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm1">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+      <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+        <form [formGroup]="remarkForm">
+          <div class="row">
+            <div class="col-12 px-0 mt-2">
+              <div class="ux-input input-error">
+                <textarea formControlName="remark" limit-to="100" placeholder="Enter Remark"></textarea>
+                <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-6">
+              <button class="ux-button" (click)="closeActionModel('remarkField')">
+                Cancel
+              </button>
+            </div>
+            <div class="col-6">
+              <button class="ux-button primary" (click)="onSubmitData(remarkForm.value)">
+                OK
+              </button>
+            </div>
+            <!--.col-xs-12-->
+          </div>
+        </form>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+  <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

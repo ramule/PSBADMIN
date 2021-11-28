@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>IMPS Transaction Log</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!-----.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <form *ngIf="!isViewData" [formGroup]="impsTransLogForm">
+                  <div class="row">
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Search Transaction Log</label>
+                        <select formControlName="searchBy" (change)="
+                              getSearchTransLog(impsTransLogForm.value)
+                            ">
+                          <option value="">Select Transaction Log By</option>
+                          <option value="date">Date</option>
+                        </select>
+                        <p *ngIf="formErrors.searchBy">
+                          {{ formErrors.searchBy }}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="col-6" *ngIf="type == 'date'">
+                      <div class="ux-input date input-error">
+                        <label>From Date</label>
+                        <input type="date" class="pr-0" [max]="todayDate" formControlName="fromDate"
+                          placeholder="Enter From date" (change)="onDateChange(impsTransLogForm.value)" />
+                        <p *ngIf="formErrors.fromDate">
+                          {{ formErrors.fromDate }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+                    <div class="col-6" *ngIf="type == 'date'">
+                      <div class="ux-input date input-error">
+                        <label>To Date</label>
+                        <input type="date" class="pr-0" [max]="todayDate" formControlName="toDate"
+                          placeholder="Enter To date" (change)="onDateChange(impsTransLogForm.value)" />
+                        <p *ngIf="formErrors.toDate">{{ formErrors.toDate }}</p>
+                        <p *ngIf="toDateValid">{{ isToDateValidError }}</p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+                  </div>
+                </form>
+
+                <div *ngIf="!isViewData" class="row mb-5 mt-3">
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="cancel()">Cancel</button>
+                  </div>
+                  <div class="col-6 col-lg-2">
+                    <button class="ux-button primary" (click)="onSubmitClicked()">
+                      Submit
+                    </button>
+                  </div>
+                  <!--.col-xs-12-->
+                </div>
+
+                <div *ngIf="!isViewData" class="vspacer20"></div>
+                <div *ngIf="impsTransLogArr.length > 0 && !isViewData" class="row mt-3">
+                  <div class="col-12 mb-0">
+                    <div class="datatable-box">
+                      <div class="table-responsive">
+                        <table id="dt-sample" class="table display table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">Sr. No.</th>
+                              <th scope="col">Trans Type</th>
+                              <th scope="col">Direction</th>
+                              <th scope="col">Created On</th>
+                              <th scope="col">Amount</th>
+                              <th scope="col">View More Details</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              *ngFor="let item of impsTransLogArr; let i = index"
+                            >
+                              <td>{{ i + 1 }}</td>
+                              <td>
+                                {{
+                                  item.tran_type == null || item.tran_type == ""
+                                    ? "-"
+                                    : item.tran_type
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.direction == null || item.direction == ""
+                                    ? "-"
+                                    : item.direction
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.created_date == null || item.created_date == ""
+                                    ? "-"
+                                    : item.created_date | date: 'yyyy-MM-dd'
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.amount == null || item.amount == ""
+                                    ? "-"
+                                    : item.amount
+                                }}
+                              </td>
+                              <td>
+                                <div (click)="onViewClicked(item)" class="ux-selection">
+                                  <img
+                                    class="action-btn"
+                                    src="assets/images/icons/eye.png"
+                                  />
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!--.table-responsivebox-->
+                    </div>
+                    <!--.datatable-box-->
+
+                    <div class="dt-extras mt-4">
+                      <div class="dt-exports">
+                        <em>Export to :<span class="chevron"></span></em>
+                        <button
+                          class="linkbutton exp-excel"
+                          (click)="commonMethod.downLoadFile('excel')"
+                        >
+                          Excel <b>(.xlsx)</b>
+                        </button>
+                        <button
+                          class="linkbutton exp-pdf"
+                          (click)="commonMethod.downLoadFile('pdf')"
+                        >
+                          Pdf <b>(.pdf)</b>
+                        </button>
+                        <!-- <button class="linkbutton exp-word" (click)="wordDownload()">word <b>(.docx)</b></button> -->
+                        <!-- <button class="linkbutton exp-xml">XML <b>(.xml)</b></button> -->
+                        <button
+                          class="linkbutton exp-csv"
+                          (click)="commonMethod.downLoadFile('csv')"
+                        >
+                          csv <b>(.csv)</b>
+                        </button>
+                      </div>
+                      <!--.dt-exports-->
+                    </div>
+                  </div>
+                </div>
+
+                <!-- <form [formGroup]="viewForm">
+
+                </form> -->
+
+                <!-- <div *ngIf="isViewData" class="row">
+                  <div class="col-6">
+                    <p style="font-size: medium;"><b>IMPS Transaction Details</b></p>
+                  </div>
+                </div> -->
+                <div *ngIf="isViewData" class="row">
+
+                  <div class="col-6">
+                    <p style="font-size: medium;"><b>Transaction Log Details</b></p>
+                  </div>
+                  <div class="col-6"></div>
+                  <div class="col-6">
+                    <div class="ux-input">
+                      <label class="label-bold">IMPS Trans Log Id</label>
+                      <!-- <input type="text" readonly/> -->
+                      <p>{{ viewDataArray[0].id  == null || viewDataArray[0].id  == "" ? '-' : viewDataArray[0].id}}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input">
+                      <label class="label-bold">Status</label>
+                      <!-- <input type="text" readonly/> -->
+                      <p>{{ viewDataArray[0].status == null || viewDataArray[0].status  == "" ? '-' : viewDataArray[0].status}}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input">
+                      <label class="label-bold">Remarks</label>
+                      <!-- <input type="text" readonly/> -->
+                      <p>{{ viewDataArray[0].remarks == null || viewDataArray[0].remarks  == "" ? '-' : viewDataArray[0].remarks }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input">
+                      <label class="label-bold">Originating Channel</label>
+                      <!-- <input type="text" readonly/> -->
+                      <p>{{ viewDataArray[0].originating_channel == null || viewDataArray[0].originating_channel  == "" ? '-' : viewDataArray[0].originating_channel }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <div class="vspacer20"></div>
+
+                  <div class="col-6">
+                    <p style="font-size: medium;"><b>Remitter Information</b></p>
+                  </div>
+                  <div class="col-6"></div>
+
+                  <div class="col-6">
+                    <div class="ux-input">
+                      <label class="label-bold">Remitter Name</label>
+                      <p>{{ viewDataArray[0].remitter_name == null || viewDataArray[0].remitter_name  == "" ? '-' : viewDataArray[0].remitter_name }}</p>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input">
+                      <label class="label-bold">Remitter Mobile</label>
+                      <p>{{ viewDataArray[0].remitter_mobile == null || viewDataArray[0].remitter_mobile  == "" ? '-' : viewDataArray[0].remitter_mobile }}</p>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input">
+                      <label class="label-bold">Remitter MMID</label>
+                      <p>{{ viewDataArray[0].remitter_mmid == null || viewDataArray[0].remitter_mmid  == "" ? '-' : viewDataArray[0].remitter_mmid }}</p>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input">
+                      <label class="label-bold">Remitter Account</label>
+                      <p>{{ viewDataArray[0].remitter_account == null || viewDataArray[0].remitter_account  == "" ? '-' : viewDataArray[0].remitter_account }}</p>
+                    </div>
+                  </div>
+
+                  <div class="vspacer20"></div>
+
+                  <div class="col-6">
+                    <p style="font-size: medium;"><b>Beneficiary Information</b></p>
+                  </div>
+                  <div class="col-6"></div>
+
+                  <div class="col-6">
+                    <div class="ux-input">
+                      <label class="label-bold">Beneficiary Name</label>
+                      <p>{{ viewDataArray[0].bene_name == null || viewDataArray[0].bene_name  == "" ? '-' : viewDataArray[0].bene_name }}</p>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input">
+                      <label class="label-bold">Beneficiary Mobile</label>
+                      <p>{{ viewDataArray[0].bene_mobile == null || viewDataArray[0].bene_mobile  == "" ? '-' : viewDataArray[0].bene_mobile }}</p>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input">
+                      <label class="label-bold">Beneficiary Account</label>
+                      <p>{{ viewDataArray[0].bene_account == null || viewDataArray[0].bene_account  == "" ? '-' : viewDataArray[0].bene_account }}</p>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input">
+                      <label class="label-bold">Beneficiary IFSC</label>
+                      <p>{{ viewDataArray[0].bene_ifsc == null || viewDataArray[0].bene_ifsc  == "" ? '-' : viewDataArray[0].bene_ifsc }}</p>
+                    </div>
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input">
+                      <label class="label-bold">Beneficiary NBIN</label>
+                      <p>{{ viewDataArray[0].bene_nbin == null || viewDataArray[0].bene_nbin  == "" ? '-' : viewDataArray[0].bene_nbin }}</p>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div *ngIf="isViewData" class="row">
+                  <div class="col-6"></div>
+                  <div class="col-6 col-lg-2 offset-lg-10">
+                    <button class="ux-button" (click)="cancelView()">Cancel</button>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

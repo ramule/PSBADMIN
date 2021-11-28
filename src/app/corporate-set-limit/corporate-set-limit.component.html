@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Change Password</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <!-- ======== header section start ========== -->
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div *ngIf="priviledgeDataArr.viewChecked" class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+
+            <div class="main-content">
+              <!-- load form -->
+              <form [formGroup]="corporateSetLimitForm">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Company Name</label>
+                      <select formControlName="company" (change)="onCompanySelected($event.target.value)">
+                        <option value="">Select Company Name</option>
+                        <option *ngFor="let company of masterCompany" [value]="company.id">
+                          {{ company.companyName | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.company">
+                        {{ formErrors.company }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>User</label>
+                      <select formControlName="user" (change)="onUserSelected($event.target.value)">
+                        <option value="">Select User</option>
+                        <option *ngFor="let user of masterUser" [value]="user.id">
+                          {{ user.user_disp_name | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.user">{{ formErrors.user }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Account Type</label>
+                      <select formControlName="account" (change)="onAccountSelected($event.target.value)">
+                        <option value="">Select Account Type</option>
+                        <option *ngFor="let account of masterAccount" [value]="account.id">
+                          {{ account.accountType | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.account">
+                        {{ formErrors.account }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                </div>
+              </form>
+              <!--.row-->
+              <div class="row">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                </div>
+                <div class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="getUserAccountNumber()">
+                    Submit
+                  </button>
+                </div>
+                <!--.col-xs-12-->
+              </div>
+
+              <div class="row mt-3" *ngIf="accountDetails.length > 0">
+                <div class="col-6">
+                  <div class="ux-input">
+                    <p><b>NOTE: </b>Please Select Account Number</p>
+                  </div>
+                </div>
+                <div class="col-12 mb-0">
+                  <div class="datatable-box">
+                    <div class="table-responsive">
+                      <table id="dt-sample" class="table display table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Select</th>
+                            <th scope="col">Sr. No.</th>
+                            <th scope="col">Account Number</th>
+                            <th scope="col">CIF</th>
+                            <th scope="col">Customer Name</th>
+                            <th scope="col">User Name</th>
+                            <th scope="col">Email Id</th>
+                            <th scope="col">Mobile Number</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let item of accountDetails; let i = index">
+                            <td>
+                              <div class="ux-selection">
+                                <label>
+                                  <input type="checkbox" name="radioboxdemo" [(ngModel)]="item.isChecked"
+                                    class="approveall" (click)="selectsingle(item)" />
+                                </label>
+                              </div>
+                            </td>
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                              {{
+                                  item.accNum == null || item.accNum == ""
+                                    ? "-"
+                                    : item.accNum
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.cif == null || item.cif == ""
+                                    ? "-"
+                                    : item.cif
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.customername == null ||
+                                  item.customername == ""
+                                    ? "-"
+                                    : item.customername
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.username == null || item.username == ""
+                                    ? "-"
+                                    : item.username
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.email == null || item.email == ""
+                                    ? "-"
+                                    : item.email
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.mobile == null || item.mobile == ""
+                                    ? "-"
+                                    : item.mobile
+                                }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <!-- <pagination-controls (pageChange)="p = $event"></pagination-controls> -->
+                    </div>
+                    <!--.table-responsivebox-->
+                  </div>
+                  <!--.datatable-box-->
+                </div>
+              </div>
+              <div class="row mt-5" *ngIf="
+                    accountDetails.length > 0 && priviledgeDataArr.createChecked
+                  ">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancelClick()" style="float: left">
+                    Cancel
+                  </button>
+                </div>
+                <div class="col-6 col-lg-2">
+                  <button class="ux-button primary" type="submit" (click)="gotoAddSetLimit()" style="float: right">
+                    Next
+                  </button>
+                </div>
+              </div>
+
+              <div class="row mt-5" *ngIf="
+                    accountDetails.length > 0 &&
+                    !priviledgeDataArr.createChecked
+                  ">
+                <div class="col-6 col-lg-2 offset-lg-10">
+                  <button class="ux-button" (click)="cancelClick()" style="float: left">
+                    Cancel
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>

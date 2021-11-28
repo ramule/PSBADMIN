@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Status wise Service Request Report</title>
+
+</head>
+
+<body>
+
+	<div class="main">
+		<app-navmenu></app-navmenu>
+		<div class="nav-overlay"></div>
+		<!--.nav-overlay-->
+		<!-- navigation menu container end -->
+
+		<div class="right-main-column">
+			<div class="right-col-container full-width">
+				<!-- ======== header section start ========== -->
+				<app-header></app-header>
+				<!-- ======== header section end ========== -->
+				<!-- ======== body page content start from here ======== -->
+				<div class="body-page-container">
+					<div class="vspacer10"></div>
+					<!--.vspacer10-->
+					<div class="device-page-titles d-none d-md-none d-lg-block">
+						<div class="in-header">
+							<div class="header-icons-lft">
+								<div class="header-actions">
+
+									<div class="head-page-title">
+										<h5> Status wise Service Request Report</h5>
+									</div>
+								</div>
+								<!--.header-actions-->
+							</div>
+							<!--.header-icons-lft-->
+							<div class="header-icons-rit">
+								<div class="header-actions">
+									<!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+								</div>
+								<!--.header-actions-->
+							</div>
+							<!--.header-icons-rit-->
+						</div> <!-- in-header -->
+					</div> <!-- device-page-titles -->
+					<div class="container">
+						<div class="row">
+							<div class="col-12 col-md-6"></div>
+							<div class="col-12 col-md-6">
+								<!-- <div class="scheduled-date" (click)="popOverClicked()">
+									<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+									<span>Apr 27, 2020 - May 11, 2020</span>
+								</div> -->
+								<div class="scheduled-date">
+									<i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
+									<input type="text" name="daterangeInput" daterangepicker [options]="options" (selected)="selectedDate1($event, daterange)" />
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-12 col-md-6">
+								<div class="ux-input input-error">
+									<label>Types</label>
+									<select  [(ngModel)]="roleType" (change)="selectedType($event.target.value)">
+										<option value=''>Select select types</option>
+										<option value='retail'>Retails</option>
+										<option value='corp'>Corporate</option>
+									</select>
+								</div>
+							</div>
+						</div>
+						<div class="row no-gutters">
+							<div class="col-12">
+								<div class="row">
+									<div class="col-12">
+										<div class="chart-container">
+
+											<div class="assets-liabilities-container">
+												<div class="chart-header">
+													<div class="ux-component">
+														<div class="ux-dropdown">
+															<div>
+																<strong>Financial / Non-Financial Activity By
+																	Date</strong>
+																	<div class="header_button">
+																		<div class="ux-selection">
+																			<img class="my_image" src="assets/images/icons/eye.png"
+																				(click)="graphView()">
+																			<img class="my_image" src="assets/images/icons/eye.png"
+																				(click)="tableView()">
+																		</div>
+																	</div>
+															</div>
+															<!--.drp-box-->
+														</div>
+														<!--.ux-dropdown-->
+													</div><!-- .ux-component -->
+												</div><!--  chart-header -->
+											</div> <!-- .assets-liabilities-container -->
+											<div class="chartbox">
+												<canvas id="myBarChart"></canvas>
+												<div id="tableView">
+													<div class="datatable-box">
+														<div class="table-responsive">
+															<table id="dt-sample" class="table display table-hover">
+																<thead>
+																	<tr>
+																		<th scope="col"> Service
+																		</th>
+																		<th scope="col"> Count
+																		</th>
+																	</tr>
+																</thead>
+																<tbody>
+																	<tr
+																		*ngFor="let item of tableViewData ; let i=index">
+																		<td>{{item.channel}}</td>
+																		<td>{{item.cnt}}</td>
+																	</tr>
+																</tbody>
+															</table>
+														</div>
+														<!--.table-responsivebox-->
+													</div>
+												</div>
+											</div><!--  chartbox -->
+										</div><!-- .chart-container -->
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+					<!--.container-->
+				</div>
+				<!--.body-page-container-->
+				<!-- added new -->
+			</div>
+			<!--.right-col-container-->
+			<!-- added new -->
+		</div>
+		<!--.right-main-column-->
+		<!-- added new -->
+	</div>
+	<!--.main-->
+	<!-- ===========footer section start========= -->
+	<div class="sticky-actions-spacer"></div>
+	<div class="footer-container sticky-actions">
+		<div class="footer-inactions">
+			<div class="container">
+				<div class="row">
+					<div class="col-6 col-lg-2 offset-lg-8">
+						<!-- <button class="ux-button" (click)="cancel()">Cancel</button> -->
+					</div>
+					<div class="col-6 col-lg-2">
+						<button class="ux-button" (click)="cancel()">Cancel</button>
+					</div>
+					<!--.col-xs-12-->
+				</div>
+			</div>
+			<!--.container-->
+		</div> <!-- footer-inactions -->
+	</div>
+	<!-- ==============footer section end============ -->
+	<!-- <div class="popover date_popover" *ngIf="graphType">
+		<div class="row">
+			<div class="col-12"> <div class="popover_inner_content active" (click)="onSelChartType('15days')" >Last 15 days </div></div>
+			<div class="col-12"> <div class="popover_inner_content" (click)="onSelChartType('7days')" >Last 7 days </div></div>
+			<div class="col-12"> <div class="popover_inner_content" (click)="onSelChartType('month')" >This month </div></div>
+			<div class="col-12"> <div class="popover_inner_content" (click)="onSelChartType('quater')" >Last quater </div></div>
+			<div class="col-12"> <div class="popover_inner_content" (click)="onSelChartType('year')" >Last year </div></div>
+			<div class="col-12"> <div class="popover_inner_content">Custome range </div></div>
+		</div>
+	</div> -->
+
+	<script src="js/lib/jquery.min.js"></script>
+	<script src="js/lib/bootstrap.min.js"></script>
+	<script src="js/common.js"></script>
+
+
+</body>

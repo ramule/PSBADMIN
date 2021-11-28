@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Master SubMenu</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <!--.global-nav-->
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+              <h4>{{commonServiceCall.pageName}}</h4>
+            </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                    <!-- <button class="ux-button primary" (click)="showHideForm()">+Add</button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <!-- load form -->
+                <form [formGroup]="masterSubMenuForm">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Name</label>
+                        <input
+                          limit-to="40"
+                          alphabetsOnly
+                          type="text"
+                          formControlName="subMenuName"
+                          placeholder="Enter Name"
+                        />
+                        <p *ngIf="formErrors.subMenuName">
+                          {{ formErrors.subMenuName }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Logo Path</label>
+                        <input
+                          limit-to="40"
+                          type="text"
+                          formControlName="logoPath"
+                          placeholder="Enter Logo Path"
+                        />
+                        <p *ngIf="formErrors.logoPath">
+                          {{ formErrors.logoPath }}
+                        </p>
+                        <p
+                          *ngIf="
+                            masterSubMenuForm.get('logoPath').touched &&
+                            masterSubMenuForm.get('logoPath').value != '' &&
+                            masterSubMenuForm.get('logoPath').invalid
+                          "
+                        >
+                          * Invalid Logo Path
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Channel Name</label>
+                        <select
+                          formControlName="channel"
+                          (change)="selectedValue($event.target.value)"
+                        >
+                          <option value="">Select Channel Name</option>
+                          <option
+                            *ngFor="let option of this.productTypeArr; index as i"
+                            [value]="option.id"
+                          >
+                            {{ option.shortName | titlecase }}
+                          </option>
+                        </select>
+                        <p *ngIf="formErrors.channel">
+                          {{ formErrors.channel }}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Status</label>
+                        <select
+                          id="masterSubMenuStatus"
+                          formControlName="status"
+                        >
+                          <option value="">Select Status</option>
+                          <option value="3">Active</option>
+                          <option value="0">Inactive</option>
+                        </select>
+                        <p *ngIf="formErrors.status">{{ formErrors.status }}</p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+                  </div>
+                </form>
+                <!--.row-->
+                <div class="row mt-5">
+                  <div class="col-6 offset-lg-8 col-lg-2">
+                    <button class="ux-button" (click)="cancel()">Cancel</button>
+                  </div>
+                  <div class="col-6 col-lg-2">
+                    <button
+                      class="ux-button primary"
+                      (click)="addSubMasterMenu()"
+                    >
+                      Save
+                    </button>
+                  </div>
+                  <!--.col-xs-12-->
+                </div>
+              </div>
+
+              <!--.row-->
+
+              <!-- <div class="sticky-actions-spacer"></div> -->
+              <!-- load list -->
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+
+    <!-- ==============footer section end============ -->
+  </body>
+</html>

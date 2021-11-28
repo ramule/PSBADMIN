@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Add Reward Points</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <app-header></app-header>
+
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <div class="vspacer10"></div>
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div>
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container">
+              <!-- load form -->
+              <form [formGroup]="BCCorrAddForm">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Name</label>
+                      <input
+                        type="text"
+                        formControlName="name"
+                        placeholder="Enter name"
+                      />
+                      <p *ngIf="formErrors.name">
+                        {{ formErrors.name }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>BC Id</label>
+                      <input
+                        type="text"
+                        formControlName="bcid"
+                        placeholder="Enter bcid"
+                      />
+                      <p *ngIf="formErrors.bcid">
+                        {{ formErrors.bcid }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Mobile</label>
+                      <input
+                        type="text"
+                        formControlName="mobile"
+                        placeholder="Enter mobile"
+                      />
+                      <p *ngIf="formErrors.mobile">
+                        {{ formErrors.mobile }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>MMID</label>
+                      <input
+                        type="text"
+                        formControlName="mmid"
+                        placeholder="Enter mmid"
+                      />
+                      <p *ngIf="formErrors.mmid">
+                        {{ formErrors.mmid }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Address 1</label>
+                      <input
+                        type="text"
+                        formControlName="add1"
+                        placeholder="Enter address 1"
+                      />
+                      <p *ngIf="formErrors.add1">
+                        {{ formErrors.add1 }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Address 2</label>
+                      <input
+                        type="text"
+                        formControlName="add2"
+                        placeholder="Enter address 2"
+                      />
+                      <p *ngIf="formErrors.add2">
+                        {{ formErrors.add2}}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>State</label>
+                      <input
+                        type="text"
+                        formControlName="state"
+                        placeholder="Enter state"
+                      />
+                      <p *ngIf="formErrors.state">
+                        {{ formErrors.state }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>City</label>
+                      <input
+                        type="text"
+                        formControlName="city"
+                        placeholder="Enter city"
+                      />
+                      <p *ngIf="formErrors.city">
+                        {{ formErrors.city }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Zip</label>
+                      <input
+                        type="text"
+                        formControlName="zip"
+                        placeholder="Enter zip"
+                      />
+                      <p *ngIf="formErrors.zip">
+                        {{ formErrors.zip }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Country</label>
+                      <input
+                        type="text"
+                        formControlName="country"
+                        placeholder="Enter country"
+                      />
+                      <p *ngIf="formErrors.country">
+                        {{ formErrors.country }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Contact</label>
+                      <input
+                        type="text"
+                        formControlName="contact"
+                        placeholder="Enter contact"
+                      />
+                      <p *ngIf="formErrors.contact">
+                        {{ formErrors.contact }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Email</label>
+                      <input
+                        type="text"
+                        formControlName="email"
+                        placeholder="Enter email"
+                      />
+                      <p *ngIf="formErrors.email">
+                        {{ formErrors.email }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                </div>
+              </form>
+              <!--.row-->
+              <div class="row mt-5">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+                <div class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="addBCCorr()">
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+      <!-- ===========footer section start========= -->
+      <div class="sticky-actions-spacer"></div>
+      <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+        <div class="tinymodal-overlay"></div>
+        <!--.tinymodal-overlay-->
+
+        <!--.tinymodal-->
+      </div>
+      <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

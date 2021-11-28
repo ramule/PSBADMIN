@@ -1,0 +1,42 @@
+
+.tiny-modal1 .tinymodal-1{
+    overflow-y: scroll !important;
+      width: 800px;
+      height: 400px;
+      top: 15%;
+      left: 40%;
+  }
+  .tinymodal-1 .close img{
+    width: 15px;
+  }
+  @media (max-width: 768px){
+      .tiny-modal1 .tinymodal-1 {
+          left: 30%;
+      }
+  }
+  @media (max-width: 480px){
+      .tiny-modal1 .tinymodal-1 {
+          width: 300px;
+          left: 50%;
+      }
+  }
+
+  .red{
+    width: 80%;
+    height: 34px;
+    background-color: red;
+    color: #fff;
+    font-size: 10px;
+    inline-size: auto;
+  }
+
+  .green{
+    width: 80%;
+    height: 34px;
+    background: transparent linear-gradient(
+90deg
+, #629A04 0%, #007C3D 100%) 0% 0% no-repeat;
+    color: #fff;
+    font-size: 10px;
+    inline-size: auto;
+  }

@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Edit Language</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <form [formGroup]="configLanguageForm">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>English Text</label>
+                        <input
+                          type="text"
+                          formControlName="englishText"
+                          placeholder="Enter English Text"
+                          limit-to="40"
+                        />
+                        <p *ngIf="formErrors.englishText">
+                          {{ formErrors.englishText }}
+                        </p>
+                        <p
+                          *ngIf="
+                            configLanguageForm.get('englishText').touched &&
+                            configLanguageForm.get('englishText').value != '' &&
+                            configLanguageForm.get('englishText').invalid
+                          "
+                        >
+                          * Invalid English Text
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Language</label>
+                        <select formControlName="languagecode">
+                          <option value="">Select Language</option>
+                          <option
+                            [value]="
+                              item.languagecode + '-' + item.languagecodedesc
+                            "
+                            *ngFor="let item of languageArray"
+                          >
+                            {{ item.languagecodedesc }}
+                          </option>
+                        </select>
+                        <p *ngIf="formErrors.languagecode">
+                          {{ formErrors.languagecode }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Language Text</label>
+                        <input
+                          type="text"
+                          formControlName="languageText"
+                          placeholder="Language Text"
+                        />
+                        <p *ngIf="formErrors.languageText">
+                          {{ formErrors.languageText }}
+                        </p>
+                        <p
+                          *ngIf="
+                            configLanguageForm.get('languageText').touched &&
+                            configLanguageForm.get('languageText').value !=
+                              '' &&
+                            configLanguageForm.get('languageText').invalid
+                          "
+                        >
+                          * Invalid Language Text
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+                    <!-- <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Status</label>
+                        <select formControlName="isActive">
+                          <option value="3">Active</option>
+                          <option value="0">Inactive</option>
+                        </select>
+                        <p *ngIf="formErrors.isActive">
+                          {{ formErrors.isActive }}
+                        </p>
+                      </div>
+                    </div> -->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Status</label>
+                        <select formControlName="isActive">
+                          <option value="" selected>Select Status</option>
+                          <option
+                            *ngFor="let status of filterStatus(); index as i"
+                            [value]="status.id"
+                          >
+                            {{ status.shortName | titlecase }}
+                          </option>
+                        </select>
+                        <p *ngIf="formErrors.isActive">
+                          {{ formErrors.isActive }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+
+                    <!-- <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Channel Name</label>
+                      <select id="sl_Product" formControlName="productType">
+                        <option value="">Select Channel Name</option>
+                        <option
+                          *ngFor="let product of this.productTypes; index as i"
+                          [value]="product.id"
+                        >
+                          {{ product.shortName | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.productType">
+                        {{ formErrors.productType }}
+                      </p>
+                    </div>
+                  </div> -->
+                    <!--.col-12-->
+                  </div>
+                </form>
+                <!--.row-->
+                <div class="row">
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="gotoLangPage()">
+                      Cancel
+                    </button>
+                  </div>
+                  <div
+                    class="col-6 col-lg-2"
+                    *ngIf="
+                      this.commonData.roleType != this.commonData.makerRole
+                    "
+                  >
+                    <button class="ux-button primary" (click)="update()">
+                      Update
+                    </button>
+                  </div>
+                  <div
+                    *ngIf="
+                      this.commonData.roleType == this.commonData.makerRole
+                    "
+                    class="col-6 col-lg-2"
+                  >
+                    <button
+                      class="ux-button primary"
+                      (click)="
+                        openActionModel('remarkField', configLanguageForm.value)
+                      "
+                    >
+                      Update
+                    </button>
+                  </div>
+                  <!--.col-xs-12-->
+                </div>
+                <!--Datatable for remark history-->
+                <div class="row mt-3">
+                  <div class="col-12 mb-0">
+                    <div class="datatable-box">
+                      <div class="table-responsive">
+                        <table id="dt-sample" class="table display table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">Sr. No.</th>
+                              <th scope="col">Created On</th>
+                              <th scope="col">Created By</th>
+                              <th scope="col">Remark</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              *ngFor="
+                                let item of remarkHistoryArr;
+                                let i = index
+                              "
+                            >
+                              <td>{{ i + 1 }}</td>
+                              <td>
+                                {{
+                                  item.createdon == null || item.createdon == ""
+                                    ? "-"
+                                    : (item.createdon | date: "yyyy-MM-dd")
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.createdByName == null ||
+                                  item.createdByName == ""
+                                    ? "-"
+                                    : item.createdByName
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.remarks == null || item.remarks == ""
+                                    ? "-"
+                                    : item.remarks
+                                }}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!--.table-responsivebox-->
+                    </div>
+                    <!--.datatable-box-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+      <div class="tinymodal-overlay"></div>
+      <!--.tinymodal-overlay-->
+      <div class="tinymodal">
+        <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+          <form [formGroup]="remarkForm">
+            <div class="row">
+              <div class="col-12 px-0 mt-2">
+                <div class="ux-input input-error">
+                  <textarea
+                    formControlName="remark"
+                    placeholder="Enter Remark"
+                  ></textarea>
+                  <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-6">
+                <button class="ux-button" (click)="closeActionMoel()">
+                  Cancel
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  class="ux-button primary"
+                  (click)="updateMasterLocationWithRemark(remarkForm.value)"
+                >
+                  OK
+                </button>
+              </div>
+              <!--.col-xs-12-->
+            </div>
+          </form>
+        </div>
+        <!--.tinymodal-content-->
+      </div>
+      <!--.tinymodal-->
+    </div>
+    <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

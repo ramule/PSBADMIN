@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<div lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Country</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <!-- navigation menu container start -->
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- global-header -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <!-- ========== body section start ========= -->
+
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+              <div class="main-content">
+                <form [formGroup]="activeDirectoryForm">
+                  <div class="row">
+                    <div class="col-12 col-lg-6 mt-4">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Search Active Directory User</label>
+                        <input type="text" formControlName="searchVal"
+                          placeholder="Enter Active Directory Username" />
+                        <p *ngIf="formErrors.searchVal">
+                          {{ formErrors.searchVal }}
+                        </p>
+                      </div>
+                    </div>
+                    <div class="col-6 col-lg-2 mt-5 offset-6 offset-lg-4">
+                      <button class="ux-button primary" type="submit" (click)="onSubmit()">
+                        Search
+                      </button>
+                    </div>
+                  </div>
+                </form>
+                <!--form-->
+
+                <div *ngIf="activeDirUsersArr.length > 0" class="row mt-3">
+                  <div class="col-12 mb-0">
+                    <div class="datatable-box">
+                      <div class="table-responsive">
+                        <table id="dt-sample" class="table display table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">Sr. No.</th>
+                              <th scope="col">Common Name</th>
+                              <th scope="col">Email Id</th>
+                              <th scope="col">SN</th>
+                              <th scope="col">Designation</th>
+                              <th scope="col">SAM Account Name</th>
+                              <th scope="col">Account Type</th>
+                              <th scope="col" class="notexport">Action</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="
+                                let item of activeDirUsersArr;
+                                let i = index
+                              ">
+                              <td>{{ i + 1 }}</td>
+                              <td>
+                                {{
+                                  item.cn == "" || item.cn == null
+                                    ? "-"
+                                    : item.cn
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.mail == "" || item.mail == null
+                                    ? "-"
+                                    : item.mail
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.sn == "" || item.sn == null
+                                    ? "-"
+                                    : item.sn
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.title == "" || item.title == null
+                                    ? "-"
+                                    : item.title
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.sAMAccountName == "" ||
+                                  item.sAMAccountName == null
+                                    ? "-"
+                                    : item.sAMAccountName
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.sAMAccountType == "" ||
+                                  item.sAMAccountType == null
+                                    ? "-"
+                                    : item.sAMAccountType
+                                }}
+                              </td>
+                              <td>
+                                <button class="ux-button primary" (click)="add(item)">
+                                  Add
+                                </button>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!--.table-responsivebox-->
+                    </div>
+                    <!--.datatable-box-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+
+    <div class="vspacer20"></div>
+    <!--.vspacer20-->
+    <!-- ===========footer section start========= -->
+    <div class="footer-container sticky-actions">
+      <div class="footer-inactions">
+        <div class="container">
+          <div class="row"></div>
+          <!--.row-->
+        </div>
+        <!--.container-->
+      </div>
+      <!-- footer-inactions -->
+    </div>
+    <!--.footer-container-->
+    <div class="sticky-actions-spacer"></div>
+    <!-- ==============footer section end============ -->
+  </body>
+</div>

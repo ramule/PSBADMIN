@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Edit Location</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <!--.global-nav-->
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+              <h4>{{commonServiceCall.pageName}}</h4>
+            </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <!-- load form -->
+                <form [formGroup]="configLocationForm">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Location Type</label>
+                        <select formControlName="locType">
+                          <option value="">Select Location Type</option>
+                          <option
+                            *ngFor="
+                              let item of filterLocationType();
+                              index as i
+                            "
+                            [value]="item.id"
+                          >
+                            {{ item.locationType | titlecase }}
+                          </option>
+                        </select>
+                        <p *ngIf="formErrors.locType">
+                          {{ formErrors.locType }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Channel Name</label>
+                        <select id="sl_Product" formControlName="productType">
+                          <option value="">Select Channel Name</option>
+                          <option
+                            *ngFor="let product of this.productTypes; index as i"
+                            [value]="product.id"
+                          >
+                            {{ product.shortName | titlecase }}
+                          </option>
+                        </select>
+                        <p *ngIf="formErrors.productType">
+                          {{ formErrors.productType }}
+                        </p>
+                      </div>
+                    </div>
+                    <!--.col-12-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Display Name</label>
+                        <input
+                          type="text"
+                          formControlName="displayName"
+                          placeholder="Enter Display Name"
+                        />
+                        <p *ngIf="formErrors.displayName">
+                          {{ formErrors.displayName }}
+                        </p>
+                        <p
+                          *ngIf="
+                            configLocationForm.get('displayName').touched &&
+                            configLocationForm.get('displayName').value != '' &&
+                            configLocationForm.get('displayName').invalid
+                          "
+                        >
+                          * Invalid display name
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Email Id</label>
+                        <input
+                          type="text"
+                          formControlName="emailId"
+                          placeholder="Enter Email Id"
+                        />
+                        <p *ngIf="formErrors.emailId">
+                          {{ formErrors.emailId }}
+                        </p>
+                        <p
+                          *ngIf="
+                            configLocationForm.get('emailId').touched &&
+                            configLocationForm.get('emailId').invalid &&
+                            configLocationForm.get('emailId').value != ''
+                          "
+                        >
+                          * The email address is invalid
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Landline Number</label>
+                        <input
+                          type="tel"
+                          limit-to="10"
+                          formControlName="mobile"
+                          placeholder="Enter Landline Number"
+                        />
+                        <p *ngIf="formErrors.mobile">{{ formErrors.mobile }}</p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Address</label>
+                        <input
+                          type="text"
+                          formControlName="address"
+                          placeholder="Enter Address"
+                        />
+                        <p *ngIf="formErrors.address">
+                          {{ formErrors.address }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Branch Code</label>
+                        <input
+                          type="text"
+                          limit-to="11"
+                          formControlName="branchCode"
+                          placeholder="Enter Branch Code"
+                        />
+                        <p *ngIf="formErrors.branchCode">
+                          {{ formErrors.branchCode }}
+                        </p>
+                        <p
+                          *ngIf="
+                            configLocationForm.get('branchCode').touched &&
+                            configLocationForm.get('branchCode').invalid &&
+                            configLocationForm.get('branchCode').value != ''
+                          "
+                        >
+                          * Invalid Branch Code
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Latitude</label>
+                        <input
+                          type="text"
+                          formControlName="latitude"
+                          placeholder="Enter Latitude"
+                          limit-to="10"
+                        />
+                        <p *ngIf="formErrors.latitude">
+                          {{ formErrors.latitude }}
+                        </p>
+                        <p
+                          *ngIf="
+                            configLocationForm.get('latitude').touched &&
+                            configLocationForm.get('latitude').invalid &&
+                            configLocationForm.get('latitude').value != ''
+                          "
+                        >
+                          * Invalid latitude value
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Longitude</label>
+                        <input
+                          type="text"
+                          formControlName="longitude"
+                          placeholder="Enter Longitude"
+                          limit-to="10"
+                        />
+                        <p *ngIf="formErrors.longitude">
+                          {{ formErrors.longitude }}
+                        </p>
+                        <p
+                          *ngIf="
+                            configLocationForm.get('longitude').touched &&
+                            configLocationForm.get('longitude').invalid &&
+                            configLocationForm.get('longitude').value != ''
+                          "
+                        >
+                          * Invalid longitude value
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Postal Code</label>
+                        <input
+                          type="text"
+                          limit-to="6"
+                          formControlName="postCode"
+                          placeholder="Enter Post Code"
+                        />
+                        <p *ngIf="formErrors.postCode">
+                          {{ formErrors.postCode }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Language</label>
+                        <select type="text" formControlName="langCode">
+                          <option value="">Select Language</option>
+                          <option value="en">English</option>
+                          <option value="hn">Hindi</option>
+                          <option value="mr">Marathi</option>
+                          <option value="lo">Laosian</option>
+                        </select>
+                        <p *ngIf="formErrors.langCode">
+                          {{ formErrors.langCode }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Country</label>
+                        <select
+                          formControlName="country"
+                          (change)="onCountryChange($event)"
+                        >
+                          <option value="">Select Country</option>
+                          <option
+                            *ngFor="let item of country; index as i"
+                            [value]="item.countryId"
+                          >
+                            {{ item.countryName | titlecase }}
+                          </option>
+                        </select>
+                        <p *ngIf="formErrors.country">
+                          {{ formErrors.country }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>State</label>
+                        <select
+                          formControlName="state"
+                          (change)="onCityChange($event)"
+                        >
+                          <option value="">Select State</option>
+                          <option
+                            *ngFor="let state of states; index as i"
+                            [value]="state.stateId"
+                          >
+                            {{ state.stateName | titlecase }}
+                          </option>
+                        </select>
+                        <p *ngIf="formErrors.state">{{ formErrors.state }}</p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>City</label>
+                        <select formControlName="city">
+                          <option value="">Select City</option>
+                          <option
+                            *ngFor="let item of city; index as i"
+                            [value]="item.cityId"
+                          >
+                            {{ item.cityName | titlecase }}
+                          </option>
+                        </select>
+                        <p *ngIf="formErrors.city">{{ formErrors.city }}</p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label><span class="mandatory">* </span>Status</label>
+                        <select formControlName="status">
+                          <option value="">Select Status</option>
+                          <option
+                            *ngFor="let item of filterStatus(); index as i"
+                            [value]="item.id"
+                          >
+                            {{ item.shortName | titlecase }}
+                          </option>
+                        </select>
+                        <p *ngIf="formErrors.status">{{ formErrors.status }}</p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-6-->
+                  </div>
+                  <!--.row-->
+                </form>
+                <div class="row">
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="gotoMasterLoc()">
+                      Cancel
+                    </button>
+                  </div>
+                  <div
+                    class="col-6 col-lg-2"
+                    *ngIf="
+                      this.commonData.roleType != this.commonData.makerRole
+                    "
+                  >
+                    <button class="ux-button primary" (click)="update()">
+                      Update
+                    </button>
+                  </div>
+                  <div
+                    *ngIf="
+                      this.commonData.roleType == this.commonData.makerRole
+                    "
+                    class="col-6 col-lg-2"
+                  >
+                    <button
+                      class="ux-button primary"
+                      (click)="
+                        openActionModel('remarkField', configLocationForm.value)
+                      "
+                    >
+                      Update
+                    </button>
+                  </div>
+                  <!--.col-xs-12-->
+                </div>
+                <!--.row-->
+
+                <!--Datatable for remark history-->
+                <div class="row mt-3">
+                  <div class="col-12 mb-0">
+                    <div class="datatable-box">
+                      <div class="table-responsive">
+                        <table id="dt-sample" class="table display table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">Sr. No.</th>
+                              <th scope="col">Created On</th>
+                              <th scope="col">Created By</th>
+                              <th scope="col">Remark</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr
+                              *ngFor="
+                                let item of remarkHistoryArr;
+                                let i = index
+                              "
+                            >
+                              <td>{{ i + 1 }}</td>
+                              <td>
+                                {{
+                                  item.createdon == null || item.createdon == ""
+                                    ? "-"
+                                    : (item.createdon | date: "yyyy-MM-dd")
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.createdByName == null ||
+                                  item.createdByName == ""
+                                    ? "-"
+                                    : item.createdByName
+                                }}
+                              </td>
+                              <td>
+                                {{
+                                  item.remarks == null || item.remarks == ""
+                                    ? "-"
+                                    : item.remarks
+                                }}
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!--.table-responsivebox-->
+                    </div>
+                    <!--.datatable-box-->
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+      <div class="tinymodal-overlay"></div>
+      <!--.tinymodal-overlay-->
+      <div class="tinymodal">
+        <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+          <form [formGroup]="remarkForm">
+            <div class="row">
+              <div class="col-12 px-0 mt-2">
+                <div class="ux-input input-error">
+                  <textarea
+                    formControlName="remark"
+                    placeholder="Enter Remark"
+                  ></textarea>
+                  <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+                </div>
+              </div>
+            </div>
+            <div class="row mt-5">
+              <div class="col-6">
+                <button class="ux-button" (click)="closeActionMoel()">
+                  Cancel
+                </button>
+              </div>
+              <div class="col-6">
+                <button
+                  class="ux-button primary"
+                  (click)="updateCalculatorFormulaWithRemark(remarkForm.value)"
+                >
+                  OK
+                </button>
+              </div>
+              <!--.col-xs-12-->
+            </div>
+          </form>
+        </div>
+        <!--.tinymodal-content-->
+      </div>
+      <!--.tinymodal-->
+    </div>
+    <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

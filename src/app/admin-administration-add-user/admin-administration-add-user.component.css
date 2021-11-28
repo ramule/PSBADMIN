@@ -1,0 +1,11 @@
+.edit-prof{
+  position: relative;
+}
+
+.remove-doc{
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  color: red;
+}
+

@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Access SubMenu Rights</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <!--.global-nav-->
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <!-- ======== header section start ========== -->
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+            <div class="main-content">
+              <div class="row">
+                <div class="col-6">
+                  <div class="ux-input input-error">
+                    <label>Roles</label>
+                    <select (change)="onRoleChange($event.target.value)">
+                      <option value="">Select Role</option>
+                      <option *ngFor="let item of roles; index as i" [value]="item.roleType">
+                        {{ item.name | titlecase }}
+                      </option>
+                    </select>
+                    <p *ngIf="roleError">Please select role</p>
+                  </div>
+                </div>
+                <!--.col-12-->
+              </div>
+              <!--.row-->
+
+              <div class="row mt-3" [hidden]="!showTable">
+                <div class="col-12 mb-0">
+                  <div class="datatable-box">
+                    <div class="table-responsive">
+                      <table id="dt-sample" class="table display table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Menu Name</th>
+                            <th scope="col">
+                              View
+                              <div class="ux-selection" (click)="select('view')">
+                                <label>
+                                  <input type="checkbox" id="viewCheckBox" name="radioboxdemo" />
+                                </label>
+                              </div>
+                            </th>
+                            <th scope="col">
+                              Create
+                              <div class="ux-selection" (click)="select('create')">
+                                <label>
+                                  <input id="createCheckBox" type="checkbox" name="radioboxdemo" />
+                                </label>
+                              </div>
+                            </th>
+                            <th scope="col">
+                              Update
+                              <div class="ux-selection" (click)="select('update')">
+                                <label>
+                                  <input id="updateCheckBox" type="checkbox" name="radioboxdemo" />
+                                </label>
+                              </div>
+                            </th>
+                            <th scope="col">
+                              Delete
+                              <div class="ux-selection" (click)="select('delete')">
+                                <label>
+                                  <input id="deleteCheckBox" type="checkbox" name="radioboxdemo" />
+                                </label>
+                              </div>
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let menu of finalSidemenuArr; index as i">
+                            <td>{{ menu.menuDescription | titlecase }}</td>
+                            <td>
+                              <div class="ux-selection">
+                                <label>
+                                  <input type="checkbox" name="radioboxdemo" [(ngModel)]="menu.isViewChecked"
+                                    [ngModelOptions]="{ standalone: true }" />
+                                </label>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ux-selection">
+                                <label>
+                                  <input [disabled]="
+                                        menu.id === 69 ||
+                                        menu.id === 31 ||
+                                        menu.id === 7 ||
+                                        menu.id === 19 ||
+                                        menu.id === 47 ||
+                                        menu.id === 9 ||
+                                        menu.id === 46 ||
+                                        menu.id === 66 ||
+                                        menu.id === 15 ||
+                                        menu.id === 200 ||
+                                        menu.id === 1 ||
+                                        menu.id === 17 ||
+                                        menu.id === 1410 ||
+                                        menu.id === 1412 ||
+                                        menu.id === 1415 ||
+                                        menu.id === 1433 ||
+                                        menu.id === 55 ||
+                                        menu.id === 28 ||
+                                        menu.id === 1447 ||
+                                        menu.id === 1456 ||
+                                        menu.id === 1459 ||
+                                        menu.id === 1461 ||
+                                        menu.id === 1462 ||
+                                        menu.id === 1463 ||
+                                        menu.id === 1465 ||
+                                        menu.id === 1475 ||
+                                        menu.id === 1476 ||
+                                        menu.id === 1477 ||
+                                        menu.id === 1478 ||
+                                        menu.id === 1479 ||
+                                        menu.id === 1480 ||
+                                        menu.id === 1481 ||
+                                        menu.id === 1482 ||
+                                        menu.id === 1483 ||
+                                        menu.id === 1490 ||
+                                        menu.id === 5703
+                                          ? true
+                                          : false
+                                      " type="checkbox" name="radioboxdemo" [(ngModel)]="menu.isCreateChecked"
+                                    [ngModelOptions]="{ standalone: true }" />
+                                </label>
+                                <p class="ptag" [hidden]="
+                                      menu.id === 69 ||
+                                      menu.id === 31 ||
+                                      menu.id === 7 ||
+                                      menu.id === 19 ||
+                                      menu.id === 47 ||
+                                      menu.id === 9 ||
+                                      menu.id === 46 ||
+                                      menu.id === 66 ||
+                                      menu.id === 15 ||
+                                      menu.id === 200 ||
+                                      menu.id === 1 ||
+                                      menu.id === 17 ||
+                                      menu.id === 1410 ||
+                                      menu.id === 1412 ||
+                                      menu.id === 1415 ||
+                                      menu.id === 1433 ||
+                                      menu.id === 55 ||
+                                      menu.id === 28 ||
+                                      menu.id === 1447 ||
+                                      menu.id === 1456 ||
+                                      menu.id === 1459 ||
+                                      menu.id === 1461 ||
+                                      menu.id === 1462 ||
+                                      menu.id === 1463 ||
+                                      menu.id === 1465 ||
+                                      menu.id === 1475 ||
+                                      menu.id === 1476 ||
+                                      menu.id === 1477 ||
+                                      menu.id === 1478 ||
+                                      menu.id === 1479 ||
+                                      menu.id === 1480 ||
+                                      menu.id === 1481 ||
+                                      menu.id === 1482 ||
+                                      menu.id === 1483 ||
+                                      menu.id === 1490 ||
+                                      menu.id === 5703
+                                        ? false
+                                        : true
+                                    ">
+                                  N/A
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ux-selection">
+                                <label>
+                                  <input [disabled]="
+                                        menu.id === 69 ||
+                                        menu.id === 7 ||
+                                        menu.id === 19 ||
+                                        menu.id === 1 ||
+                                        menu.id === 53 ||
+                                        menu.id === 1415 ||
+                                        menu.id === 1418 ||
+                                        menu.id === 51 ||
+                                        menu.id === 1433 ||
+                                        menu.id === 1461 ||
+                                        menu.id === 1463 ||
+                                        menu.id === 1465 ||
+                                        menu.id === 1475 ||
+                                        menu.id === 1476 ||
+                                        menu.id === 1477 ||
+                                        menu.id === 1478 ||
+                                        menu.id === 1480 ||
+                                        menu.id === 1481 ||
+                                        menu.id === 1482 ||
+                                        menu.id === 1483 ||
+                                        menu.id === 1490
+                                          ? true
+                                          : false
+                                      " type="checkbox" name="radioboxdemo" [(ngModel)]="menu.isUpdateChecked"
+                                    [ngModelOptions]="{ standalone: true }" />
+                                </label>
+                                <p class="ptag" [hidden]="
+                                      menu.id === 69 ||
+                                      menu.id === 7 ||
+                                      menu.id === 19 ||
+                                      menu.id === 1 ||
+                                      menu.id === 53 ||
+                                      menu.id === 1415 ||
+                                      menu.id === 1418 ||
+                                      menu.id === 51 ||
+                                      menu.id === 1433 ||
+                                      menu.id === 1461 ||
+                                      menu.id === 1463 ||
+                                      menu.id === 1465 ||
+                                      menu.id === 1475 ||
+                                      menu.id === 1476 ||
+                                      menu.id === 1477 ||
+                                      menu.id === 1478 ||
+                                      menu.id === 1480 ||
+                                      menu.id === 1481 ||
+                                      menu.id === 1482 ||
+                                      menu.id === 1483 ||
+                                      menu.id === 1490
+                                        ? false
+                                        : true
+                                    ">
+                                  N/A
+                                </p>
+                              </div>
+                            </td>
+                            <td>
+                              <div class="ux-selection">
+                                <label>
+                                  <input [disabled]="
+                                        menu.id === 3 ||
+                                        menu.id === 67 ||
+                                        menu.id === 68 ||
+                                        menu.id === 66 ||
+                                        menu.id === 43 ||
+                                        menu.id === 49 ||
+                                        menu.id === 1457 ||
+                                        menu.id === 1460 ||
+                                        menu.id === 1464 ||
+                                        menu.id === 1466 ||
+                                        menu.id === 1467 ||
+                                        menu.id === 1468 ||
+                                        menu.id === 1469 ||
+                                        menu.id === 1470 ||
+                                        menu.id === 1471
+                                          ? false
+                                          : true
+                                      " type="checkbox" name="radioboxdemo" [(ngModel)]="menu.isDeleteChecked"
+                                    [ngModelOptions]="{ standalone: true }" />
+                                </label>
+                                <p class="ptag" [hidden]="
+                                      menu.id === 3 ||
+                                      menu.id === 67 ||
+                                      menu.id === 68 ||
+                                      menu.id === 66 ||
+                                      menu.id === 43 ||
+                                      menu.id === 49 ||
+                                      menu.id === 1457 ||
+                                      menu.id === 1460 ||
+                                      menu.id === 1464 ||
+                                      menu.id === 1466 ||
+                                      menu.id === 1467 ||
+                                      menu.id === 1468 ||
+                                      menu.id === 1469 ||
+                                      menu.id === 1470 ||
+                                      menu.id === 1471
+                                        ? true
+                                        : false
+                                    ">
+                                  N/A
+                                </p>
+                              </div>
+                            </td>
+                            <!-- <td>
+                              <div class="ux-selection">
+                                <label>
+                                  <input type="checkbox" name="radioboxdemo" [(ngModel)]="menu.isRejectChecked" [ngModelOptions]="{standalone: true}" >
+                                </label>
+                              </div>
+                            </td> -->
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!--.table-responsivebox-->
+                  </div>
+                  <!--.datatable-box-->
+                </div>
+              </div>
+
+              <div class="row mt-5" *ngIf="showTable">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+                <div class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="saveMenuDetails()">
+                    Save
+                  </button>
+                </div>
+                <!--.col-xs-12-->
+              </div>
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+
+  <!-- ==============footer section end============ -->
+</body>
+
+</html>

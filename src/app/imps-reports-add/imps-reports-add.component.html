@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Add Reward Points</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <app-header></app-header>
+
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+                <h4>{{ commonServiceCall.pageName }}</h4>
+              </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <!-- load form -->
+                <form [formGroup]="reportsAddForm">
+                  <div class="row">
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Reports Category</label>
+                        <select id="sl_category" formControlName="category">
+                          <option value="">Select Reports Category</option>
+                          <option
+                            *ngFor="let category of reportCategoryMaster"
+                            [value]="category.id"
+                          >
+                            {{ category.title }}
+                          </option>
+                        </select>
+                        <p *ngIf="formErrors.category">
+                          {{ formErrors.category }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Name</label>
+                        <input
+                          type="text"
+                          formControlName="name"
+                          placeholder="Enter name"
+                        />
+                        <p *ngIf="formErrors.name">
+                          {{ formErrors.name }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Title</label>
+                        <input
+                          type="text"
+                          formControlName="title"
+                          placeholder="Enter title"
+                        />
+                        <p *ngIf="formErrors.title">
+                          {{ formErrors.title }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Query</label>
+                        <textarea
+                          rows="1"
+                          placeholder="Enter query"
+                          formControlName="query"
+                        ></textarea>
+                        <p *ngIf="formErrors.query">
+                          {{ formErrors.query }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Sub Title Template</label>
+                        <input
+                          type="text"
+                          placeholder="Enter sub title template"
+                          formControlName="sub_title_temp"
+                        />
+                        <p *ngIf="formErrors.sub_title_temp">
+                          {{ formErrors.sub_title_temp }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>File Name Template</label>
+                        <input
+                          type="text"
+                          placeholder="Enter file name template"
+                          formControlName="file_name_temp"
+                        />
+                        <p *ngIf="formErrors.file_name_temp">
+                          {{ formErrors.file_name_temp }}
+                        </p>
+                      </div>
+                      <!--.ux-input-->
+                    </div>
+                  </div>
+                </form>
+                <!--.row-->
+                <div class="row mt-5">
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="cancel()">Cancel</button>
+                  </div>
+                  <div class="col-6 col-lg-2">
+                    <button class="ux-button primary" (click)="addReports()">
+                      Save
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <div class="tiny-modal1 tm-rounded" id="tm-favouriteconfirm">
+      <div class="tinymodal-overlay"></div>
+      <!--.tinymodal-overlay-->
+
+      <!--.tinymodal-->
+    </div>
+    <!-- ==============footer section end============ -->
+
+    <script src="js/lib/jquery.min.js"></script>
+    <script src="js/lib/bootstrap.min.js"></script>
+    <script src="js/common.js"></script>
+  </body>
+</html>

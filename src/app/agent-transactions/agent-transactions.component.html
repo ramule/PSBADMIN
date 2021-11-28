@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>Transactions Details</title>
+
+</head>
+
+<body>
+
+	<div class="main">
+		<app-navmenu></app-navmenu>
+		<div class="nav-overlay"></div>
+		<!--.nav-overlay-->
+		<!-- navigation menu container end -->
+
+		<div class="right-main-column">
+			<div class="right-col-container full-width">
+				<!-- ======== header section start ========== -->
+				<app-header></app-header>
+				<!-- ======== header section end ========== -->
+				<!-- ======== body page content start from here ======== -->
+				<div class="body-page-container">
+					<div class="vspacer10"></div>
+					<!--.vspacer10-->
+					<div class="device-page-titles d-none d-md-none d-lg-block">
+						<div class="in-header">
+							<div class="header-icons-lft">
+								<div class="header-actions">
+
+									<div class="head-page-title">
+										<h5>Transactions Details</h5>
+									</div>
+								</div>
+								<!--.header-actions-->
+							</div>
+							<!--.header-icons-lft-->
+							<div class="header-icons-rit">
+								<div class="header-actions">
+									<!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+
+								</div>
+								<!--.header-actions-->
+							</div>
+							<!--.header-icons-rit-->
+						</div> <!-- in-header -->
+					</div> <!-- device-page-titles -->
+					<div class="container">
+
+
+
+						<!-- load form -->
+						<form [formGroup]="agentTransactionForm">
+							<div class="row">
+
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Mobile number</label>
+										<input type="text" formControlName="mobileNo" placeholder="Enter mobile number">
+										<p *ngIf="formErrors.mobileNo">{{ formErrors.mobileNo }}</p>
+									</div>
+									<!--.ux-input-->
+									<!--.ux-input-->
+								</div>
+								<!--.col-6-->
+								<div class="col-6">
+									<div class="ux-input input-error">
+										<label>Currency</label>
+										<select formControlName="currency">
+											<option value="">Select currency</option>
+											<option value="LAK">LAK</option>
+											<option value="INR">INR</option>
+										</select>
+										<p *ngIf="formErrors.currency">{{ formErrors.currency }}</p>
+									</div>
+									<!--.ux-input-->
+								</div>
+								<!--.col-6-->
+
+
+							</div>
+						</form>
+						<!--.row-->
+						<div class="row">
+							<div class="col-12">
+								<button class="ux-button primary" (click)="getTranscationDtl()">Submit</button>
+							</div>
+							<!--.col-xs-12-->
+						</div>
+						<!--.row-->
+
+						<div class="row mt-3" *ngIf="agentTransaction.length > 0">
+							<div class="col-12 mb-0">
+								<div class="datatable-box">
+									<div class="table-responsive">
+										<table id="dt-sample" class="table display table-hover">
+											<thead>
+												<tr>
+													<th scope="col"> Sr. No. </th>
+													<th scope="col"> Agent Name
+													</th>
+													<th scope="col"> Mobile number
+													</th>
+													<th scope="col"> Form Account
+													</th>
+													<th scope="col"> Reference Number
+													</th>
+													<th scope="col"> Transaction Date
+													</th>
+													<th scope="col"> To Account
+													</th>
+													<th scope="col"> Transaction Amount
+													</th>
+													<th scope="col"> Balance
+													</th>
+													<th scope="col"> Remark
+													</th>
+													<th scope="col"> Currency
+													</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr
+													*ngFor="let item of agentTransaction | paginate: { itemsPerPage: 7, currentPage: p }; let i=index">
+													<td>{{i}}</td>
+													<td>{{item.agentName}}</td>
+													<td>{{item.MobileNo}}</td>
+													<td>{{item.fromAccount}}</td>
+													<td>{{item.refNo}}</td>
+													<td>{{item.transactionDate}}</td>
+													<td>{{item.toAccount}}</td>
+													<td>{{item.transAccount}}</td>
+													<td>{{item.balance}}</td>
+													<td>{{item.remark}}</td>
+													<td>{{item.currency}}</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<pagination-controls (pageChange)="p = $event"></pagination-controls>
+									<!--.table-responsivebox-->
+								</div>
+								<!--.datatable-box-->
+							</div>
+
+						</div>
+
+
+
+
+
+
+					</div>
+					<!--.container-->
+				</div>
+				<!--.body-page-container-->
+				<!-- added new -->
+			</div>
+			<!--.right-col-container-->
+			<!-- added new -->
+		</div>
+		<!--.right-main-column-->
+		<!-- added new -->
+	</div>
+	<!--.main-->
+	<!-- ===========footer section start========= -->
+	<div class="sticky-actions-spacer"></div>
+	<!-- ==============footer section end============ -->
+
+	<script src="js/lib/jquery.min.js"></script>
+	<script src="js/lib/bootstrap.min.js"></script>
+	<script src="js/common.js"></script>
+
+
+</body>

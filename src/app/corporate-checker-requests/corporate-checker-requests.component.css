@@ -1,0 +1,50 @@
+input[type=checkbox]:disabled
+{
+    opacity:0.4;
+}
+
+button:disabled
+{
+    opacity:0.4;
+}
+.datatable-box{
+    overflow-y: auto !important;
+}
+.ux-selection{
+    width:80px !important;
+}
+.tiny-modal1 .tinymodal-1{
+  overflow-y: scroll !important;
+    width: 800px;
+    height: 400px;
+    top: 15%;
+    left: 35%;
+}
+.tinymodal-1 .close img{
+  width: 15px;
+}
+@media (max-width: 768px){
+    .tiny-modal1 .tinymodal-1 {
+        left: 30%;
+    }
+}
+@media (max-width: 480px){
+    .tiny-modal1 .tinymodal-1 {
+        width: 300px;
+        left: 50%;
+    }
+}
+
+.correct-icon{
+  font-size: 30px;
+  color: green;
+  display: inline-block;
+  float: left;
+  margin-right: 5px;
+}
+.cross-icon{
+  font-size: 30px;
+  color: red;
+  display: inline-block;
+
+}

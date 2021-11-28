@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Access SubMenu Rights</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <!--.global-nav-->
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                <div class="row" *ngIf="priviledgeDataArr.viewChecked">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Company Name</label>
+                      <select (change)="onCompanyChange($event)">
+                        <option value="">Select Company Name</option>
+                        <option
+                          *ngFor="let item of masterCompany; index as i"
+                          [value]="item.id + '-' + item.approvalLevel"
+                        >
+                          {{ item.companyName | titlecase }}
+                        </option>
+                      </select>
+                    </div>
+                  </div>
+                  <!--.col-12-->
+                </div>
+                <!--.row-->
+
+                <div class="row mt-3" *ngIf="activityMaster.length > 0">
+                  <div class="col-12 mb-0">
+                    <div class="datatable-box">
+                      <div class="table-responsive">
+                        <table id="dt-sample" class="table display table-hover">
+                          <thead>
+                            <tr>
+                              <th scope="col">Select</th>
+                              <th scope="col">Activity Name</th>
+                              <th scope="col">Maker</th>
+                              <th scope="col">Checker</th>
+                              <th scope="col">Approver</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr *ngFor="let menu of activityMaster; index as i">
+                              <td>
+                                <div class="ux-selection">
+                                  <label>
+                                    <input
+                                      type="checkbox"
+                                      name="radioboxdemo"
+                                      [(ngModel)]="menu.isSelectChecked"
+                                      [ngModelOptions]="{ standalone: true }"
+                                    />
+                                  </label>
+                                </div>
+                              </td>
+                              <td>{{ menu.activityName }}</td>
+                              <td>
+                                <div class="ux-selection">
+                                  <label>
+                                    <input
+                                      disabled="true"
+                                      type="checkbox"
+                                      name="radioboxdemo"
+                                      [(ngModel)]="menu.isMakerChecked"
+                                      [ngModelOptions]="{ standalone: true }"
+                                    />
+                                  </label>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="ux-selection">
+                                  <label *ngIf="approverLevel == 'M'">
+                                    <input
+                                      type="checkbox"
+                                      name="radioboxdemo"
+                                      [(ngModel)]="menu.isCheckerChecked"
+                                      [ngModelOptions]="{ standalone: true }"
+                                    />
+                                  </label>
+                                  <p
+                                    class="ptag"
+                                    [hidden]="
+                                      approverLevel === 'S' ? false : true
+                                    "
+                                  >
+                                    N/A
+                                  </p>
+                                </div>
+                              </td>
+                              <td>
+                                <div class="ux-selection">
+                                  <label *ngIf="approverLevel == 'M'">
+                                    <input
+                                      type="checkbox"
+                                      name="radioboxdemo"
+                                      [(ngModel)]="menu.isApproverChecked"
+                                      [ngModelOptions]="{ standalone: true }"
+                                    />
+                                  </label>
+                                  <p
+                                    class="ptag"
+                                    [hidden]="
+                                      approverLevel === 'S' ? false : true
+                                    "
+                                  >
+                                    N/A
+                                  </p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <!--.table-responsivebox-->
+                    </div>
+                    <!--.datatable-box-->
+                  </div>
+                </div>
+
+                <div class="row mt-5" *ngIf="activityMaster.length > 0">
+                  <div class="col-6 col-lg-2 offset-lg-8">
+                    <button class="ux-button" (click)="cancel()">Cancel</button>
+                  </div>
+                  <div
+                    class="col-6 col-lg-2"
+                    *ngIf="priviledgeDataArr.createChecked"
+                  >
+                    <button
+                      class="ux-button primary"
+                      (click)="saveCompanyActivityDetails()"
+                    >
+                      Save
+                    </button>
+                  </div>
+                  <!--.col-xs-12-->
+                </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new -->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+    <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+      <div class="tinymodal-overlay"></div>
+      <!--.tinymodal-overlay-->
+      <div class="tinymodal tinymodal-1">
+        <div *ngIf="selModel === 'viewdata'" class="tinymodal-content">
+          <div class="row">
+            <div class="col-12 tinymodal-header">
+              <h5 class="mb-2" style="text-align: center">Add User</h5>
+              <div>
+                <button
+                  type="button"
+                  class="close"
+                  (click)="closeActionModel()"
+                >
+                  <span> <img src="assets/images/icons/cross.png" /></span>
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <!-- <div class="col-12 px-0 mt-2" id="appendData" style="overflow-y: scroll;">
+            </div> -->
+            <div class="datatable-box" style="overflow-y: scroll">
+              <div class="table-responsive">
+                <table
+                  id="dt-sample"
+                  class="table display table-hover"
+                  style="margin-top: 50px"
+                >
+                  <thead>
+                    <tr>
+                      <th scope="col">Select</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Company Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let user of masterUser">
+                      <td>
+                        <div class="ux-selection">
+                          <label>
+                            <input
+                              type="checkbox"
+                              name="radioboxdemo"
+                              [(ngModel)]="user.isChecked"
+                              class="approveall"
+                              (click)="selectsingle(user)"
+                              [disabled]="user.isDisabled"
+                            />
+                          </label>
+                        </div>
+                      </td>
+                      <td>{{ user.first_name + " " + user.last_name }}</td>
+                      <td>{{ user.companyName }}</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <div class="row mt-3 mb-3">
+                  <div class="col-6">
+                    <button class="ux-button" (click)="closeActionModel()">
+                      Cancel
+                    </button>
+                  </div>
+                  <div class="col-6">
+                    <button
+                      class="ux-button primary"
+                      (click)="onUserSelected()"
+                    >
+                      Submit
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <!--.table-responsivebox-->
+            </div>
+          </div>
+        </div>
+        <!--.tinymodal-content-->
+      </div>
+      <!--.tinymodal-->
+    </div>
+    <!-- ==============footer section end============ -->
+  </body>
+</html>

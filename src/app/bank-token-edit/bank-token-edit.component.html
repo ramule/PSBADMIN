@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Edit Bank Token</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <!--.global-nav-->
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <!-- ======== header section start ========== -->
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+
+            <div class="main-content">
+              <!-- load form -->
+              <form [formGroup]="bankTokenEditForm">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Customer Name</label>
+                      <input type="text" id="txtCustName" (keypress)=alphaNumericOnly($event) formControlName="custName" placeholder="Enter Customer Name"
+                        limit-to="40" readonly />
+                      <p *ngIf="formErrors.custName">
+                        {{ formErrors.custName }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Mobile Number</label>
+                      <input type="text" id="txtMobileNumber" formControlName="mobNumber" numbersOnly
+                        placeholder="Enter Mobile Number" numbersOnly limit-to="10" readonly />
+                      <p *ngIf="formErrors.mobNumber">
+                        {{ formErrors.mobNumber }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Status</label>
+                      <input id="txtStatus" formControlName="status" readonly />
+                      <!-- <option value="">Select Status</option>
+											<option *ngFor="let status of filterStatus(); index as i" [value]='status.id'>{{status.shortName  | titlecase }}</option>
+										</select> -->
+                      <p *ngIf="formErrors.status">{{ formErrors.status }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                </div>
+              </form>
+              <!--.row-->
+              <div class="row">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="gotoBankToken()">
+                    Cancel
+                  </button>
+                </div>
+
+                <div *ngIf="this.commonData.roleType == this.commonData.makerRole" class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="
+                        openActionModel('remarkField', bankTokenEditForm.value)
+                      ">
+                    Generate Token
+                  </button>
+                </div>
+
+                <div *ngIf="this.commonData.roleType != this.commonData.makerRole" class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="update()">
+                    Generate Token
+                  </button>
+                </div>
+                <!--.col-xs-12-->
+              </div>
+              <!--.row-->
+
+              <!--Datatable for remark history-->
+              <div *ngIf="roleId == 5 || roleId == 6" class="row mt-3">
+                <div class="col-12 mb-0">
+                  <div class="datatable-box">
+                    <div class="table-responsive">
+                      <table id="dt-sample" class="table display table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Sr. No.</th>
+                            <th scope="col">Created On</th>
+                            <th scope="col">Created By</th>
+                            <th scope="col">Remark</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="
+                                let item of remarkHistoryArr;
+                                let i = index
+                              ">
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                              {{
+                                  item.createdon == null || item.createdon == ""
+                                    ? "-"
+                                    : (item.createdon | date: "yyyy-MM-dd")
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.createdByName == null ||
+                                  item.createdByName == ""
+                                    ? "-"
+                                    : item.createdByName
+                                }}
+                            </td>
+                            <td>
+                              {{
+                                  item.remarks == null || item.remarks == ""
+                                    ? "-"
+                                    : item.remarks
+                                }}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!--.table-responsivebox-->
+                  </div>
+                  <!--.datatable-box-->
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+      <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+        <form [formGroup]="remarkForm">
+          <div class="row">
+            <div class="col-12 px-0 mt-2">
+              <div class="ux-input input-error">
+                <textarea formControlName="remark" placeholder="Enter Remark"></textarea>
+                <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-6">
+              <button class="ux-button" (click)="closeActionMoel()">
+                Cancel
+              </button>
+            </div>
+            <div class="col-6">
+              <button class="ux-button primary" (click)="updateTokenWithRemark(remarkForm.value)">
+                OK
+              </button>
+            </div>
+            <!--.col-xs-12-->
+          </div>
+        </form>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <title>Dashboard</title>
+
+</head>
+
+<body>
+
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <div class="vspacer10"></div>
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="component-title">
+              <h4>{{commonServiceCall.pageName}}</h4>
+            </div>
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div> <!-- in-header -->
+          </div> <!-- device-page-titles -->
+          <div class="container">
+            <div class="row">
+              <div class="col-12 col-md-4">
+                <div class="ux-input input-error">
+                  <label>Report Type</label>
+                  <select>
+                    <option value=''>Select Report Type</option>
+                    <option value='batch'>Batch Report</option>
+                    <option value='transaction'>Transaction Report</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="ux-input">
+                  <label>Date</label>
+                  <input id="dateRangeInput" type="text" name="daterangeInput" daterangepicker [options]="options"
+                    (selected)="selectedDate1($event, daterange)" />
+                  <a href="javascript:;" class="calendar-ic cal-top" daterangepicker [options]="options"
+                    (selected)="selectedDate1($event, daterange)"></a>
+                </div>
+              </div>
+              <div class="col-12 col-md-4">
+                <div class="ux-input">
+                  <label>Batch Execution Time</label>
+                  <div class='input-group date' id='fromDate'>
+                    <input placeholder="hh:mm" class="pr-0" type="date" (change)="onDateChange()" type='text' />
+                    <span class="input-group-addon">
+                      <span class="fa fa-calendar" id="fromDtIc" style="color: black;"></span>
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="vspacer10"></div>
+            <div class="row">
+              <div class="col-6 col-lg-2 offset-lg-8">
+                <button class="ux-button">Cancel</button>
+              </div>
+              <div class="col-6 col-lg-2 ">
+                <button class="ux-button primary">Generate</button>
+              </div>
+              <!--.col-xs-12-->
+            </div>
+            <!--.row-->
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer d-none"></div>
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+
+
+</body>

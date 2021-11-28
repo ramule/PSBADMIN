@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>PSB Admin Portal</title>
+  <base href="./">
+  <meta name="description" content="MJBL">
+  <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <meta name="format-detection" content="telephone=no">
+  <link rel="icon" type="image/x-icon" href="assets/images/splash/Kiya-logo.png">
+  <script>
+    window.addEventListener = function () {
+      (window.EventTarget || Window).prototype.addEventListener.apply(this, arguments);
+    };
+    window.removeEventListener = function () {
+      (window.EventTarget || Window).prototype.removeEventListener.apply(this, arguments);
+    };
+    document.addEventListener = function () {
+      (window.EventTarget || Document).prototype.addEventListener.apply(this, arguments);
+    };
+    document.removeEventListener = function () {
+      (window.EventTarget || Document).prototype.removeEventListener.apply(this, arguments);
+    };
+  </script>
+
+  <!-- <script type="text/javascript" src="cordova.js"></script> -->
+  <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDPGaBkC0VDsLvbxRM_7K_KmyTqgh0bEls"></script>
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDuKanKGlXsyNIqiiEmFJDwlVafP5W_7yE"></script> -->
+  <script src="https://www.google.com/recaptcha/api.js?render=explicit" async defer>
+  </script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.11.0/beautify.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.11.0/beautify-css.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.11.0/beautify-html.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.11.0/beautify.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.11.0/beautify-css.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.11.0/beautify-html.min.js"></script>
+
+<script src="https://cdn.rawgit.com/beautify-web/js-beautify/v1.11.0/js/lib/beautify.js"></script>
+<script src="https://cdn.rawgit.com/beautify-web/js-beautify/v1.11.0/js/lib/beautify-css.js"></script>
+<script src="https://cdn.rawgit.com/beautify-web/js-beautify/v1.11.0/js/lib/beautify-html.js"></script>
+<!-- <script src="https://cdn.ckeditor.com/4.9.2/full-all/ckeditor.js"></script> -->
+<script src="https://cdn.ckeditor.com/4.16.1/standard/ckeditor.js"></script>
+
+  <!-- To block long press -->
+  <style type="text/css">
+	* {
+		-webkit-user-select: none;
+		-khtml-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		user-select: none;
+	}
+
+	input, textarea {
+		-webkit-user-select: auto !important;
+		-khtml-user-select: auto !important;
+		-moz-user-select: auto !important;
+		-ms-user-select: auto !important;
+		user-select: auto !important;
+	}
+
+  input.password_number
+    {
+      -webkit-text-security: disc;
+      outline: 0;
+      -webkit-appearance: none;
+
+    }
+  </style>
+
+  <!-- End of to block long press -->
+</head>
+<body style="overflow: auto!important;">
+  <app-root></app-root>
+  <noscript></noscript>
+</body>
+</html>
+

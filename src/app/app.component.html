@@ -1,0 +1,44 @@
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * The content below * * * * * * * * * * * -->
+<!-- * * * * * * * * * * is only a placeholder * * * * * * * * * * -->
+<!-- * * * * * * * * * * and can be replaced. * * * * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<!-- * * * * * * * * * Delete the template below * * * * * * * * * * -->
+<!-- * * * * * * * to get started with your project! * * * * * * * * -->
+<!-- * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * -->
+<router-outlet></router-outlet>
+<!-- ===========footer section start========= -->
+<app-footer></app-footer>
+<!-- ==============footer section end============ -->
+<div id="appLoader">
+  <div class="load-overlay"></div>
+  <div class="loader"></div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Timeout</h5>
+        <!-- <button type="button" class="close" (click)="onModalClose()" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button> -->
+      </div>
+      <div class="modal-body">
+        <p>Your session is going to expire in {{commonDataServiceCall.idle_session_time}} seconds</p>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="ux-button w-25 ml-2" data-dismiss="modal" (click)="onLogoutClicked()">
+          Logout
+        </button>
+        <button type="button" class="ux-button primary w-25" data-dismiss="modal" (click)="keepSessionAlive()">
+          Keep Alive
+        </button>
+        <!-- <button class="ux-button" (click)="logout()" data-dismiss="modal">Logout</button>
+        <button class="ux-button primary" (click)="keepSessionAlive()">Keep Alive</button> -->
+      </div>
+    </div>
+  </div>
+</div>

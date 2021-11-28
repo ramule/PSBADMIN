@@ -1,0 +1,16 @@
+.log-out{
+    line-height: 45px;
+}
+.log-out a{
+    text-decoration: none;
+}
+.log-out a img{
+    width: 20px;
+}
+.user-profile ul{
+    margin-bottom: 0px;
+}
+
+.round-circle{
+  position: relative;
+}

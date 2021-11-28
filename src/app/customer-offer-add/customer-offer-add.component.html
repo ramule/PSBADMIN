@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Add New Offer</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <app-header></app-header>
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            ]
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+            <div class="main-content">
+              <!-- load form -->
+              <form [formGroup]="customerOfferForm">
+                <div class="row md-5">
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="ux-input">
+                          <div class="file-input input-error">
+                            <input type="file" style="width: 100%; height: 100%; z-index: 100" name="smallImage"
+                              (change)="addImage($event, 'small')" />
+                            <label for="file-sample">
+                              <h4>Upload Small Image</h4>
+                              <p>
+                                Note: Please upload 128px * 80px dimensions
+                                image
+                              </p>
+                              <!-- <p>Upload File To See Records</p> -->
+                            </label>
+                          </div>
+                        </div>
+                        <!--.ux-input-->
+                        <div class="ux-input input-error">
+                          <p *ngIf="isSmallImgError">
+                            * Please upload small image
+                          </p>
+                          <p *ngIf="isValidSmallFileFormat">
+                            * Please upload png or jpeg file
+                          </p>
+                          <p *ngIf="isValidSmallSizeFileFormat">
+                            * Please upload 128px * 80px dimensions image
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-12" *ngIf="smallImage != '' && smallImage != undefined">
+                      <div class="img-uploaded">
+                        <img src="{{ smallImage }}" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-12 col-md-6 col-lg-6">
+                    <div class="row">
+                      <div class="col-12">
+                        <div class="ux-input">
+                          <div class="file-input input-error">
+                            <!-- id="file-sample" -->
+                            <input type="file" style="width: 100%; height: 100%; z-index: 100" name="bigImage"
+                              (change)="addImage($event, 'big')" />
+                            <label for="file-sample">
+                              <h4>Upload Big Image</h4>
+                              <p>
+                                Note: Please upload 380px * 180px dimensions
+                                image
+                              </p>
+                              <!-- <p>Upload File To See Records</p> -->
+                            </label>
+                          </div>
+                        </div>
+                        <div class="ux-input input-error">
+                          <p *ngIf="isBigImgError">
+                            * Please upload big image
+                          </p>
+                          <p *ngIf="isValidBigFileFormat">
+                            * Please upload png or jpeg file
+                          </p>
+                          <p *ngIf="isValidBigSizeFileFormat">
+                            * Please upload 380px * 180px dimensions image
+                          </p>
+                        </div>
+                      </div>
+                      <div class="col-12" *ngIf="bigImage != '' && bigImage != undefined">
+                        <div class="img-uploaded">
+                          <img src="{{ bigImage }}" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Offer Caption</label>
+                      <input type="text" formControlName="officeCaption" limit-to="20"
+                        placeholder="Enter Offer Caption" />
+                      <p *ngIf="formErrors.officeCaption">
+                        {{ formErrors.officeCaption }}
+                      </p>
+                      <p *ngIf="
+                            customerOfferForm.get('officeCaption').touched &&
+                            customerOfferForm.get('officeCaption').value !=
+                              '' &&
+                            customerOfferForm.get('officeCaption').invalid
+                          ">
+                        * Invalid offer caption
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Sequence Number</label>
+                      <input type="text" formControlName="seqNo" numbersOnly limit-to="10"
+                        placeholder="Enter Sequence Number" />
+                      <p *ngIf="formErrors.seqNo">{{ formErrors.seqNo }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Latitude</label>
+                      <input type="text" formControlName="lat" placeholder="Enter Latitude" limit-to="20" />
+                      <p *ngIf="formErrors.lat">{{ formErrors.lat }}</p>
+                      <p *ngIf="
+                            customerOfferForm.get('lat').touched &&
+                            customerOfferForm.get('lat').invalid &&
+                            customerOfferForm.get('lat').value != ''
+                          ">
+                        * Invalid latitude value
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Longitude</label>
+                      <input type="text" formControlName="lon" placeholder="Enter Longitude" limit-to="20" />
+                      <p *ngIf="formErrors.lon">{{ formErrors.lon }}</p>
+                      <p *ngIf="
+                            customerOfferForm.get('lon').touched &&
+                            customerOfferForm.get('lon').invalid &&
+                            customerOfferForm.get('lon').value != ''
+                          ">
+                        * Invalid longitude value
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>From Date</label>
+                      <input class="pr-0" type="date" [min]="todayDate" formControlName="fromDate"
+                        placeholder="Enter From Date" (change)="onDateChange(customerOfferForm.value)" />
+                      <p *ngIf="formErrors.fromDate">
+                        {{ formErrors.fromDate }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>To Date</label>
+                      <input class="pr-0" type="date" [min]="todayDate" formControlName="toDate"
+                        placeholder="Enter To Date" (change)="onDateChange(customerOfferForm.value)" />
+                      <p *ngIf="formErrors.toDate">{{ formErrors.toDate }}</p>
+                      <p *ngIf="toDateValid">{{ isToDateValidError }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Web Link</label>
+                      <input type="text" formControlName="webLink" limit-to="40" placeholder="Enter Web Link" />
+                      <p *ngIf="formErrors.webLink">
+                        {{ formErrors.webLink }}
+                      </p>
+                      <p *ngIf="
+                            customerOfferForm.get('webLink').touched &&
+                            customerOfferForm.get('webLink').invalid &&
+                            customerOfferForm.get('webLink').value != ''
+                          ">
+                        * Invalid weblink
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Service Type</label>
+                      <select formControlName="serviceType">
+                        <option value="">Select Service Type</option>
+                        <option value="Offer">Offer</option>
+                        <option value="Product">Product</option>
+                      </select>
+                      <p *ngIf="formErrors.serviceType">
+                        {{ formErrors.serviceType }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Channel Name</label>
+                      <select formControlName="productType">
+                        <option value="">Select Channel Name</option>
+                        <!-- appid -->
+                        <option *ngFor="let option of productType; index as i" [value]="option.id">
+                          {{ option.shortName | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.productType">
+                        {{ formErrors.productType }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Status</label>
+                      <select formControlName="status">
+                        <option value="">Select Status</option>
+                        <!-- statusId -->
+                        <option *ngFor="let option of status; index as i" [value]="option.id">
+                          {{ option.shortName | titlecase }}
+                        </option>
+                      </select>
+                      <p *ngIf="formErrors.status">{{ formErrors.status }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                </div>
+              </form>
+              <!--.row-->
+              <div class="row mt-5">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+
+                <div *ngIf="
+                      this.commonData.roleType == this.commonData.makerRole
+                    " class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="
+                        openActionModel('remarkField', customerOfferForm.value)
+                      ">
+                    Save
+                  </button>
+                </div>
+
+                <div *ngIf="
+                      this.commonData.roleType != this.commonData.makerRole
+                    " class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="addCustOfferMaster()">
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <div class="tiny-modal tm-rounded" id="tm-favouriteconfirm">
+    <div class="tinymodal-overlay"></div>
+    <!--.tinymodal-overlay-->
+    <div class="tinymodal">
+      <div *ngIf="selModel === 'remarkField'" class="tinymodal-content">
+        <form [formGroup]="remarkForm">
+          <div class="row">
+            <div class="col-12 px-0 mt-2">
+              <div class="ux-input input-error">
+                <textarea formControlName="remark" placeholder="Enter Remark"></textarea>
+                <p *ngIf="formErrors.remark">{{ formErrors.remark }}</p>
+              </div>
+            </div>
+          </div>
+          <div class="row mt-5">
+            <div class="col-6">
+              <button class="ux-button" (click)="closeActionMoel()">
+                Cancel
+              </button>
+            </div>
+            <div class="col-6">
+              <button class="ux-button primary" (click)="addCustOfferMasterWithRemark(remarkForm.value)">
+                OK
+              </button>
+            </div>
+            <!--.col-xs-12-->
+          </div>
+        </form>
+      </div>
+      <!--.tinymodal-content-->
+    </div>
+    <!--.tinymodal-->
+  </div>
+  <!-- ==============footer section end============ -->
+</body>
+
+</html>

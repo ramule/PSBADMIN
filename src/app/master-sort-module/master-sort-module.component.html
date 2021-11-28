@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Master Sort Module</title>
+  </head>
+
+  <body>
+    <div class="main">
+      <app-navmenu></app-navmenu>
+      <!--.global-nav-->
+      <div class="nav-overlay"></div>
+      <!--.nav-overlay-->
+      <!-- navigation menu container end -->
+
+      <div class="right-main-column">
+        <div class="right-col-container full-width">
+          <!-- ======== header section start ========== -->
+          <app-header></app-header>
+          <!-- ======== header section end ========== -->
+          <!-- ======== body page content start from here ======== -->
+          <div class="body-page-container">
+            <!-- <div class="vspacer10"></div> -->
+            <!--.vspacer10-->
+            <div class="device-page-titles d-none d-md-none d-lg-block">
+              <!-- <div class="component-title">
+              <h4>{{commonServiceCall.pageName}}</h4>
+            </div> -->
+              <div class="in-header d-none">
+                <div class="header-icons-rit">
+                  <div class="header-actions">
+                    <!-- <button class="ux-button-header"><img src="assets/images/icons/filter.png"></button> -->
+                    <!-- <button class="ux-button primary" (click)="showHideForm()">+Add</button> -->
+                  </div>
+                  <!--.header-actions-->
+                </div>
+                <!--.header-icons-rit-->
+              </div>
+              <!-- in-header -->
+            </div>
+            <!-- device-page-titles -->
+            <div class="container-fluid">
+              <div class="row">
+                <div class="col-12 p-0">
+                  <div class="breadcrumb">
+                    <ul class="lst-breadcrumb">
+                      <li>
+                        <h6>{{ commonServiceCall.pageName }}</h6>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <!--.row -->
+
+              <div class="main-content">
+                    <div class="row">
+                <div id="accordion" >
+                    <div class="group" attr.data-section-id="{{menu.menuId}}" *ngFor="let menu of menuMaster">
+                      <h3>{{menu.menuName}}</h3>
+                      <div class="uiparent">
+                        <ul class="sortable" attr.data-list-id="{{menu.menuId}}">
+                          <li attr.data-item-id="{{submenu.id}}" *ngFor="let submenu of menu.subMenuList"><span class="draggable"></span>{{submenu.menuName}}</li>
+
+                        </ul>
+                      </div>
+                    </div>
+                    <!-- <div class="group" data-section-id="2">
+                      <h3>Accordion 2</h3>
+                      <div>
+                        <ul class="sortable" data-list-id="2">
+                          <li data-item-id="11"><span class="draggable"></span>Item 11</li>
+                          <li data-item-id="12"><span class="draggable"></span>Item 12</li>
+                          <li data-item-id="13"><span class="draggable"></span>Item 13</li>
+
+                        </ul>
+                      </div>
+                    </div> -->
+
+                  </div>
+                </div>
+                <div
+                class="row mt-5"
+              >
+              <div class="col-6 col-lg-2 offset-lg-8">
+                <button class="ux-button" (click)="cancel()">
+                  Cancel
+                </button>
+              </div>
+                <div class="col-6 col-lg-2">
+                  <button class="ux-button primary"(click)="onMenuSubmit()">
+                    Submit
+                  </button>
+                </div>
+              </div>
+              </div>
+            </div>
+            <!--.container-->
+          </div>
+          <!--.body-page-container-->
+          <!-- added new -->
+        </div>
+        <!--.right-col-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-main-column-->
+      <!-- added new --->
+    </div>
+    <!--.main-->
+    <!-- ===========footer section start========= -->
+    <div class="sticky-actions-spacer"></div>
+
+    <!-- ==============footer section end============ -->
+  </body>
+</html>

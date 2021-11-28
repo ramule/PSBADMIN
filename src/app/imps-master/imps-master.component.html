@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>IMPS Master</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!-----.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <!-- ======== header section start ========== -->
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+
+            <div class="main-content">
+
+              <div class="row">
+                <div class="col-6 col-lg-2 offset-lg-10" *ngIf="priviledgeDataArr.createChecked">
+                  <button class="ux-button primary" (click)="gotoAddImpsMaster()">
+                    + Add
+                  </button>
+                </div>
+              </div>
+
+              <form [formGroup]="impsMasterForm">
+                <div *ngIf="priviledgeDataArr.viewChecked" class="row">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label>Search Branch By</label>
+                      <select formControlName="searchBy" (change)="
+                            getSearchByBranchIfsc(impsMasterForm.value)
+                          ">
+                        <option value="">Select</option>
+                        <option value="statecitydistrict">State, City & District</option>
+                        <option value="ifsccode">IFSC Code</option>
+                      </select>
+                      <p *ngIf="formErrors.searchBy">
+                        {{ formErrors.searchBy }}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div class="col-6" *ngIf="type == 'statecitydistrict'">
+                    <div class="ux-input input-error">
+                      <label>State</label>
+                      <select formControlName="state" (change)="onStateChange($event)">
+                        <option value="">Select</option>
+                        <option *ngFor="let item of statesArr" [value]="item.state">{{item.state}}</option>
+                      </select>
+                      <p *ngIf="formErrors.state">{{ formErrors.state }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <div class="col-6" *ngIf="type == 'statecitydistrict'">
+                    <div class="ux-input input-error">
+                      <label>District</label>
+                      <select formControlName="district" (change)="onDistrictChange($event)">
+                        <option value="">Select</option>
+                        <option *ngFor="let item of districtArr" [value]="item.district">{{item.district}}</option>
+                      </select>
+                      <p *ngIf="formErrors.district">{{ formErrors.district }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <div class="col-6" *ngIf="type == 'statecitydistrict'">
+                    <div class="ux-input input-error">
+                      <label>City</label>
+                      <select formControlName="city" (change)="onCityChange($event)">
+                        <option value="">Select</option>
+                        <option *ngFor="let item of citiesArr" [value]="item.city">{{item.city}}</option>
+                      </select>
+                      <p *ngIf="formErrors.city">{{ formErrors.city }}</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <div class="col-6" *ngIf="type == 'ifsccode'">
+                    <div class="ux-input input-error">
+                      <label>IFSC Code</label>
+                      <input limit-to="12" formControlName="ifscCode"
+                        placeholder="Enter Number" />
+                      <p *ngIf="formErrors.ifscCode">
+                        {{ formErrors.ifscCode }}
+                      </p>
+                      <p *ngIf="impsMasterForm.get('ifscCode').touched && impsMasterForm.get('ifscCode').invalid && impsMasterForm.get('ifscCode').value != ''">* Invalid IFSC Code</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                </div>
+              </form>
+
+              <div class="row">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancelClick()">
+                    Cancel
+                  </button>
+                </div>
+                <div class="col-6 col-lg-2" *ngIf="priviledgeDataArr.createChecked">
+                  <button class="ux-button primary" (click)="onSearchImpsMaster()">
+                    Search
+                  </button>
+                </div>
+              </div>
+
+              <div class="vspacer20"></div>
+
+              <div class="row mt-3" *ngIf="impsMasterArr.length > 0">
+                <div class="col-12 mb-0">
+                  <div class="datatable-box">
+                    <div class="table-responsive">
+                      <table id="dt-sample" class="table display table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">Sr. No.</th>
+                            <th scope="col">Bank Name</th>
+                            <th scope="col">IFSC Code</th>
+                            <th scope="col">Branch</th>
+                            <th scope="col">Center</th>
+                            <th scope="col">District</th>
+                            <th scope="col">City</th>
+                            <th scope="col">State</th>
+                            <th scope="col">Address</th>
+                            <th scope="col">MICR</th>
+                            <th scope="col">Contact</th>
+                            <th scope="col">IMPS</th>
+                            <th scope="col">NEFT</th>
+                            <th scope="col">RTGS</th>
+                            <th scope="col">UPI</th>
+                            <th scope="col">Created On</th>
+                            <th scope="col" *ngIf="priviledgeDataArr.updateChecked">
+                              Action
+                            </th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="
+                                let item of impsMasterArr;
+                                let i = index
+                              ">
+                            <td>{{ i + 1 }}</td>
+                            <td>
+                              {{
+                                item.bank == null ||
+                                item.bank == ""
+                                ? "-"
+                                : item.bank
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                item.ifsc == null ||
+                                item.ifsc == ""
+                                ? "-"
+                                : item.ifsc
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                item.branch == null ||
+                                item.branch == ""
+                                ? "-"
+                                : item.branch
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                item.center == null ||
+                                item.center == ""
+                                ? "-"
+                                : item.center
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                item.district == null ||
+                                item.district == ""
+                                ? "-"
+                                : item.district
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                item.city == null ||
+                                item.city == ""
+                                ? "-"
+                                : item.city
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                item.state == null ||
+                                item.state == ""
+                                ? "-"
+                                : item.state
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                item.address == null ||
+                                item.address == ""
+                                ? "-"
+                                : item.address
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                item.micr == null ||
+                                item.micr == ""
+                                ? "-"
+                                : item.micr
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                item.contact == null ||
+                                item.contact == ""
+                                ? "-"
+                                : item.contact
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                item.imps == 'Y'? 'Active': 'Inactive'
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                item.neft == 'Y'? 'Active': 'Inactive'
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                item.rtgs == 'Y'? 'Active': 'Inactive'
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                item.upi == 'Y'? 'Active': 'Inactive'
+                              }}
+                            </td>
+                            <td>
+                              {{
+                                item.createdon == null || item.createdon == ""
+                                ? "-"
+                                : item.createdon | date:"yyyy/MM/dd"
+                              }}
+                            </td>
+                            <td *ngIf="priviledgeDataArr.updateChecked">
+                              <div class="ux-selection">
+                                <img class="action-btn" src="assets/images/icons/edit.png"
+                                  (click)="editImpsMaster(item)" />
+                              </div>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                    <!--.table-responsivebox-->
+                  </div>
+                  <!--.datatable-box-->
+
+                  <div class="dt-extras mt-4" *ngIf="impsMasterArr.length > 0">
+                    <div class="dt-exports">
+                      <em>Export to :<span class="chevron"></span></em>
+                      <button class="linkbutton exp-excel" (click)="commonMethod.downLoadFile('excel')">
+                        Excel <b>(.xlsx)</b>
+                      </button>
+                      <button class="linkbutton exp-pdf" (click)="commonMethod.downLoadFile('pdf')">
+                        Pdf <b>(.pdf)</b>
+                      </button>
+                      <button class="linkbutton exp-csv" (click)="commonMethod.downLoadFile('csv')">
+                        csv <b>(.csv)</b>
+                      </button>
+                    </div>
+                    <!--.dt-exports-->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <!-- ==============footer section end============ -->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>

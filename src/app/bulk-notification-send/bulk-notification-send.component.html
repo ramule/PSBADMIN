@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>Send Bulk Notification</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <!--.global-nav-->
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <!-- ======== header section start ========== -->
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <div class="vspacer10"></div>
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="component-title">
+              <h4>{{ commonServiceCall.pageName }}</h4>
+            </div>
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions"></div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container">
+            <div class="body-page-container">
+              <div class="vspacer10"></div>
+              <div class="container">
+                <form [formGroup]="sendNotificationForm">
+                  <div class="row">
+                    <div class="col-12 mt-4">
+                      <label class="d-block">Send Notification To</label>
+                      <div class="ux-selection">
+                        <label>
+                          <input id="allRadioBtn" type="radio" name="radioboxdemo1" checked
+                            (click)="setNotificationTo('All')" />
+                          <em>All</em>
+                        </label>
+                      </div>
+                      <!-- ux-selection -->
+                      <div class="ux-selection">
+                        <label>
+                          <input id="mobileRadioBtn" type="radio" name="radioboxdemo1"
+                            (click)="setNotificationTo('Mobile')" />
+                          <em>Mobile</em>
+                        </label>
+                      </div>
+                      <!--.ux-selection-->
+                    </div>
+
+                    <div *ngIf="sendNotificationTo == 'Mobile'" class="col-6 mt-4">
+                      <div class="ux-input input-error">
+                        <label>Mobile Number</label>
+                        <input type="text" formControlName="mobileNo" limit-to="10" placeholder="Enter Mobile Number" />
+                        <p *ngIf="formErrors.mobileNo">
+                          {{ formErrors.mobileNo }}
+                        </p>
+                      </div>
+                    </div>
+
+                    <div class="col-12 mt-5">
+                      <label class="d-block">Notification Type</label>
+                      <div class="ux-selection">
+                        <label>
+                          <input id="pushRadioBtn" type="radio" name="radioboxdemo" checked
+                            (click)="setNotificationType('Push')" />
+                          <em>Push</em>
+                        </label>
+                      </div>
+                      <!-- ux-selection -->
+                      <div class="ux-selection">
+                        <label>
+                          <input id="emailRadioBtn" type="radio" name="radioboxdemo"
+                            (click)="setNotificationType('Email')" />
+                          <em>Email</em>
+                        </label>
+                      </div>
+                      <!--.ux-selection-->
+                      <div class="ux-selection">
+                        <label>
+                          <input id="smsRadioBtn" type="radio" name="radioboxdemo"
+                            (click)="setNotificationType('SMS')" />
+                          <em>SMS</em>
+                        </label>
+                      </div>
+                      <!--.ux-selection-->
+                    </div>
+                  </div>
+
+                  <div class="row mt-5">
+                    <div class="col-6">
+                      <div class="ux-input input-error">
+                        <label>Message</label>
+                        <textarea type="textarea" limit-to="40" rows="3" cols="4" formControlName="notificationMessage"
+                          placeholder="Enter Message"></textarea>
+                        <p *ngIf="formErrors.notificationMessage">
+                          {{ formErrors.notificationMessage }}
+                        </p>
+                      </div>
+
+                      <!--.ux-input-->
+                    </div>
+                    <!--.col-12-->
+                  </div>
+                </form>
+              </div>
+
+              <!--.row-->
+            </div>
+            <!--.container-->
+          </div>
+          <div class="row mt-5">
+            <div class="col-6 col-lg-2 offset-lg-8">
+              <button class="ux-button" (click)="cancel()">Cancel</button>
+            </div>
+            <div class="col-6 col-lg-2">
+              <button class="ux-button primary" (click)="SendNotificationDetails()">
+                Send
+              </button>
+            </div>
+            <!--.col-xs-12-->
+          </div>
+          <!--.row-->
+        </div>
+        <!--.container-->
+      </div>
+      <!--.body-page-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-col-container-->
+    <!-- added new -->
+  </div>
+  <!--.right-main-column-->
+  <!-- added new -->
+  <!--.main-->
+  <!-- ===========footer section start========= -->
+  <div class="sticky-actions-spacer"></div>
+  <!-- ==============footer section end============ -->
+</body>
+
+</html>

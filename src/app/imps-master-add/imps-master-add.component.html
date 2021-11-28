@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <title>CBS Message Template Add</title>
+</head>
+
+<body>
+  <div class="main">
+    <app-navmenu></app-navmenu>
+    <div class="nav-overlay"></div>
+    <!--.nav-overlay-->
+    <!-- navigation menu container end -->
+
+    <div class="right-main-column">
+      <div class="right-col-container full-width">
+        <!-- ======== header section start ========== -->
+        <app-header></app-header>
+        <!-- ======== header section end ========== -->
+        <!-- ======== body page content start from here ======== -->
+        <div class="body-page-container">
+          <!-- <div class="vspacer10"></div> -->
+          <!--.vspacer10-->
+          <div class="device-page-titles d-none d-md-none d-lg-block">
+            <div class="in-header d-none">
+              <div class="header-icons-rit">
+                <div class="header-actions">
+                </div>
+                <!--.header-actions-->
+              </div>
+              <!--.header-icons-rit-->
+            </div>
+            <!-- in-header -->
+          </div>
+          <!-- device-page-titles -->
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-12 p-0">
+                <div class="breadcrumb">
+                  <ul class="lst-breadcrumb">
+                    <li>
+                      <h6>{{ commonServiceCall.pageName }}</h6>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+            <!--.row -->
+            <div class="main-content">
+              <!-- load form -->
+              <form [formGroup]="impsMasterFormAdd">
+                <div class="row">
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Bank Name</label>
+                      <input type="text" limit-to="100" formControlName="bankName"
+                        placeholder="Enter Bank Name" />
+                      <p *ngIf="formErrors.bankName">
+                        {{ formErrors.bankName }}
+                      </p>
+                      <p *ngIf="impsMasterFormAdd.get('bankName').touched && impsMasterFormAdd.get('bankName').invalid && impsMasterFormAdd.get('bankName').value != ''">* Invalid Bank Name</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>IFSC Code</label>
+                      <input type="text" limit-to="12" formControlName="ifscCode"
+                        placeholder="Enter IFSC Code" />
+                      <p *ngIf="formErrors.ifscCode">
+                        {{ formErrors.ifscCode }}
+                      </p>
+                      <p *ngIf="impsMasterFormAdd.get('ifscCode').touched && impsMasterFormAdd.get('ifscCode').invalid && impsMasterFormAdd.get('ifscCode').value != ''">* Invalid IFSC Code</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Branch Name</label>
+                      <input type="text" limit-to="40" formControlName="branchName"
+                        placeholder="Enter Branch Name" />
+                      <p *ngIf="formErrors.branchName">
+                        {{ formErrors.branchName }}
+                      </p>
+                      <p *ngIf="impsMasterFormAdd.get('branchName').touched && impsMasterFormAdd.get('branchName').invalid && impsMasterFormAdd.get('branchName').value != ''">* Invalid Branch Name</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Center</label>
+                      <input type="text" formControlName="center"
+                        placeholder="Enter Center" />
+                      <p *ngIf="formErrors.center">
+                        {{ formErrors.center }}
+                      </p>
+                      <p *ngIf="impsMasterFormAdd.get('center').touched && impsMasterFormAdd.get('center').invalid && impsMasterFormAdd.get('center').value != ''">* Invalid Center Name</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>District</label>
+                      <input type="text" formControlName="district"
+                        placeholder="Enter District" />
+                      <p *ngIf="formErrors.district">
+                        {{ formErrors.district }}
+                      </p>
+                      <p *ngIf="impsMasterFormAdd.get('district').touched && impsMasterFormAdd.get('district').invalid && impsMasterFormAdd.get('district').value != ''">* Invalid District Name</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>City</label>
+                      <input type="text" formControlName="city"
+                        placeholder="Enter City" />
+                      <p *ngIf="formErrors.city">
+                        {{ formErrors.city }}
+                      </p>
+                      <p *ngIf="impsMasterFormAdd.get('city').touched && impsMasterFormAdd.get('city').invalid && impsMasterFormAdd.get('city').value != ''">* Invalid City Name</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>State</label>
+                      <input type="text" formControlName="state"
+                        placeholder="Enter State" />
+                      <p *ngIf="formErrors.state">
+                        {{ formErrors.state }}
+                      </p>
+                      <p *ngIf="impsMasterFormAdd.get('state').touched && impsMasterFormAdd.get('state').invalid && impsMasterFormAdd.get('state').value != ''">* Invalid State Name</p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>address</label>
+                      <textarea rows="1" formControlName="address" placeholder="Enter Address"></textarea>
+                      <p *ngIf="formErrors.address">
+                        {{ formErrors.address }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>Contact</label>
+                      <input type="text" numbersOnly limit-to="10" formControlName="contact"
+                        placeholder="Enter Contact" />
+                      <p *ngIf="formErrors.contact">
+                        {{ formErrors.contact }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>MICR Code</label>
+                      <input type="text" numbersOnly limit-to="9" formControlName="micr"
+                        placeholder="Enter MICR Code" />
+                      <p *ngIf="formErrors.micr">
+                        {{ formErrors.micr }}
+                      </p>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+                  <!--.col-12-->
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>IMPS</label>
+                      <label class="switch">
+                        <input
+                          type="checkbox"
+                          [checked]="isImpsChecked"
+                          (change)="onImpsStateChange()"
+                        />
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>NEFT</label>
+                      <label class="switch">
+                        <input
+                          type="checkbox"
+                          [checked]="isNeftChecked"
+                          (change)="onNeftStateChange()"
+                        />
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>RTGS</label>
+                      <label class="switch">
+                        <input
+                          type="checkbox"
+                          [checked]="isRtgsChecked"
+                          (change)="onRtgsStateChange()"
+                        />
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                  <div class="col-6">
+                    <div class="ux-input input-error">
+                      <label><span class="mandatory">* </span>UPI</label>
+                      <label class="switch">
+                        <input
+                          type="checkbox"
+                          [checked]="isUpiChecked"
+                          (change)="onUpiStateChange()"
+                        />
+                        <span class="slider round"></span>
+                      </label>
+                    </div>
+                    <!--.ux-input-->
+                  </div>
+
+                </div>
+              </form>
+              <!--.row-->
+              <div class="row mt-5">
+                <div class="col-6 col-lg-2 offset-lg-8">
+                  <button class="ux-button" (click)="cancel()">Cancel</button>
+                </div>
+
+                <div class="col-6 col-lg-2">
+                  <button class="ux-button primary" (click)="addImpsMaster()">
+                    Save
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!--.container-->
+        </div>
+        <!--.body-page-container-->
+        <!-- added new -->
+      </div>
+      <!--.right-col-container-->
+      <!-- added new -->
+    </div>
+    <!--.right-main-column-->
+    <!-- added new -->
+  </div>
+  <!--.main-->
+
+  <script src="js/lib/jquery.min.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/common.js"></script>
+</body>
+
+</html>
